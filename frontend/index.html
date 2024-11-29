@@ -76,7 +76,7 @@
             const sock = io();
 
             //get data from backend
-            sock.on("places", (places) => {
+            sock.on("restaurants", (places) => {
                 console.log(places); //show in console
                 document.querySelector("#places_list").innerHTML = JSON.stringify(places);
             });
