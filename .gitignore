@@ -2,3 +2,4 @@ node_modules/
 logs/
 opt.json
 settings.json
+db_secrets.json
