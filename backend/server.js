@@ -171,12 +171,47 @@ io.on('connection', (sock) => {
 		sock.emit("logout");
 	});
 
-	//for all users searching db
+	//for all users searching restaurant by name
 	sock.on("searchByName", (name) => {
 		if(isAlnum(name)){
-			queryDatabase("SELECT * FROM places WHERE name =?", [name])
+			queryDatabase("SELECT * FROM restaurants WHERE name LIKE ?", [`%${name}%`])
 			.then((res) => {
-				sock.emit("places", res);
+				sock.emit("restaurants", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	//for all users searching restaurant by coords:
+	sock.on("searchByCoords", (json) => {
+		let data = JSON.parse(json);
+		if(data.x !== undefined && data.y !== undefined && data.range !== undefined){
+			let sql = "SELECT * FROM restaurants";
+			queryDatabase(sql, [data.x, data.y])
+			.then((res) => {
+				sock.emit("restaurants", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	//for all users searching restaurant by dishes:
+	sock.on("searchByDish", (name) => {
+		if(isAlnum(name)){
+			let sql = "SELECT * FROM restaurants INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id WHERE dishes.name LIKE ?";
+			queryDatabase(sql, [`%${name}%`])
+			.then((res) => {
+				//console.log(res);
+				sock.emit("restaurants", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	//for all users searching restaurant by ingredients:
+	sock.on("searchByIngedients", (name) => {
+		if(isAlnum(name)){
+			let sql = "SELECT * FROM restaurants";
+			queryDatabase(sql, [name])
+			.then((res) => {
+				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
 	});
@@ -188,7 +223,7 @@ io.on('connection', (sock) => {
 
 		/*
 			//if in db exist sth like rank/grade, may use only for rank:
-			if(translationTab[cid].db_stats.rank == "Admin"){
+			if(translationTab[cid].db_stats.is_admin == 1){
 				//do sth
 			}
 		*/
