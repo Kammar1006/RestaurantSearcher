@@ -196,9 +196,10 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by dishes:
 	sock.on("searchByDish", (name) => {
 		if(isAlnum(name)){
-			let sql = "SELECT * FROM restaurants";
-			queryDatabase(sql, [name])
+			let sql = "SELECT * FROM restaurants INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id WHERE dishes.name LIKE ?";
+			queryDatabase(sql, [`%${name}%`])
 			.then((res) => {
+				//console.log(res);
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}

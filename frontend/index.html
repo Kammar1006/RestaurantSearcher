@@ -12,59 +12,67 @@
 
     <!-- Example Form for searching places using name -->
     <h2> Search </h2>
-    <form id="form_1">
+    <form id="form_S1">
         <p>
             <span> Place Name </span>
             <br>
-            <input id="form_1_name" value=""/>
+            <input id="form_S1_name" value=""/>
         </p>
-        <input id="form_1_button" type="submit" value="search"/>
+        <input id="form_S1_button" type="submit" value="search"/>
+    </form>
+    <form id="form_S2">
+        <p>
+            <span> Dish Name </span>
+            <br>
+            <input id="form_S2_name" value=""/>
+        </p>
+        <input id="form_S2_button" type="submit" value="search"/>
     </form>
     <p id="places_list">  </p>
     <hr>
 
     <!-- Example login form -->
     <h2> Login </h2>
-    <form id="form_2">
+    <form id="form_U1">
         <p>
             <span> Login </span>
             <br>
-            <input id="form_2_login" value=""/>  
+            <input id="form_U1_login" value=""/>  
         </p>
         <p>
             <span> Pass </span>
             <br>
-            <input type="password" id="form_2_pass" value=""/>  
+            <input type="password" id="form_U1_pass" value=""/>  
         </p>
-        <input id="form_2_button" type="submit" value="login"/>
+        <input id="form_U1_button" type="submit" value="login"/>
     </form>
     <p id="login_info">  </p>
     <hr>
 
     <!-- Example register form -->
     <h2> Register </h2>
-    <form id="form_3">
+    <form id="form_U2">
         <p>
             <span> Login </span>
             <br>
-            <input id="form_3_login" value=""/>  
+            <input id="form_U2_login" value=""/>  
         </p>
         <p>
             <span> Pass </span>
             <br>
-            <input type="password" id="form_3_pass" value=""/>  
+            <input type="password" id="form_U2_pass" value=""/>  
         </p>
         <p>
             <span> Pass2 </span>
             <br>
-            <input type="password" id="form_3_pass2" value=""/>  
+            <input type="password" id="form_U2_pass2" value=""/>  
         </p>
         <p>
             <span> Email </span>
             <br>
-            <input id="form_3_email" value=""/>  
+            <input id="form_U2_email" value=""/>  
         </p>
-        <input id="form_3_button" type="submit" value="register"/>
+        <input id="form_U2_button" type="submit" value="register"/>
     </form>
     <p id="register_info">  </p>
     <hr>
@@ -78,7 +86,9 @@
             //get data from backend
             sock.on("restaurants", (places) => {
                 console.log(places); //show in console
-                document.querySelector("#places_list").innerHTML = JSON.stringify(places);
+                document.getElementById("places_list").innerHTML = "";
+                places.forEach(e => document.getElementById("places_list").innerHTML += JSON.stringify(e)+"<br>");
+                //document.querySelector("#places_list").innerHTML = JSON.stringify(places);
             });
 
             sock.on("login", (e) => {
@@ -100,29 +110,36 @@
 
             //send info to backend - form 1
             document
-                .querySelector("#form_1_button")
+                .querySelector("#form_S1_button")
                 .addEventListener('click', (e) => {
-                    let name = document.querySelector("#form_1_name").value;
+                    let name = document.querySelector("#form_S1_name").value;
                     sock.emit("searchByName", name);
+                });
+
+            document
+                .querySelector("#form_S2_button")
+                .addEventListener('click', (e) => {
+                    let name = document.querySelector("#form_S2_name").value;
+                    sock.emit("searchByDish", name);
                 });
 
             //send info to backend - form 2 - login
             document
-                .querySelector("#form_2_button")
+                .querySelector("#form_U1_button")
                 .addEventListener('click', (e) => {
-                    let login = document.querySelector("#form_2_login").value;
-                    let pass = document.querySelector("#form_2_pass").value;
+                    let login = document.querySelector("#form_U1_login").value;
+                    let pass = document.querySelector("#form_U1_pass").value;
                     sock.emit("login", login, pass);
                 });
 
             //send info to backend - form 3 - register
             document
-                .querySelector("#form_3_button")
+                .querySelector("#form_U2_button")
                 .addEventListener('click', (e) => {
-                    let login = document.querySelector("#form_3_login").value;
-                    let pass = document.querySelector("#form_3_pass").value;
-                    let pass2 = document.querySelector("#form_3_pass2").value;
-                    let email = document.querySelector("#form_3_email").value;
+                    let login = document.querySelector("#form_U2_login").value;
+                    let pass = document.querySelector("#form_U2_pass").value;
+                    let pass2 = document.querySelector("#form_U2_pass2").value;
+                    let email = document.querySelector("#form_U2_email").value;
                     sock.emit("register", login, pass, pass2, email);
                 });
 
@@ -135,17 +152,22 @@
 
         //not reload site when click form
         document
-            .querySelector("#form_1")
+            .querySelector("#form_S1")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });
         document
-            .querySelector("#form_2")
+            .querySelector("#form_S2")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });
         document
-            .querySelector("#form_3")
+            .querySelector("#form_U1")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_U2")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });
