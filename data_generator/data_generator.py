@@ -12,6 +12,7 @@ dishes_adjectives_file_path = os.path.join(parent_dir, 'input_data', 'dishes_adj
 dishes_names_file_path = os.path.join(parent_dir, 'input_data', 'dishes_names.csv')
 ingredients_file_path = os.path.join(parent_dir, 'input_data', 'ingredients.csv')
 allergens_file_path = os.path.join(parent_dir, 'input_data', 'allergens.csv')
+addresses_file_path = os.path.join(parent_dir, 'input_data', 'addresses.csv')
 
 output_dir = os.path.join(parent_dir, 'output_data')
 if not os.path.exists(output_dir):
@@ -77,6 +78,7 @@ def restaurant_generator(num_records: int):
     names = set()
     all_combinations = list(itertools.product(restaurant_adjectives, restaurant_options))
     random.shuffle(all_combinations)
+    random.shuffle(addresses)
     restaurants = []
     
     for adj, option in all_combinations:
@@ -90,12 +92,17 @@ def restaurant_generator(num_records: int):
 
             names.add(name)
             cuisine = random.choice(cuisine_types)
+            address = addresses.pop()
+            address = address.split(',')
+            address = f"st. {address[0]} {address[1]}, {address[3]}, {address[2]}"
             restaurants.append({
                 "name": name,
                 "opinion": 0.0,
                 "verified": False,
                 "cuisine_type": cuisine,
+                "address": address,
                 "coordinates": generate_coordinates(),
+                "coordinates_verified": generate_coordinates(),
                 "coordinates_to_verify": generate_coordinates(),
                 "coordinates_verified": False
             })
@@ -194,6 +201,7 @@ dishes_adjectives = read_lines_from_file(dishes_adjectives_file_path)
 dishes_names = read_lines_from_file(dishes_names_file_path)
 ingredient_names = read_lines_from_file(ingredients_file_path)
 allergens_names = read_lines_from_file(allergens_file_path)
+addresses = read_lines_from_file(addresses_file_path)
 
 
 if __name__ == "__main__":
