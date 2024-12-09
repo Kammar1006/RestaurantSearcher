@@ -186,12 +186,28 @@ def generate_allergens_ingredients_table(num_records):
         if pair not in unique_pairs:
             unique_pairs.add(pair)
             allergens_ingredients.append({
-                "allergen_id": allergen_id,
-                "ingredient_id": ingredient_id
+                "id_allergen": allergen_id,
+                "id_ingredient": ingredient_id
             })
 
     with open(os.path.join(output_dir, 'allergens_ingredients_table.json'), 'w') as file:
         json.dump(allergens_ingredients, file, indent=4)
+
+
+def generate_ingredients_dishes_table(num_records):
+
+    ingredient_dish = []
+
+    for dish_id in range(1, num_records + 1):
+        num_ingredients_for_dish = random.randint(3, 6)
+        for _ in range(num_ingredients_for_dish):
+            ingredient_dish.append({
+                "id_ingredient": random.randint(1, num_records),
+                "id_dish": dish_id,
+            })
+
+    with open(os.path.join(output_dir, 'ingredient_dishes_table.json'), 'w') as file:
+        json.dump(ingredient_dish, file, indent=4)
 
 
 restaurant_adjectives = read_lines_from_file(adjectives_file_path)
@@ -213,4 +229,5 @@ if __name__ == "__main__":
     generate_ingredients_table(num_records)
     generate_allergens_table(num_records)
     generate_allergens_ingredients_table(num_records)
+    generate_ingredients_dishes_table(num_records)
     
