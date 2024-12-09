@@ -1,0 +1,402 @@
+[
+    {
+        "allergen_id": 94,
+        "ingredient_id": 49
+    },
+    {
+        "allergen_id": 46,
+        "ingredient_id": 83
+    },
+    {
+        "allergen_id": 10,
+        "ingredient_id": 88
+    },
+    {
+        "allergen_id": 54,
+        "ingredient_id": 40
+    },
+    {
+        "allergen_id": 87,
+        "ingredient_id": 33
+    },
+    {
+        "allergen_id": 99,
+        "ingredient_id": 51
+    },
+    {
+        "allergen_id": 4,
+        "ingredient_id": 94
+    },
+    {
+        "allergen_id": 99,
+        "ingredient_id": 39
+    },
+    {
+        "allergen_id": 33,
+        "ingredient_id": 56
+    },
+    {
+        "allergen_id": 49,
+        "ingredient_id": 46
+    },
+    {
+        "allergen_id": 75,
+        "ingredient_id": 66
+    },
+    {
+        "allergen_id": 12,
+        "ingredient_id": 98
+    },
+    {
+        "allergen_id": 25,
+        "ingredient_id": 15
+    },
+    {
+        "allergen_id": 8,
+        "ingredient_id": 2
+    },
+    {
+        "allergen_id": 15,
+        "ingredient_id": 99
+    },
+    {
+        "allergen_id": 36,
+        "ingredient_id": 98
+    },
+    {
+        "allergen_id": 92,
+        "ingredient_id": 6
+    },
+    {
+        "allergen_id": 29,
+        "ingredient_id": 81
+    },
+    {
+        "allergen_id": 24,
+        "ingredient_id": 70
+    },
+    {
+        "allergen_id": 21,
+        "ingredient_id": 13
+    },
+    {
+        "allergen_id": 61,
+        "ingredient_id": 91
+    },
+    {
+        "allergen_id": 29,
+        "ingredient_id": 31
+    },
+    {
+        "allergen_id": 90,
+        "ingredient_id": 84
+    },
+    {
+        "allergen_id": 37,
+        "ingredient_id": 18
+    },
+    {
+        "allergen_id": 50,
+        "ingredient_id": 52
+    },
+    {
+        "allergen_id": 29,
+        "ingredient_id": 24
+    },
+    {
+        "allergen_id": 41,
+        "ingredient_id": 48
+    },
+    {
+        "allergen_id": 84,
+        "ingredient_id": 70
+    },
+    {
+        "allergen_id": 9,
+        "ingredient_id": 46
+    },
+    {
+        "allergen_id": 58,
+        "ingredient_id": 94
+    },
+    {
+        "allergen_id": 77,
+        "ingredient_id": 98
+    },
+    {
+        "allergen_id": 97,
+        "ingredient_id": 97
+    },
+    {
+        "allergen_id": 49,
+        "ingredient_id": 51
+    },
+    {
+        "allergen_id": 96,
+        "ingredient_id": 84
+    },
+    {
+        "allergen_id": 42,
+        "ingredient_id": 30
+    },
+    {
+        "allergen_id": 81,
+        "ingredient_id": 35
+    },
+    {
+        "allergen_id": 99,
+        "ingredient_id": 36
+    },
+    {
+        "allergen_id": 34,
+        "ingredient_id": 22
+    },
+    {
+        "allergen_id": 63,
+        "ingredient_id": 74
+    },
+    {
+        "allergen_id": 28,
+        "ingredient_id": 59
+    },
+    {
+        "allergen_id": 97,
+        "ingredient_id": 90
+    },
+    {
+        "allergen_id": 4,
+        "ingredient_id": 42
+    },
+    {
+        "allergen_id": 65,
+        "ingredient_id": 58
+    },
+    {
+        "allergen_id": 79,
+        "ingredient_id": 16
+    },
+    {
+        "allergen_id": 20,
+        "ingredient_id": 61
+    },
+    {
+        "allergen_id": 78,
+        "ingredient_id": 3
+    },
+    {
+        "allergen_id": 20,
+        "ingredient_id": 99
+    },
+    {
+        "allergen_id": 5,
+        "ingredient_id": 60
+    },
+    {
+        "allergen_id": 39,
+        "ingredient_id": 40
+    },
+    {
+        "allergen_id": 29,
+        "ingredient_id": 35
+    },
+    {
+        "allergen_id": 42,
+        "ingredient_id": 20
+    },
+    {
+        "allergen_id": 34,
+        "ingredient_id": 50
+    },
+    {
+        "allergen_id": 25,
+        "ingredient_id": 71
+    },
+    {
+        "allergen_id": 7,
+        "ingredient_id": 76
+    },
+    {
+        "allergen_id": 25,
+        "ingredient_id": 56
+    },
+    {
+        "allergen_id": 58,
+        "ingredient_id": 28
+    },
+    {
+        "allergen_id": 17,
+        "ingredient_id": 59
+    },
+    {
+        "allergen_id": 20,
+        "ingredient_id": 20
+    },
+    {
+        "allergen_id": 28,
+        "ingredient_id": 38
+    },
+    {
+        "allergen_id": 97,
+        "ingredient_id": 13
+    },
+    {
+        "allergen_id": 53,
+        "ingredient_id": 94
+    },
+    {
+        "allergen_id": 73,
+        "ingredient_id": 88
+    },
+    {
+        "allergen_id": 11,
+        "ingredient_id": 68
+    },
+    {
+        "allergen_id": 54,
+        "ingredient_id": 24
+    },
+    {
+        "allergen_id": 60,
+        "ingredient_id": 43
+    },
+    {
+        "allergen_id": 6,
+        "ingredient_id": 76
+    },
+    {
+        "allergen_id": 20,
+        "ingredient_id": 62
+    },
+    {
+        "allergen_id": 34,
+        "ingredient_id": 10
+    },
+    {
+        "allergen_id": 71,
+        "ingredient_id": 70
+    },
+    {
+        "allergen_id": 91,
+        "ingredient_id": 63
+    },
+    {
+        "allergen_id": 5,
+        "ingredient_id": 1
+    },
+    {
+        "allergen_id": 41,
+        "ingredient_id": 81
+    },
+    {
+        "allergen_id": 24,
+        "ingredient_id": 42
+    },
+    {
+        "allergen_id": 59,
+        "ingredient_id": 13
+    },
+    {
+        "allergen_id": 72,
+        "ingredient_id": 53
+    },
+    {
+        "allergen_id": 77,
+        "ingredient_id": 91
+    },
+    {
+        "allergen_id": 1,
+        "ingredient_id": 80
+    },
+    {
+        "allergen_id": 97,
+        "ingredient_id": 15
+    },
+    {
+        "allergen_id": 78,
+        "ingredient_id": 61
+    },
+    {
+        "allergen_id": 8,
+        "ingredient_id": 88
+    },
+    {
+        "allergen_id": 51,
+        "ingredient_id": 82
+    },
+    {
+        "allergen_id": 73,
+        "ingredient_id": 16
+    },
+    {
+        "allergen_id": 42,
+        "ingredient_id": 43
+    },
+    {
+        "allergen_id": 79,
+        "ingredient_id": 95
+    },
+    {
+        "allergen_id": 73,
+        "ingredient_id": 80
+    },
+    {
+        "allergen_id": 16,
+        "ingredient_id": 19
+    },
+    {
+        "allergen_id": 96,
+        "ingredient_id": 13
+    },
+    {
+        "allergen_id": 29,
+        "ingredient_id": 51
+    },
+    {
+        "allergen_id": 49,
+        "ingredient_id": 43
+    },
+    {
+        "allergen_id": 42,
+        "ingredient_id": 39
+    },
+    {
+        "allergen_id": 20,
+        "ingredient_id": 68
+    },
+    {
+        "allergen_id": 20,
+        "ingredient_id": 35
+    },
+    {
+        "allergen_id": 69,
+        "ingredient_id": 77
+    },
+    {
+        "allergen_id": 76,
+        "ingredient_id": 93
+    },
+    {
+        "allergen_id": 20,
+        "ingredient_id": 1
+    },
+    {
+        "allergen_id": 63,
+        "ingredient_id": 38
+    },
+    {
+        "allergen_id": 22,
+        "ingredient_id": 97
+    },
+    {
+        "allergen_id": 35,
+        "ingredient_id": 80
+    },
+    {
+        "allergen_id": 92,
+        "ingredient_id": 56
+    },
+    {
+        "allergen_id": 39,
+        "ingredient_id": 8
+    }
+]

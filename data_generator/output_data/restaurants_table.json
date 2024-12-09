@@ -1,902 +1,1434 @@
 [
     {
-        "name": "Crunchy Sushi",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Uzbek",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Green Udon",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Keto",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Zesty Icecream",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Italian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Graceful Pie",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Uzbek",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Soft Skewers",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Slovenian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Splendid Katsu",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Norwegian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Snappy Icecream",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Healthy",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Vintage Barbecue",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Healthy",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Fancy Kebab",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Swedish",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Airy Gyoza",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Icelandic",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Classic Wonton",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bosnian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Breezy Barbecue",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Street Food",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Vivid Juice",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Icelandic",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Refined Seafood",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bosnian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Gentle Wings",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Polish",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Bold Donut",
+        "name": "Fluffy Salad",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Portuguese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "address": "st. Zwycieska 74, Wroclaw, 53-033",
+        "coordinates": {
+            "x": 51.105304983797154,
+            "y": 17.027485412263417
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.066006965138406,
+            "y": 17.030608823929185
+        }
     },
     {
-        "name": "Crunchy Falafel",
+        "name": "Playful Waffle",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Norwegian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Creole",
+        "address": "st. Rzeznicza 107, Wroclaw, 50-132",
+        "coordinates": {
+            "x": 51.09006078749762,
+            "y": 16.931468641305763
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.07244436688345,
+            "y": 17.1484575137783
+        }
     },
     {
-        "name": "Green Kebab",
+        "name": "Humble Wraps",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Thai",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Filipino",
+        "address": "st. Gajowicka 122, Wroclaw, 53-322",
+        "coordinates": {
+            "x": 51.18096670548208,
+            "y": 17.015561504261047
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.11027910691684,
+            "y": 17.097125450313396
+        }
     },
     {
-        "name": "Exotic Diner",
+        "name": "Daring Snackbar",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Chocolatier",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Southern",
+        "address": "st. Sucha 151, Wroclaw, 50-086",
+        "coordinates": {
+            "x": 51.18024168458656,
+            "y": 17.124928081948013
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.100797287937766,
+            "y": 17.007639337187904
+        }
     },
     {
-        "name": "Crisp Wings",
+        "name": "Sunny Muffin",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Gelateria",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Afghan",
+        "address": "st. Kielbasnicza 102, Wroclaw, 50-108",
+        "coordinates": {
+            "x": 51.15865069910361,
+            "y": 16.96598508292571
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.06531894824361,
+            "y": 17.042824321127515
+        }
     },
     {
-        "name": "Glowing Gyros",
+        "name": "Tangy Seafood",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Lebanese",
+        "address": "st. Dyrekcyjna 96, Wroclaw, 50-528",
+        "coordinates": {
+            "x": 51.148946341378696,
+            "y": 17.022864108357762
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.073837724072746,
+            "y": 17.076895415305074
+        }
+    },
+    {
+        "name": "Soft Ramen",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Dutch",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "address": "st. Solskiego 140, Wroclaw, 52-416",
+        "coordinates": {
+            "x": 51.1790931644662,
+            "y": 17.03258966902629
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.150863353852586,
+            "y": 17.147259144963105
+        }
     },
     {
-        "name": "Magic Shrimp",
+        "name": "Inviting Steakhouse",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Portuguese",
+        "address": "st. Piotra Skargi 90, Wroclaw, 50-082",
+        "coordinates": {
+            "x": 51.17154595274235,
+            "y": 17.11834986734539
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.07227072825757,
+            "y": 17.045145165818766
+        }
+    },
+    {
+        "name": "Natural Shrimp",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Swedish",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "address": "st. Strzegomska 116, Wroclaw, 53-611",
+        "coordinates": {
+            "x": 51.14150641689494,
+            "y": 17.068668325158942
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.05719762739564,
+            "y": 17.045120698192463
+        }
     },
     {
-        "name": "Natural Toast",
+        "name": "Zesty Udon",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Keto",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Malaysian",
+        "address": "st. Raclawicka 139, Wroclaw, 53-149",
+        "coordinates": {
+            "x": 51.09400377181285,
+            "y": 17.124960967322732
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Playful Farmhouse",
+        "name": "Chilly Pub",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Organic",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Ethiopian",
+        "address": "st. Kobierzycka 170, Wroclaw, 52-315",
+        "coordinates": {
+            "x": 51.097785712374375,
+            "y": 17.14876262118013
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Red Charcoal",
+        "name": "Rustic Pie",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Farm-to-Table",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Gelateria",
+        "address": "st. Kamienna 67, Wroclaw, 50-545",
+        "coordinates": {
+            "x": 51.1503523180733,
+            "y": 16.964499802954514
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.172013702423044,
+            "y": 16.94884380185384
+        }
     },
     {
-        "name": "Royal Waffle",
+        "name": "Daring BBQpit",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Hawaiian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Bright Pasta",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bakery",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Airy Deli",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Argentinian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Happy Taproom",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Mediterranean",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Hot Barbecue",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Smoothie Bar",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Warm Doughnut",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "German",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Wild Vegetarian",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Keto",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Hearty Taproom",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Dutch",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Airy Cocktail",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Sri Lankan",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Regal Juice",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Middle Eastern",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "White Taproom",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bakery",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Delightful Deli",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Nepalese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Red Soup",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Vegan",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Playful Sausage",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Vietnamese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Zesty Bistrogrill",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Indian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Playful Falafel",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Polish",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Sunny Doughnut",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Tea House",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Gentle Tsukemen",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bosnian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Classic Flatbread",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Chinese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Zesty Taco",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Pakistani",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Royal Doughnut",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Sri Lankan",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Exotic Gelato",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Spanish",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Perky Kiosk",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Uzbek",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Fresh Waffle",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "German",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Delightful Burger",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Smoothie Bar",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Spirited BBQpit",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Japanese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Dark Falafel",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Moroccan",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Black Wraps",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Sri Lankan",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Lush Brunch",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Patisserie",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Dark Buffet",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "American",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Crisp Pie",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Argentinian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Sharp Charcoal",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Deli",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Quirky Vegetarian",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Vegetarian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Gentle Doughnut",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bangladeshi",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Playful Meze",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Brazilian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Gentle Juice",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Pakistani",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Golden Gyoza",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bistro",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Brisk Teahouse",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Mexican-American",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Australian",
+        "address": "st. Grota-Roweckiego 196, Wroclaw, 52-214",
+        "coordinates": {
+            "x": 51.0780846361483,
+            "y": 17.12455676894638
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
         "name": "Charming Shawarma",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Vegan",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Azerbaijani",
+        "address": "st. Malachowskiego 150, Wroclaw, 50-084",
+        "coordinates": {
+            "x": 51.16713251487885,
+            "y": 17.092521716820038
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.117510972290084,
+            "y": 17.15981993957556
+        }
     },
     {
-        "name": "Tangy Hotdog",
+        "name": "Breezy Lounge",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Bangladeshi",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Tibetan",
+        "address": "st. Dyrekcyjna 153, Wroclaw, 50-528",
+        "coordinates": {
+            "x": 51.10551420218638,
+            "y": 17.065178252197597
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Spirited Skewers",
+        "name": "Velvety Ramen",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Armenian",
+        "address": "st. Swietego Mikolaja 106, Wroclaw, 50-127",
+        "coordinates": {
+            "x": 51.14444893928992,
+            "y": 17.126211070856396
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.087580325162655,
+            "y": 16.929120482848678
+        }
+    },
+    {
+        "name": "Modern Seafood",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Cajun",
+        "address": "st. Krzycka 51, Wroclaw, 53-019",
+        "coordinates": {
+            "x": 51.122190608988724,
+            "y": 17.047306621036014
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Delightful Sausage",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Bosnian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "address": "st. Karkonoska 75, Wroclaw, 53-015",
+        "coordinates": {
+            "x": 51.14331024484751,
+            "y": 17.018788679545732
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Bold Bistro",
+        "name": "Charming Taco",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Portuguese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Mongolian",
+        "address": "st. Buforowa 72, Wroclaw, 52-131",
+        "coordinates": {
+            "x": 51.05651294972814,
+            "y": 17.021102152124712
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.05777312252006,
+            "y": 17.14356039080466
+        }
     },
     {
-        "name": "Glowing Bistro",
+        "name": "Zesty Skewers",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Keto",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Street Food",
+        "address": "st. Sowia 53, Wroclaw, 52-235",
+        "coordinates": {
+            "x": 51.1513580414067,
+            "y": 16.926602171893716
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.1729686282538,
+            "y": 17.003135898393666
+        }
     },
     {
-        "name": "Simple Grillhouse",
+        "name": "Red Burger",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Peruvian",
+        "address": "st. Hutnicza 30, Wroclaw, 53-151",
+        "coordinates": {
+            "x": 51.14037408177016,
+            "y": 16.95994945065374
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.17512874447802,
+            "y": 16.990899236256784
+        }
+    },
+    {
+        "name": "Rich Snackbar",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Moroccan",
+        "address": "st. Buforowa 195, Wroclaw, 52-131",
+        "coordinates": {
+            "x": 51.16482991596838,
+            "y": 16.96267307625118
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.14380849426185,
+            "y": 17.069153192096707
+        }
+    },
+    {
+        "name": "Fluffy Wraps",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Ethiopian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "address": "st. Borowska 62, Wroclaw, 50-558",
+        "coordinates": {
+            "x": 51.118527619998815,
+            "y": 16.97864530167836
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Tangy Sandwich",
+        "name": "Blissful Yakitori",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Deli",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Greek",
+        "address": "st. Powstancow Slaskich 8, Wroclaw, 53-333",
+        "coordinates": {
+            "x": 51.05243750487199,
+            "y": 16.983331340162515
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Grand Falafel",
+        "name": "Savory Bakery",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Finnish",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "French",
+        "address": "st. Dworcowa 182, Wroclaw, 50-456",
+        "coordinates": {
+            "x": 51.05826238985952,
+            "y": 16.99036034418501
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Creamy Tsukemen",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Lebanese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Airy Breakfast",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Creole",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Sweet Snackbar",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Keto",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Velvety Meze",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Mexican",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Sparkling Juice",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bangladeshi",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Shiny Grill",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Finnish",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Hot Tempura",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Bistro",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Splendid Kebab",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Tex-Mex",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Golden Chef",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Malaysian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Red Spice",
+        "name": "Natural Curry",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Soul Food",
+        "address": "st. Swidnicka 2, Wroclaw, 50-066",
         "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Sparkling Brasserie",
+        "name": "Elegant Gelato",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Dutch",
+        "address": "st. Zwycieska 41, Wroclaw, 53-033",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Wild Farmhouse",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Bakery",
+        "address": "st. Buforowa 39, Wroclaw, 52-131",
         "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.06704669140111,
+            "y": 16.924110049378868
+        }
     },
     {
-        "name": "Vivid Bakery",
+        "name": "Dreamy Pasta",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Gluten-Free",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Sri Lankan",
+        "address": "st. Piotra Skargi 57, Wroclaw, 50-082",
+        "coordinates": {
+            "x": 51.15076170673614,
+            "y": 17.03448355825174
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.14026334697152,
+            "y": 17.01331833465613
+        }
     },
     {
-        "name": "Cheerful Grill",
+        "name": "Magic Kiosk",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Brasserie",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Farm-to-Table",
+        "address": "st. Armii Krajowej 36, Wroclaw, 50-541",
+        "coordinates": {
+            "x": 51.089837656131024,
+            "y": 17.084057241050516
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.12556484623819,
+            "y": 17.14072511931899
+        }
     },
     {
-        "name": "Classic Dimsum",
+        "name": "Wild Burger",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Australian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Sandwich Shop",
+        "address": "st. Kobierzycka 137, Wroclaw, 52-315",
+        "coordinates": {
+            "x": 51.09320806059954,
+            "y": 17.115465675321648
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Black Smoothie",
+        "name": "Brisk BBQ",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Japanese",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Kazakh",
+        "address": "st. Klecinska 28, Wroclaw, 54-413",
+        "coordinates": {
+            "x": 51.112842385867644,
+            "y": 17.12481339162278
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.17543609531576,
+            "y": 16.97708174525849
+        }
     },
     {
-        "name": "Modern Buffet",
+        "name": "Cool Farmhouse",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Keto",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Persian",
+        "address": "st. Traugutta 113, Wroclaw, 50-417",
+        "coordinates": {
+            "x": 51.1331387499545,
+            "y": 16.96146912545724
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.1484120276502,
+            "y": 17.092482769171735
+        }
     },
     {
-        "name": "Sharp Flatbread",
+        "name": "Lush Sandwich",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Creole",
+        "address": "st. Sudecka 87, Wroclaw, 53-129",
+        "coordinates": {
+            "x": 51.15678608875758,
+            "y": 17.014057563006904
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Smooth Noodle",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Bangladeshi",
+        "address": "st. Bardzka 69, Wroclaw, 50-516",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Happy Katsuobushi",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Norwegian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "address": "st. Grota-Roweckiego 130, Wroclaw, 52-214",
+        "coordinates": {
+            "x": 51.166329774403046,
+            "y": 17.041660092882978
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.0749936919729,
+            "y": 17.08049462940567
+        }
     },
     {
-        "name": "Daring Espresso",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Caribbean",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Spirited Tempura",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "African",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Pure Muffin",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Pakistani",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Black Panini",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Mexican",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Wild Juice",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Southern",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Regal Bakery",
-        "opinion": 0.0,
-        "verified": false,
-        "cuisine_type": "Indonesian",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
-    },
-    {
-        "name": "Vintage Canteen",
+        "name": "Savory Tavern",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Chocolatier",
+        "address": "st. Slezna 158, Wroclaw, 53-301",
         "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.06196593876685,
+            "y": 17.083588755152093
+        }
     },
     {
-        "name": "Earthy Dimsum",
+        "name": "Natural Dimsum",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Mexican-American",
+        "address": "st. Zaporoska 31, Wroclaw, 53-519",
+        "coordinates": {
+            "x": 51.151197479073815,
+            "y": 17.145937750801853
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Happy Barbecue",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Malaysian",
+        "address": "st. Opolska 38, Wroclaw, 52-010",
+        "coordinates": {
+            "x": 51.130875288154265,
+            "y": 17.159919523933922
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.17974337873033,
+            "y": 17.003964885663553
+        }
+    },
+    {
+        "name": "Snappy Brasserie",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Bulgarian",
+        "address": "st. Nozownicza 104, Wroclaw, 50-119",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Chic Breakfast",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Organic",
+        "address": "st. Gliniana 155, Wroclaw, 50-525",
+        "coordinates": {
+            "x": 51.13052402279963,
+            "y": 17.138390012648735
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.14573451313351,
+            "y": 16.965632575741893
+        }
+    },
+    {
+        "name": "Spicy Gyoza",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Brasserie",
+        "address": "st. Wita Stwosza 11, Wroclaw, 50-148",
+        "coordinates": {
+            "x": 51.114713777753146,
+            "y": 17.12329390976487
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.066102760738026,
+            "y": 16.973072771482073
+        }
+    },
+    {
+        "name": "Sharp Tonkatsu",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "American",
+        "address": "st. Wita Stwosza 101, Wroclaw, 50-148",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.05536577321405,
+            "y": 17.158539876486724
+        }
+    },
+    {
+        "name": "Shiny Sushi",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Vegetarian",
+        "address": "st. Buforowa 129, Wroclaw, 52-131",
+        "coordinates": {
+            "x": 51.152929337475754,
+            "y": 17.046410094451403
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.10119323706473,
+            "y": 16.968833718008494
+        }
+    },
+    {
+        "name": "Fluffy Cocktail",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Sri Lankan",
+        "address": "st. Swidnicka 56, Wroclaw, 50-068",
+        "coordinates": {
+            "x": 51.06220603080535,
+            "y": 17.0646076614952
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.06002474205247,
+            "y": 17.10973243976894
+        }
+    },
+    {
+        "name": "Natural Sweets",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "American",
+        "address": "st. Hubska 189, Wroclaw, 50-502",
+        "coordinates": {
+            "x": 51.13740527837927,
+            "y": 17.155334940938427
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Heavenly BBQpit",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Bakery",
+        "address": "st. Wisniowa 55, Wroclaw, 53-137",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.088633294794626,
+            "y": 17.155976711275013
+        }
+    },
+    {
+        "name": "Crunchy Farmhouse",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Bosnian",
+        "address": "st. Dyrekcyjna 186, Wroclaw, 50-528",
+        "coordinates": {
+            "x": 51.11656380675218,
+            "y": 16.990272520350636
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Modern Oyster",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Tex-Mex",
+        "address": "st. Czekoladowa 171, Wroclaw, 52-326",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.09692562028445,
+            "y": 16.986251949303064
+        }
+    },
+    {
+        "name": "Classic Katsuobushi",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Organic",
+        "address": "st. Joannitow 154, Wroclaw, 50-525",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Quirky Fryhouse",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Street Food",
+        "address": "st. Joannitow 64, Wroclaw, 50-525",
+        "coordinates": {
+            "x": 51.07961457569557,
+            "y": 16.984516415254628
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.083920778912805,
+            "y": 17.131271138858807
+        }
+    },
+    {
+        "name": "Graceful Ramen",
         "opinion": 0.0,
         "verified": false,
         "cuisine_type": "Romanian",
+        "address": "st. Wyscigowa 166, Wroclaw, 53-011",
         "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Smooth Bistrobar",
+        "name": "Inviting Panini",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Azerbaijani",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Indonesian",
+        "address": "st. Gliniana 188, Wroclaw, 50-525",
+        "coordinates": {
+            "x": 51.05556999124887,
+            "y": 16.966067683283903
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.17886702159244,
+            "y": 17.110382369169812
+        }
     },
     {
-        "name": "Inviting Cake",
+        "name": "Natural Salad",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Juice Bar",
-        "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "cuisine_type": "Middle Eastern",
+        "address": "st. Hallera 10, Wroclaw, 53-324",
+        "coordinates": {
+            "x": 51.163013147049384,
+            "y": 17.053538632275057
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.0840726497234,
+            "y": 17.13024455467204
+        }
     },
     {
-        "name": "Lush Falafel",
+        "name": "Exotic Bistrobar",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Ethiopian",
+        "cuisine_type": "Coffee Shop",
+        "address": "st. Mlodych Technikow 25, Wroclaw, 53-647",
         "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
     },
     {
-        "name": "Royal BBQ",
+        "name": "Gentle Pho",
         "opinion": 0.0,
         "verified": false,
-        "cuisine_type": "Hungarian",
+        "cuisine_type": "Farm-to-Table",
+        "address": "st. Traugutta 23, Wroclaw, 50-417",
         "coordinates": null,
-        "coordinates_to_verify": null,
-        "coordinates_verified": false
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.06058098733377,
+            "y": 17.140289706190337
+        }
+    },
+    {
+        "name": "Majestic Soup",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "American",
+        "address": "st. Solskiego 50, Wroclaw, 52-416",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Crunchy Sashimi",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Danish",
+        "address": "st. Kosciuszki 22, Wroclaw, 50-011",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.153859801380094,
+            "y": 17.011088923832048
+        }
+    },
+    {
+        "name": "Smooth Gyoza",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Moroccan",
+        "address": "st. Wisniowa 178, Wroclaw, 53-137",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Chilly BBQpit",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Sri Lankan",
+        "address": "st. Kollataja 58, Wroclaw, 50-007",
+        "coordinates": {
+            "x": 51.16264863654509,
+            "y": 17.021308687618177
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.0963950721389,
+            "y": 16.94856033332344
+        }
+    },
+    {
+        "name": "Sparkling Steakhouse",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Vietnamese",
+        "address": "st. Partynicka 200, Wroclaw, 52-200",
+        "coordinates": {
+            "x": 51.07361321865393,
+            "y": 17.062074380495943
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Bright Pizza",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Slovenian",
+        "address": "st. Zwycieska 131, Wroclaw, 53-033",
+        "coordinates": {
+            "x": 51.1233186894306,
+            "y": 17.051376942120456
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.14336431592501,
+            "y": 16.928548175439037
+        }
+    },
+    {
+        "name": "Black Grillhouse",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Moroccan",
+        "address": "st. Grabiszynska 7, Wroclaw, 53-502",
+        "coordinates": {
+            "x": 51.098397465822515,
+            "y": 17.097292888551664
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.15076734313722,
+            "y": 16.9614839981541
+        }
+    },
+    {
+        "name": "Creamy Vegan",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Moroccan",
+        "address": "st. Joannitow 97, Wroclaw, 50-525",
+        "coordinates": {
+            "x": 51.06473139791582,
+            "y": 16.98305535578796
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Playful Grillhouse",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Romanian",
+        "address": "st. Klecinska 118, Wroclaw, 54-413",
+        "coordinates": {
+            "x": 51.0589726983178,
+            "y": 16.97773812185173
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Black Sushi",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Kazakh",
+        "address": "st. Sudecka 177, Wroclaw, 53-129",
+        "coordinates": {
+            "x": 51.16381379159327,
+            "y": 17.05731806600774
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.14668534294005,
+            "y": 16.991846389755572
+        }
+    },
+    {
+        "name": "Refined Meze",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Argentinian",
+        "address": "st. Skarbowcow 52, Wroclaw, 53-025",
+        "coordinates": {
+            "x": 51.124542715223825,
+            "y": 17.032131109345652
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Chewy Katsu",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Mexican",
+        "address": "st. Dworcowa 149, Wroclaw, 50-456",
+        "coordinates": {
+            "x": 51.072010717051285,
+            "y": 17.080363910220754
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.07344088909839,
+            "y": 17.0769248068812
+        }
+    },
+    {
+        "name": "Savvy Salad",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Keto",
+        "address": "st. Raclawicka 172, Wroclaw, 53-149",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.152972776530355,
+            "y": 17.107401040602507
+        }
+    },
+    {
+        "name": "Elegant Vegan",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "American",
+        "address": "st. Wyscigowa 76, Wroclaw, 53-011",
+        "coordinates": {
+            "x": 51.166257964573234,
+            "y": 17.084887757021658
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.10403041667056,
+            "y": 16.994605128285613
+        }
+    },
+    {
+        "name": "Tender Tempura",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Donut Shop",
+        "address": "st. Karkonoska 165, Wroclaw, 53-015",
+        "coordinates": {
+            "x": 51.13569207414056,
+            "y": 17.081745922143668
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.14854459559928,
+            "y": 17.033310693054265
+        }
+    },
+    {
+        "name": "Wild Meze",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Farm-to-Table",
+        "address": "st. Wisniowa 145, Wroclaw, 53-137",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "White Bakery",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Japanese",
+        "address": "st. Czekoladowa 81, Wroclaw, 52-326",
+        "coordinates": {
+            "x": 51.15412234797681,
+            "y": 16.93558465208701
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.053600051069,
+            "y": 17.146788791783933
+        }
+    },
+    {
+        "name": "Spicy Brasserie",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "American",
+        "address": "st. Bajana 29, Wroclaw, 54-129",
+        "coordinates": {
+            "x": 51.08528298347841,
+            "y": 17.06022336841918
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.1306633096654,
+            "y": 16.97672703956895
+        }
+    },
+    {
+        "name": "Golden Grill",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Soul Food",
+        "address": "st. Zaporoska 121, Wroclaw, 53-519",
+        "coordinates": {
+            "x": 51.056295889189535,
+            "y": 17.15190813895707
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.05595650469419,
+            "y": 17.005775919155155
+        }
+    },
+    {
+        "name": "Strong Juice",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Slovenian",
+        "address": "st. Bajana 119, Wroclaw, 54-129",
+        "coordinates": {
+            "x": 51.13398806239458,
+            "y": 17.017586831397875
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.071556979689944,
+            "y": 17.073111928174303
+        }
+    },
+    {
+        "name": "White Diner",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Australian",
+        "address": "st. Bardzka 37, Wroclaw, 50-516",
+        "coordinates": {
+            "x": 51.0612087769346,
+            "y": 17.096315143086667
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.140327568838366,
+            "y": 17.14349018685471
+        }
+    },
+    {
+        "name": "Regal Grillhouse",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Tibetan",
+        "address": "st. Armii Krajowej 70, Wroclaw, 50-541",
+        "coordinates": {
+            "x": 51.07487556564783,
+            "y": 17.09747447626987
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.080248398990776,
+            "y": 17.004005564296644
+        }
+    },
+    {
+        "name": "Fluffy Wonton",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Mexican-American",
+        "address": "st. Sadawa 110, Wroclaw, 50-046",
+        "coordinates": {
+            "x": 51.1129469611027,
+            "y": 17.03719723791506
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.15353769334429,
+            "y": 17.078476497530943
+        }
+    },
+    {
+        "name": "Glowing BBQ",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Spanish",
+        "address": "st. Robotnicza 27, Wroclaw, 53-608",
+        "coordinates": {
+            "x": 51.12901853669181,
+            "y": 16.961929919925556
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.06767889903781,
+            "y": 16.926902702861987
+        }
+    },
+    {
+        "name": "Blissful Tortilla",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Argentinian",
+        "address": "st. Kamienna 34, Wroclaw, 50-545",
+        "coordinates": {
+            "x": 51.078967617032234,
+            "y": 16.97238764233727
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.16075545382058,
+            "y": 17.13989949633051
+        }
+    },
+    {
+        "name": "Happy Deli",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Bakery",
+        "address": "st. Sowia 86, Wroclaw, 52-235",
+        "coordinates": {
+            "x": 51.13970796940717,
+            "y": 16.968385380536173
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.1142406805409,
+            "y": 16.94061645827144
+        }
+    },
+    {
+        "name": "Brisk Pho",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Sri Lankan",
+        "address": "st. Gajowicka 32, Wroclaw, 53-322",
+        "coordinates": {
+            "x": 51.09153140244551,
+            "y": 16.995630001714538
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.1375823222358,
+            "y": 17.01353205780832
+        }
+    },
+    {
+        "name": "Grand Icecream",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Japanese",
+        "address": "st. Kazimierza Wielkiego 3, Wroclaw, 50-077",
+        "coordinates": {
+            "x": 51.15132651360049,
+            "y": 17.066162917641243
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Cool Gastrobar",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Lebanese",
+        "address": "st. Kamienna 100, Wroclaw, 50-545",
+        "coordinates": {
+            "x": 51.145325350005386,
+            "y": 17.160011763269676
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Cheerful Diner",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Gelateria",
+        "address": "st. Opolska 194, Wroclaw, 52-010",
+        "coordinates": {
+            "x": 51.08039766176764,
+            "y": 16.99872721840488
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.139196092131264,
+            "y": 16.97786350634417
+        }
+    },
+    {
+        "name": "Humble Seafood",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Caribbean",
+        "address": "st. Rynek 1, Wroclaw, 50-101",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.07209945393601,
+            "y": 16.96497117510595
+        }
+    },
+    {
+        "name": "Cool Sweets",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Southern",
+        "address": "st. Piotra Skargi 147, Wroclaw, 50-082",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.07796325636058,
+            "y": 17.081826964796047
+        }
+    },
+    {
+        "name": "Brisk Gyros",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Ice Cream Parlor",
+        "address": "st. Slezna 35, Wroclaw, 53-301",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.11918127274297,
+            "y": 17.157525422416946
+        }
+    },
+    {
+        "name": "Fresh Tavern",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Spanish",
+        "address": "st. Wlodkowica 108, Wroclaw, 50-072",
+        "coordinates": {
+            "x": 51.11279344563511,
+            "y": 16.956929036047455
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Gentle Brunch",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Austrian",
+        "address": "st. Sadawa 20, Wroclaw, 50-046",
+        "coordinates": {
+            "x": 51.06769640473573,
+            "y": 16.934642316655385
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.12731422255517,
+            "y": 16.93286950890363
+        }
+    },
+    {
+        "name": "Sparkling Wraps",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Filipino",
+        "address": "st. Kamienna 190, Wroclaw, 50-545",
+        "coordinates": {
+            "x": 51.05893587820586,
+            "y": 16.94475875604345
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Daring Barbecue",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Caribbean",
+        "address": "st. Krakowska 9, Wroclaw, 50-425",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.10449055040591,
+            "y": 16.955158055777552
+        }
+    },
+    {
+        "name": "Cool Brunch",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Czech",
+        "address": "st. Swidnicka 179, Wroclaw, 50-068",
+        "coordinates": {
+            "x": 51.1772737121779,
+            "y": 17.157933176147985
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": null
+    },
+    {
+        "name": "Blissful Bar",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "American",
+        "address": "st. Slezna 68, Wroclaw, 53-301",
+        "coordinates": {
+            "x": 51.14463377584639,
+            "y": 17.121694975064315
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.074873504160266,
+            "y": 17.026214690750912
+        }
+    },
+    {
+        "name": "Fluffy Lounge",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Kazakh",
+        "address": "st. Sudecka 144, Wroclaw, 53-129",
+        "coordinates": null,
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.09965106597688,
+            "y": 17.13776573857179
+        }
+    },
+    {
+        "name": "Natural Katsu",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "German",
+        "address": "st. Oltaszynska 135, Wroclaw, 52-028",
+        "coordinates": {
+            "x": 51.10575739454626,
+            "y": 17.05843623306237
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.13375238440018,
+            "y": 17.151011558281777
+        }
+    },
+    {
+        "name": "Delightful Wraps",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Dutch",
+        "address": "st. Opolska 161, Wroclaw, 52-010",
+        "coordinates": {
+            "x": 51.07696876638031,
+            "y": 17.017885852336786
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.11092622566534,
+            "y": 17.089974133760403
+        }
+    },
+    {
+        "name": "Savory Streetfood",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Filipino",
+        "address": "st. Wyscigowa 133, Wroclaw, 53-011",
+        "coordinates": {
+            "x": 51.125155787795805,
+            "y": 17.145265637048478
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.12965635067118,
+            "y": 16.948360956946843
+        }
+    },
+    {
+        "name": "Rustic Breakfast",
+        "opinion": 0.0,
+        "verified": false,
+        "cuisine_type": "Sri Lankan",
+        "address": "st. Gliniana 98, Wroclaw, 50-525",
+        "coordinates": {
+            "x": 51.096359142379406,
+            "y": 17.130323477886105
+        },
+        "coordinates_verified": false,
+        "coordinates_to_verify": {
+            "x": 51.10553514712488,
+            "y": 16.9921770126979
+        }
     }
 ]
