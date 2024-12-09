@@ -1,602 +1,602 @@
 [
     {
-        "name": "Crispy Cr\u00e8me Br\u00fbl\u00e9e",
-        "calories": 1898,
-        "price": 64.44,
-        "weight": 379.6
+        "name": "Fried Lamb Tamales",
+        "calories": 476,
+        "price": 69.59,
+        "weight": 95.2
     },
     {
-        "name": "Seared Beef Stroganoff",
-        "calories": 1469,
-        "price": 66.73,
-        "weight": 293.8
+        "name": "Grilled Chicken Fajitas",
+        "calories": 1938,
+        "price": 52.2,
+        "weight": 387.6
     },
     {
-        "name": "Seasoned Fried Chicken",
-        "calories": 447,
-        "price": 63.92,
-        "weight": 89.4
+        "name": "Baked Fried Chicken",
+        "calories": 409,
+        "price": 64.14,
+        "weight": 81.8
     },
     {
-        "name": "Rich Fesenjan",
-        "calories": 1656,
-        "price": 51.01,
-        "weight": 331.2
+        "name": "Broiled Beef Burritos",
+        "calories": 1540,
+        "price": 45.98,
+        "weight": 308.0
     },
     {
-        "name": "Buttery Lasagna",
-        "calories": 889,
-        "price": 39.92,
-        "weight": 177.8
+        "name": "Fiery Monte Cristo",
+        "calories": 603,
+        "price": 35.12,
+        "weight": 120.6
     },
     {
-        "name": "Beefy Pork Fajitas",
-        "calories": 1777,
+        "name": "Pickled Antipasto",
+        "calories": 1479,
+        "price": 61.5,
+        "weight": 295.8
+    },
+    {
+        "name": "Pickled Lamb Meatballs",
+        "calories": 314,
+        "price": 35.13,
+        "weight": 62.8
+    },
+    {
+        "name": "Meaty Lamb Curry",
+        "calories": 1556,
+        "price": 53.74,
+        "weight": 311.2
+    },
+    {
+        "name": "Peppered Pork Chops",
+        "calories": 483,
         "price": 40.71,
-        "weight": 355.4
+        "weight": 96.6
     },
     {
-        "name": "Toasted Croissant",
-        "calories": 1577,
-        "price": 55.85,
-        "weight": 315.4
+        "name": "Stuffed Souvlaki",
+        "calories": 300,
+        "price": 27.51,
+        "weight": 60.0
     },
     {
-        "name": "Cured Chicken Alfredo",
-        "calories": 1947,
-        "price": 69.69,
-        "weight": 389.4
+        "name": "Chewy Avocado Toast",
+        "calories": 1568,
+        "price": 34.41,
+        "weight": 313.6
     },
     {
-        "name": "Herbed Pljeskavica",
-        "calories": 1677,
-        "price": 25.67,
-        "weight": 335.4
+        "name": "Minty Enchiladas",
+        "calories": 1980,
+        "price": 64.18,
+        "weight": 396.0
     },
     {
-        "name": "Braised Moules-Frites",
-        "calories": 480,
-        "price": 64.87,
-        "weight": 96.0
+        "name": "Garlicky Chicken Pot Roast",
+        "calories": 1476,
+        "price": 43.12,
+        "weight": 295.2
     },
     {
-        "name": "Infused Chicken Parmesan",
-        "calories": 385,
-        "price": 25.6,
-        "weight": 77.0
+        "name": "Cheesy Chicken Bolognese",
+        "calories": 944,
+        "price": 45.39,
+        "weight": 188.8
     },
     {
-        "name": "Cilantro Tagine",
-        "calories": 1324,
-        "price": 66.4,
-        "weight": 264.8
+        "name": "Cured Shawarma",
+        "calories": 1420,
+        "price": 48.05,
+        "weight": 284.0
     },
     {
-        "name": "Peppery Beef Fajitas",
-        "calories": 414,
-        "price": 58.5,
-        "weight": 82.8
+        "name": "Flaky Chicken Shawarma",
+        "calories": 1300,
+        "price": 52.56,
+        "weight": 260.0
     },
     {
-        "name": "Zesty Beef Goulash",
-        "calories": 665,
-        "price": 56.59,
-        "weight": 133.0
+        "name": "Smothered Pad Thai",
+        "calories": 430,
+        "price": 55.52,
+        "weight": 86.0
     },
     {
-        "name": "Chive H\u00e1karl",
-        "calories": 1236,
-        "price": 44.63,
-        "weight": 247.2
+        "name": "Crispy Lamb Fajitas",
+        "calories": 751,
+        "price": 55.58,
+        "weight": 150.2
     },
     {
-        "name": "Cheesy Veal Piccata",
-        "calories": 421,
-        "price": 57.78,
-        "weight": 84.2
+        "name": "Nutty Paella Valenciana",
+        "calories": 1440,
+        "price": 41.49,
+        "weight": 288.0
     },
     {
-        "name": "Braised Banh Mi",
-        "calories": 1832,
-        "price": 50.73,
-        "weight": 366.4
+        "name": "Velvety Chef Salad",
+        "calories": 1598,
+        "price": 28.55,
+        "weight": 319.6
     },
     {
-        "name": "Scalded Kabuli Pulao",
-        "calories": 425,
-        "price": 53.25,
-        "weight": 85.0
+        "name": "Burnt Frikadeller",
+        "calories": 913,
+        "price": 41.9,
+        "weight": 182.6
     },
     {
-        "name": "Earthy Polenta",
-        "calories": 703,
-        "price": 32.85,
-        "weight": 140.6
+        "name": "Sweet Pork Tenderloin",
+        "calories": 753,
+        "price": 27.84,
+        "weight": 150.6
     },
     {
-        "name": "Sage Osso Buco",
-        "calories": 875,
-        "price": 33.82,
-        "weight": 175.0
+        "name": "Tender Shashlik",
+        "calories": 707,
+        "price": 59.17,
+        "weight": 141.4
     },
     {
-        "name": "Creamy Bobotie",
-        "calories": 411,
-        "price": 65.22,
-        "weight": 82.2
+        "name": "Saut\u00e9ed Jambalaya",
+        "calories": 1353,
+        "price": 57.94,
+        "weight": 270.6
     },
     {
-        "name": "Crunchy Apple Pie",
-        "calories": 1348,
-        "price": 38.48,
-        "weight": 269.6
+        "name": "Piquant Khachapuri",
+        "calories": 1349,
+        "price": 46.32,
+        "weight": 269.8
     },
     {
-        "name": "Infused Bruschetta",
-        "calories": 1922,
-        "price": 33.02,
-        "weight": 384.4
+        "name": "Seared Pork Adobo",
+        "calories": 629,
+        "price": 28.42,
+        "weight": 125.8
     },
     {
-        "name": "Fiery Hummus",
-        "calories": 1108,
-        "price": 62.93,
-        "weight": 221.6
+        "name": "Poached Greek Salad",
+        "calories": 841,
+        "price": 45.53,
+        "weight": 168.2
     },
     {
-        "name": "Boiled Bagels",
-        "calories": 936,
-        "price": 32.42,
-        "weight": 187.2
+        "name": "Tender Shish Kebab",
+        "calories": 741,
+        "price": 37.87,
+        "weight": 148.2
     },
     {
-        "name": "Seasoned Dolma",
-        "calories": 1611,
-        "price": 35.67,
-        "weight": 322.2
+        "name": "Buttery Lamb Kebabs",
+        "calories": 1325,
+        "price": 37.04,
+        "weight": 265.0
     },
     {
-        "name": "Sour Beef Meatballs",
-        "calories": 1646,
-        "price": 63.24,
-        "weight": 329.2
+        "name": "Paprika Cupcakes",
+        "calories": 1708,
+        "price": 56.43,
+        "weight": 341.6
     },
     {
-        "name": "Caramelized Pork Ragu",
-        "calories": 626,
-        "price": 25.79,
-        "weight": 125.2
+        "name": "Chickeny Bryndzov\u00e9 Halu\u0161ky",
+        "calories": 743,
+        "price": 45.51,
+        "weight": 148.6
     },
     {
-        "name": "Stuffed Jambalaya",
-        "calories": 1776,
-        "price": 51.5,
-        "weight": 355.2
+        "name": "Succulent Yakitori",
+        "calories": 1935,
+        "price": 58.28,
+        "weight": 387.0
     },
     {
-        "name": "Savory Lamb Empanadas",
-        "calories": 420,
-        "price": 46.58,
-        "weight": 84.0
+        "name": "Minced Pork Tenderloin",
+        "calories": 1827,
+        "price": 50.78,
+        "weight": 365.4
     },
     {
-        "name": "Pureed Bacalhau \u00e0 Br\u00e1s",
-        "calories": 836,
-        "price": 45.92,
-        "weight": 167.2
+        "name": "Zesty Dal Makhani",
+        "calories": 666,
+        "price": 26.38,
+        "weight": 133.2
     },
     {
-        "name": "Earthy Chicken Stew",
-        "calories": 834,
-        "price": 32.56,
-        "weight": 166.8
+        "name": "Turmeric Yakitori",
+        "calories": 1557,
+        "price": 69.35,
+        "weight": 311.4
     },
     {
-        "name": "Salty Lamb Curry",
-        "calories": 341,
-        "price": 63.04,
-        "weight": 68.2
+        "name": "Funky Hummus",
+        "calories": 1769,
+        "price": 43.46,
+        "weight": 353.8
     },
     {
-        "name": "Fried Pork Ragu",
-        "calories": 1840,
-        "price": 32.07,
-        "weight": 368.0
+        "name": "Zingy Sauerbraten",
+        "calories": 740,
+        "price": 69.92,
+        "weight": 148.0
     },
     {
-        "name": "Whipped Chicken Fajitas",
-        "calories": 522,
-        "price": 52.49,
-        "weight": 104.4
+        "name": "Brined Pork Bolognese",
+        "calories": 1943,
+        "price": 52.51,
+        "weight": 388.6
     },
     {
-        "name": "Crunchy Spaghetti Carbonara",
-        "calories": 1518,
-        "price": 54.77,
-        "weight": 303.6
+        "name": "Deep-fried Cold-Pressed Juice",
+        "calories": 355,
+        "price": 47.65,
+        "weight": 71.0
     },
     {
-        "name": "Zingy Pork Tenderloin",
-        "calories": 1458,
-        "price": 29.89,
-        "weight": 291.6
+        "name": "Flaky Baklava",
+        "calories": 467,
+        "price": 50.98,
+        "weight": 93.4
     },
     {
-        "name": "Wrapped Greek Salad",
-        "calories": 1214,
-        "price": 30.32,
-        "weight": 242.8
+        "name": "Wrapped Tuna Salad",
+        "calories": 736,
+        "price": 62.31,
+        "weight": 147.2
     },
     {
-        "name": "Stuffed Pork Adobo",
-        "calories": 1324,
-        "price": 33.27,
-        "weight": 264.8
+        "name": "Pureed Sushi Roll",
+        "calories": 1207,
+        "price": 56.79,
+        "weight": 241.4
     },
     {
-        "name": "Briny Falafel",
+        "name": "Bitter Tuna Salad",
+        "calories": 1141,
+        "price": 50.07,
+        "weight": 228.2
+    },
+    {
+        "name": "Crisped Chicken Chili",
+        "calories": 744,
+        "price": 54.25,
+        "weight": 148.8
+    },
+    {
+        "name": "Meaty Beef Meatballs",
+        "calories": 969,
+        "price": 29.9,
+        "weight": 193.8
+    },
+    {
+        "name": "Gamey Truffles",
+        "calories": 1042,
+        "price": 38.81,
+        "weight": 208.4
+    },
+    {
+        "name": "Savory Moussaka",
+        "calories": 1532,
+        "price": 56.32,
+        "weight": 306.4
+    },
+    {
+        "name": "Baked Chicken Bolognese",
+        "calories": 1073,
+        "price": 30.8,
+        "weight": 214.6
+    },
+    {
+        "name": "Garlicky Shawarma",
+        "calories": 605,
+        "price": 25.63,
+        "weight": 121.0
+    },
+    {
+        "name": "Mellow Qutab",
+        "calories": 1905,
+        "price": 46.48,
+        "weight": 381.0
+    },
+    {
+        "name": "Peppery Baba Ghanoush",
+        "calories": 818,
+        "price": 34.56,
+        "weight": 163.6
+    },
+    {
+        "name": "Umami Chicken Satay",
+        "calories": 1454,
+        "price": 37.39,
+        "weight": 290.8
+    },
+    {
+        "name": "Cardamom Bulletproof Coffee",
+        "calories": 1118,
+        "price": 34.34,
+        "weight": 223.6
+    },
+    {
+        "name": "Roasted Momos",
         "calories": 1748,
-        "price": 37.8,
+        "price": 59.67,
         "weight": 349.6
     },
     {
-        "name": "Parsley Cheesecake",
-        "calories": 766,
-        "price": 43.34,
-        "weight": 153.2
+        "name": "Hearty Lasagna",
+        "calories": 1396,
+        "price": 57.51,
+        "weight": 279.2
     },
     {
-        "name": "Spiced Chicken Curry",
-        "calories": 632,
-        "price": 50.03,
-        "weight": 126.4
+        "name": "Buttery Yakitori",
+        "calories": 1979,
+        "price": 42.44,
+        "weight": 395.8
     },
     {
-        "name": "Turkey Ambrosia",
-        "calories": 1491,
-        "price": 46.58,
-        "weight": 298.2
+        "name": "Cheesy Beef Bolognese",
+        "calories": 946,
+        "price": 53.4,
+        "weight": 189.2
     },
     {
-        "name": "Turmeric Khachapuri",
-        "calories": 768,
-        "price": 28.56,
-        "weight": 153.6
+        "name": "Buttery Chicken Goulash",
+        "calories": 1441,
+        "price": 44.79,
+        "weight": 288.2
     },
     {
-        "name": "Caramelized Stuffed Peppers",
-        "calories": 714,
-        "price": 52.15,
-        "weight": 142.8
+        "name": "Crispy Lamb Quesadillas",
+        "calories": 1116,
+        "price": 37.51,
+        "weight": 223.2
     },
     {
-        "name": "Zingy Chicken Marsala",
-        "calories": 601,
-        "price": 44.81,
-        "weight": 120.2
+        "name": "Simmered Butter Chicken",
+        "calories": 1757,
+        "price": 59.25,
+        "weight": 351.4
     },
     {
-        "name": "Deep-fried Cupcakes",
-        "calories": 1784,
-        "price": 32.5,
-        "weight": 356.8
+        "name": "Chive Buuz",
+        "calories": 823,
+        "price": 59.9,
+        "weight": 164.6
     },
     {
-        "name": "Caramelized French Dip",
-        "calories": 862,
-        "price": 42.81,
-        "weight": 172.4
+        "name": "Lemony Gluten-Free Pizza",
+        "calories": 1228,
+        "price": 60.98,
+        "weight": 245.6
     },
     {
-        "name": "Stewed Goulash",
-        "calories": 554,
-        "price": 63.31,
-        "weight": 110.8
+        "name": "Seared Adobo",
+        "calories": 1405,
+        "price": 29.19,
+        "weight": 281.0
     },
     {
-        "name": "Chopped Kofta",
-        "calories": 1163,
-        "price": 51.96,
-        "weight": 232.6
+        "name": "Hot Truffles",
+        "calories": 532,
+        "price": 58.52,
+        "weight": 106.4
     },
     {
-        "name": "Hearty Beef Empanadas",
-        "calories": 347,
-        "price": 66.33,
-        "weight": 69.4
+        "name": "Minty Beef Wellington",
+        "calories": 1979,
+        "price": 32.24,
+        "weight": 395.8
     },
     {
-        "name": "Broiled Meat Pie",
-        "calories": 577,
-        "price": 55.06,
-        "weight": 115.4
+        "name": "Creamy Cheesecake",
+        "calories": 673,
+        "price": 58.05,
+        "weight": 134.6
     },
     {
-        "name": "Glazed Panini",
-        "calories": 419,
-        "price": 60.6,
-        "weight": 83.8
+        "name": "Bitter Wiener Schnitzel",
+        "calories": 371,
+        "price": 47.45,
+        "weight": 74.2
     },
     {
-        "name": "Chili Antipasto",
-        "calories": 1680,
-        "price": 55.14,
-        "weight": 336.0
+        "name": "Tender Kung Pao Chicken",
+        "calories": 967,
+        "price": 61.53,
+        "weight": 193.4
     },
     {
-        "name": "Cinnamony Beef Pot Roast",
-        "calories": 598,
-        "price": 67.83,
-        "weight": 119.6
+        "name": "Rosemary Baklava",
+        "calories": 1899,
+        "price": 37.48,
+        "weight": 379.8
     },
     {
-        "name": "Toasty Banh Mi",
-        "calories": 1644,
-        "price": 47.49,
-        "weight": 328.8
+        "name": "Spicy Beef Pho",
+        "calories": 605,
+        "price": 36.47,
+        "weight": 121.0
     },
     {
-        "name": "Mashed Coq au Vin",
-        "calories": 732,
-        "price": 28.73,
-        "weight": 146.4
+        "name": "Scallion Lamb Biryani",
+        "calories": 472,
+        "price": 57.28,
+        "weight": 94.4
     },
     {
-        "name": "Peppery Pork Kebabs",
-        "calories": 1237,
-        "price": 60.78,
-        "weight": 247.4
+        "name": "Whipped Lamb Curry",
+        "calories": 1510,
+        "price": 62.13,
+        "weight": 302.0
     },
     {
-        "name": "Fenugreek Potica",
-        "calories": 1445,
-        "price": 56.03,
-        "weight": 289.0
+        "name": "Tender Plov",
+        "calories": 1665,
+        "price": 31.21,
+        "weight": 333.0
     },
     {
-        "name": "Smothered Pork Fajitas",
-        "calories": 684,
-        "price": 43.04,
-        "weight": 136.8
+        "name": "Woody Plov",
+        "calories": 751,
+        "price": 65.52,
+        "weight": 150.2
     },
     {
-        "name": "Lamby Khinkali",
-        "calories": 977,
-        "price": 34.78,
-        "weight": 195.4
+        "name": "Toasty Rakfisk",
+        "calories": 1014,
+        "price": 49.6,
+        "weight": 202.8
     },
     {
-        "name": "Fiery Osso Buco",
-        "calories": 680,
-        "price": 30.6,
-        "weight": 136.0
+        "name": "Thyme Ceviche",
+        "calories": 899,
+        "price": 38.75,
+        "weight": 179.8
     },
     {
-        "name": "Sage Bryndzov\u00e9 Halu\u0161ky",
-        "calories": 1668,
-        "price": 34.34,
-        "weight": 333.6
+        "name": "Marinated Biryani",
+        "calories": 1519,
+        "price": 65.05,
+        "weight": 303.8
     },
     {
-        "name": "Umami Frikadeller",
-        "calories": 533,
-        "price": 27.37,
-        "weight": 106.6
+        "name": "Herbal Chicken Ragu",
+        "calories": 1995,
+        "price": 40.25,
+        "weight": 399.0
     },
     {
-        "name": "Fenugreek Lamb Fajitas",
-        "calories": 310,
-        "price": 49.15,
-        "weight": 62.0
+        "name": "Silky Tiramisu",
+        "calories": 1052,
+        "price": 68.57,
+        "weight": 210.4
     },
     {
-        "name": "Sour Gelato",
-        "calories": 1642,
-        "price": 49.24,
-        "weight": 328.4
+        "name": "Smothered Pork Meatballs",
+        "calories": 1291,
+        "price": 41.89,
+        "weight": 258.2
     },
     {
-        "name": "Wrapped Spaghetti Carbonara",
-        "calories": 1191,
-        "price": 64.69,
-        "weight": 238.2
+        "name": "Zingy Chef Salad",
+        "calories": 1669,
+        "price": 55.63,
+        "weight": 333.8
     },
     {
-        "name": "Glazed Pork Meatballs",
-        "calories": 1982,
-        "price": 61.57,
-        "weight": 396.4
+        "name": "Blackened Panini",
+        "calories": 1938,
+        "price": 50.4,
+        "weight": 387.6
     },
     {
-        "name": "Peppery Pork Lasagna",
-        "calories": 1654,
-        "price": 55.86,
-        "weight": 330.8
+        "name": "Glazed Lamb Tostadas",
+        "calories": 1275,
+        "price": 38.72,
+        "weight": 255.0
     },
     {
-        "name": "Buttery Beef Curry",
-        "calories": 1360,
-        "price": 50.88,
-        "weight": 272.0
+        "name": "Toasty Korma",
+        "calories": 834,
+        "price": 57.08,
+        "weight": 166.8
     },
     {
-        "name": "Flaky Clam Chowder",
-        "calories": 752,
-        "price": 59.22,
-        "weight": 150.4
+        "name": "Baked Lamb Shank",
+        "calories": 1533,
+        "price": 28.94,
+        "weight": 306.6
     },
     {
-        "name": "Savory Fattoush",
-        "calories": 1288,
-        "price": 46.27,
-        "weight": 257.6
+        "name": "Glazed Ropa Vieja",
+        "calories": 502,
+        "price": 49.74,
+        "weight": 100.4
     },
     {
-        "name": "Caramelized Chicken Tikka Masala",
-        "calories": 593,
-        "price": 55.64,
-        "weight": 118.6
+        "name": "Barbecued Gravlax",
+        "calories": 1349,
+        "price": 33.18,
+        "weight": 269.8
     },
     {
-        "name": "Crunchy Beef Lasagna",
-        "calories": 1483,
-        "price": 42.13,
-        "weight": 296.6
+        "name": "Hearty Beef Stroganoff",
+        "calories": 1686,
+        "price": 35.22,
+        "weight": 337.2
     },
     {
-        "name": "Infused Souvlaki",
-        "calories": 549,
-        "price": 49.09,
-        "weight": 109.8
+        "name": "Smoked Stuffed Zucchini",
+        "calories": 1479,
+        "price": 40.28,
+        "weight": 295.8
     },
     {
-        "name": "Gingery Buuz",
-        "calories": 674,
-        "price": 44.92,
-        "weight": 134.8
+        "name": "Peppered Reuben",
+        "calories": 420,
+        "price": 69.7,
+        "weight": 84.0
     },
     {
-        "name": "Succulent Monte Cristo",
-        "calories": 311,
-        "price": 48.93,
-        "weight": 62.2
+        "name": "Citrusy Spaghetti Carbonara",
+        "calories": 539,
+        "price": 69.25,
+        "weight": 107.8
     },
     {
-        "name": "Oniony Fruit Salad",
-        "calories": 598,
-        "price": 53.78,
-        "weight": 119.6
+        "name": "Stir-fried Fesenjan",
+        "calories": 1522,
+        "price": 53.16,
+        "weight": 304.4
     },
     {
-        "name": "Zingy \u00c9clair",
-        "calories": 474,
-        "price": 56.06,
-        "weight": 94.8
+        "name": "Silky Paella Valenciana",
+        "calories": 1761,
+        "price": 69.21,
+        "weight": 352.2
     },
     {
-        "name": "Zingy Souvlaki",
-        "calories": 1676,
-        "price": 37.42,
-        "weight": 335.2
+        "name": "Sticky Fajitas",
+        "calories": 1173,
+        "price": 55.78,
+        "weight": 234.6
     },
     {
-        "name": "Sour Stuffed Zucchini",
-        "calories": 802,
-        "price": 29.04,
-        "weight": 160.4
+        "name": "Pickled Tabbouleh",
+        "calories": 762,
+        "price": 35.27,
+        "weight": 152.4
     },
     {
-        "name": "Paprika Gnocchi",
-        "calories": 658,
-        "price": 50.21,
-        "weight": 131.6
+        "name": "Piquant Chicken Quesadillas",
+        "calories": 718,
+        "price": 61.0,
+        "weight": 143.6
     },
     {
-        "name": "Tangy Antipasto",
-        "calories": 1704,
-        "price": 30.9,
-        "weight": 340.8
+        "name": "Pickled Pork Chili",
+        "calories": 823,
+        "price": 35.68,
+        "weight": 164.6
     },
     {
-        "name": "Deep-fried Pork Empanadas",
-        "calories": 558,
-        "price": 51.77,
-        "weight": 111.6
+        "name": "Chive Kung Pao Chicken",
+        "calories": 1165,
+        "price": 47.29,
+        "weight": 233.0
     },
     {
-        "name": "Charred Lamb Pot Roast",
-        "calories": 504,
-        "price": 62.02,
-        "weight": 100.8
+        "name": "Gamey Lamb Rogan Josh",
+        "calories": 829,
+        "price": 69.1,
+        "weight": 165.8
     },
     {
-        "name": "Cheesy Khachapuri",
-        "calories": 1942,
-        "price": 51.59,
-        "weight": 388.4
-    },
-    {
-        "name": "Bitter Lamb Kofta",
-        "calories": 838,
-        "price": 37.11,
-        "weight": 167.6
-    },
-    {
-        "name": "Baked Chicken Katsu",
-        "calories": 516,
-        "price": 44.7,
-        "weight": 103.2
-    },
-    {
-        "name": "Aromatic Korma",
-        "calories": 724,
-        "price": 55.23,
-        "weight": 144.8
-    },
-    {
-        "name": "Fermented Lamb Kebabs",
-        "calories": 1087,
-        "price": 69.44,
-        "weight": 217.4
-    },
-    {
-        "name": "Seasoned Pierogi",
-        "calories": 1580,
-        "price": 30.7,
-        "weight": 316.0
-    },
-    {
-        "name": "Zesty Lamb Goulash",
-        "calories": 302,
-        "price": 59.5,
-        "weight": 60.4
-    },
-    {
-        "name": "Stuffed Beef Tostadas",
-        "calories": 390,
-        "price": 35.65,
-        "weight": 78.0
-    },
-    {
-        "name": "Silky Pasta Primavera",
-        "calories": 1355,
-        "price": 25.8,
-        "weight": 271.0
-    },
-    {
-        "name": "Mustardy Lamb Biryani",
-        "calories": 1238,
-        "price": 37.99,
-        "weight": 247.6
-    },
-    {
-        "name": "Toasty Chicken Stew",
-        "calories": 1637,
-        "price": 36.14,
-        "weight": 327.4
-    },
-    {
-        "name": "Umami Veggie Burger",
-        "calories": 1245,
-        "price": 41.96,
-        "weight": 249.0
-    },
-    {
-        "name": "Smothered Coq au Vin",
-        "calories": 374,
-        "price": 36.61,
-        "weight": 74.8
-    },
-    {
-        "name": "Baked Fattoush",
-        "calories": 607,
-        "price": 28.72,
-        "weight": 121.4
-    },
-    {
-        "name": "Fruity Gumbo",
-        "calories": 1628,
-        "price": 68.27,
-        "weight": 325.6
+        "name": "Silky Fondue",
+        "calories": 508,
+        "price": 33.52,
+        "weight": 101.6
     }
 ]
