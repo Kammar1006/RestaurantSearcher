@@ -174,7 +174,7 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by name
 	sock.on("searchByName", (name) => {
 		if(isAlnum(name)){
-			queryDatabase("SELECT * FROM restaurants WHERE name LIKE ?", [`%${name}%`])
+			queryDatabase("SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords FROM restaurants WHERE name LIKE ? AND restaurants.verified = 1", [`%${name}%`])
 			.then((res) => {
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
@@ -186,7 +186,7 @@ io.on('connection', (sock) => {
 		let data = JSON.parse(json);
 		if(data.x !== undefined && data.y !== undefined && data.range !== undefined){
 			let sql = "SELECT * FROM restaurants";
-			queryDatabase(sql, [data.x, data.y])
+			queryDatabase(sql, [data.x, data.y, data.range])
 			.then((res) => {
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
@@ -196,7 +196,12 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by dishes:
 	sock.on("searchByDish", (name) => {
 		if(isAlnum(name)){
-			let sql = "SELECT * FROM restaurants INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id WHERE dishes.name LIKE ?";
+			let sql = `
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight FROM restaurants 
+				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				WHERE dishes.name LIKE ? AND restaurants.verified = 1
+			`;
 			queryDatabase(sql, [`%${name}%`])
 			.then((res) => {
 				//console.log(res);
@@ -206,10 +211,10 @@ io.on('connection', (sock) => {
 	});
 
 	//for all users searching restaurant by ingredients:
-	sock.on("searchByIngedients", (name) => {
+	sock.on("searchByIngedient", (name) => {
 		if(isAlnum(name)){
-			let sql = "SELECT * FROM restaurants";
-			queryDatabase(sql, [name])
+			let sql = "SELECT * FROM restaurants INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id INNER JOIN ingredients_dishes ON dish.id = ingredients_dishes.id_dish INNER JOIN ingredients ON ingredients.id = ingredients_dishes.id_ingerdient WHERE ingredients.name LIKE ?";
+			queryDatabase(sql, [`%${name}%`])
 			.then((res) => {
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
