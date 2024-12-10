@@ -37,7 +37,7 @@ def generate_coordinates():
     x = random.uniform(51.051500, 51.181850)
     y = random.uniform(16.924000, 17.160050)
 
-    return {"x": x, "y": y}
+    return f'POINT({x}, {y})'
 
 
 def generate_restaurants_dishes(num_records: int):

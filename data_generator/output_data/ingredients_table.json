@@ -1,13 +1,58 @@
 [
     {
-        "name": "Cheddar Cheese",
+        "name": "Dry Roasted Peanuts",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Pork Belly",
+        "name": "Tabasco Sauce",
         "vegetarian": 0,
         "vegan": 0
+    },
+    {
+        "name": "Goat Cheese",
+        "vegetarian": 1,
+        "vegan": 1
+    },
+    {
+        "name": "Ground Cinnamon",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Carrots",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Avocado",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Fresh Dill",
+        "vegetarian": 1,
+        "vegan": 1
+    },
+    {
+        "name": "Coconut Milk",
+        "vegetarian": 1,
+        "vegan": 1
+    },
+    {
+        "name": "Russet Potatoes",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Cauliflower Florets",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Mozzarella Cheese",
+        "vegetarian": 1,
+        "vegan": 1
     },
     {
         "name": "Tomato Paste",
@@ -15,53 +60,103 @@
         "vegan": 0
     },
     {
-        "name": "Mustard Greens",
+        "name": "Green Beans",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Lentils",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Enoki Mushrooms",
-        "vegetarian": 0,
-        "vegan": 0
+        "name": "Sweet Potatoes",
+        "vegetarian": 1,
+        "vegan": 1
     },
     {
         "name": "Macaroni",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Canned Black Beans",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Jasmine Rice",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Shallots",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Watercress",
+        "name": "Poblano Peppers",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Soybean Paste",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Curly Kale",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Lime Juice",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Feta Cheese",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Peanut Butter",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Rice Noodles",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Cheddar Cheese",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Ground White Pepper",
+        "name": "Ground Turkey",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Flaxseed",
+        "name": "Aioli",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Onion Powder",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Florida Avocado",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Filet Mignon",
+        "name": "Egg Noodles",
         "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Shelled Pistachios",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Steak",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Baby Corn",
+        "vegetarian": 0,
         "vegan": 0
     },
     {
@@ -70,127 +165,102 @@
         "vegan": 0
     },
     {
-        "name": "Spicy Brown Mustard",
+        "name": "Green Cabbage",
         "vegetarian": 1,
         "vegan": 0
     },
     {
-        "name": "Butter",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Tabasco",
+        "name": "Peanuts",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Sesame Oil",
+        "name": "Chicken Drumsticks",
         "vegetarian": 1,
         "vegan": 1
-    },
-    {
-        "name": "Italian Parsley",
-        "vegetarian": 0,
-        "vegan": 0
     },
     {
         "name": "Rutabaga",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "White Pepper",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Dark Brown Sugar",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Green Onions",
+        "name": "Basmati Rice",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Blue Cheese",
+        "name": "Baby Carrots",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Ricotta Cheese",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Large Eggs",
-        "vegetarian": 1,
-        "vegan": 1
-    },
-    {
-        "name": "Parsnips",
+        "name": "Pasta",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Brazil Nuts",
+        "name": "Dried Raspberries",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Millet",
+        "name": "Chia Seed",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Tenderloin",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Ground Turkey",
+        "name": "Japanese Eggplant",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Light Olive Oil",
+        "name": "Beef Broth",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Russet Potatoes",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Scallops",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Red Potatoes",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Plantains",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Ribeye",
+        "name": "Leeks",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Shallots",
-        "vegetarian": 0,
-        "vegan": 0
+        "name": "Ground Fenugreek",
+        "vegetarian": 1,
+        "vegan": 1
     },
     {
-        "name": "Thyme",
+        "name": "Tomato",
         "vegetarian": 1,
         "vegan": 0
     },
     {
-        "name": "Lime Juice",
+        "name": "Scallions",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Canned Cannellini Beans",
+        "vegetarian": 1,
+        "vegan": 1
+    },
+    {
+        "name": "Cremini Mushrooms",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Granulated Sugar",
+        "vegetarian": 1,
+        "vegan": 1
+    },
+    {
+        "name": "Blanched Almonds",
         "vegetarian": 0,
         "vegan": 0
     },
@@ -200,267 +270,167 @@
         "vegan": 0
     },
     {
-        "name": "Cauliflower",
+        "name": "Spaghetti",
         "vegetarian": 1,
         "vegan": 0
     },
     {
-        "name": "Ground Star Anise",
-        "vegetarian": 1,
-        "vegan": 1
-    },
-    {
-        "name": "Real Mayonnaise",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Mussels",
+        "name": "Fingerling Potatoes",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Red Onion",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Lasagna Noodles",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Fresh Chives",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "White Bread",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Oysters",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Fresh Raspberries",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Leeks",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Ground Pork",
+        "name": "Jalapeno Peppers",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Asparagus Spears",
+        "name": "Cumin",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Sriracha Sauce",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Tomato Puree",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Coconut Milk",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Clams",
+        "name": "Whole Wheat Bread",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Sourdough Bread",
+        "name": "Fresh Rosemary",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Spaghetti Pasta",
+        "name": "Watercress",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Culantro",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Truffles",
+        "name": "Avocado Oil",
         "vegetarian": 1,
         "vegan": 0
     },
     {
-        "name": "Pork Loin",
+        "name": "Whole Cloves",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Balsamic Vinegar",
+        "name": "Frozen Mango",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Caraway Seed",
         "vegetarian": 1,
         "vegan": 0
     },
     {
-        "name": "Lima Beans",
+        "name": "Potatoes",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Parsley",
+        "name": "Celery Seed",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Sirloin",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Red Cabbage",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Black Quinoa",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Ripe Mango",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Cherry Tomatoes",
+        "name": "Butter Lettuce",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Baby Corn",
+        "name": "Vinegar",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Granny Smith Apples",
+        "name": "Papaya Cubes",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Snow Peas",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Minced Garlic",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Yellow Onion",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Worcestershire Sauce",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Sardines",
+        "name": "Yellow Onions",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Mustard Seed",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Button Mushrooms",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Soba Noodles",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Savoy Cabbage",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Ground Cinnamon",
+        "name": "Fresh Mint",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Ground Chicken",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Lamb",
+        "name": "Sour Cream",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Fresh Basil",
+        "name": "Parsnips",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Flat Leaf Parsley",
+        "name": "Almond Butter",
         "vegetarian": 1,
         "vegan": 0
     },
     {
         "name": "Chicken Thighs",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Fuji Apples",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Ginger",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Hemp Seeds",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Fennel Seed",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Rye Bread",
-        "vegetarian": 1,
-        "vegan": 0
-    },
-    {
-        "name": "Oats",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Dried Blueberries",
-        "vegetarian": 0,
-        "vegan": 0
-    },
-    {
-        "name": "Chicken Broth",
+        "name": "White Rice",
         "vegetarian": 1,
         "vegan": 1
     },
     {
-        "name": "Yellow Bell Pepper",
+        "name": "Cod",
         "vegetarian": 1,
         "vegan": 0
     },
     {
-        "name": "Black Peppercorns",
+        "name": "Canned Kidney Beans",
+        "vegetarian": 1,
+        "vegan": 0
+    },
+    {
+        "name": "Raw Almonds",
         "vegetarian": 0,
         "vegan": 0
     },
     {
-        "name": "Macadamia Nuts",
+        "name": "Chorizo",
+        "vegetarian": 0,
+        "vegan": 0
+    },
+    {
+        "name": "Pearl Couscous",
         "vegetarian": 0,
         "vegan": 0
     }
