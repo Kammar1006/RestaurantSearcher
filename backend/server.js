@@ -200,7 +200,7 @@ io.on('connection', (sock) => {
 				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight FROM restaurants 
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
-				WHERE dishes.name LIKE ? AND restaurants.verified = 1
+				WHERE dishes.name LIKE ? AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
 			`;
 			queryDatabase(sql, [`%${name}%`])
 			.then((res) => {
@@ -211,9 +211,17 @@ io.on('connection', (sock) => {
 	});
 
 	//for all users searching restaurant by ingredients:
-	sock.on("searchByIngedient", (name) => {
+	sock.on("searchByIngredient", (name) => {
 		if(isAlnum(name)){
-			let sql = "SELECT * FROM restaurants INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id INNER JOIN ingredients_dishes ON dish.id = ingredients_dishes.id_dish INNER JOIN ingredients ON ingredients.id = ingredients_dishes.id_ingerdient WHERE ingredients.name LIKE ?";
+			let sql = `
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight, ingredients.name AS ing_name, ingredients.vegetarian, ingredients.vegan FROM restaurants 
+				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
+				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+				WHERE ingredients.name LIKE ? AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
+				ORDER BY res_id
+			`;
 			queryDatabase(sql, [`%${name}%`])
 			.then((res) => {
 				sock.emit("restaurants", res);
