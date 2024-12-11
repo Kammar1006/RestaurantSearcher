@@ -5,9 +5,9 @@
     "mysql": "^2.18.1",
     "socket.io": "^4.8.1"
   },
-  "name": "restaurantsearcher",
-  "description": "Frontend, backend and db connection via node, express and socketio",
-  "version": "0.1",
+  "name": "menufy",
+  "description": "Application for searching restaurants and dishes. (Database Project)",
+  "version": "0.2",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {

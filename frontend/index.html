@@ -4,87 +4,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Title </title>
+    <title> Menufy - Application for searching restaurants and dishes. </title>
+    <style>
+        .w50{
+            width: 50%;
+        }
+        .flex{
+            display: flex;
+        }
+        .center{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     
-    <h1> Hello World </h1>
+    <h1 class="center"> Menufy </h1>
+    <hr/>
 
-    <!-- Example Form for searching places using name -->
-    <h2> Search </h2>
-    <form id="form_S1">
-        <p>
-            <span> Place Name </span>
-            <br>
-            <input id="form_S1_name" value=""/>
-        </p>
-        <input id="form_S1_button" type="submit" value="search"/>
-    </form>
-    <form id="form_S2">
-        <p>
-            <span> Dish Name </span>
-            <br>
-            <input id="form_S2_name" value=""/>
-        </p>
-        <input id="form_S2_button" type="submit" value="search"/>
-    </form>
-    <form id="form_S3">
-        <p>
-            <span> Ingedient Name </span>
-            <br>
-            <input id="form_S3_name" value=""/>
-        </p>
-        <input id="form_S3_button" type="submit" value="search"/>
-    </form>
+    <div class="flex center">
+
+        <!-- Example Form for searching places using name -->
+        <div class="w50">
+            <h2> Basic Search </h2>
+            <form id="form_S1">
+                <p>
+                    <span> Place Name </span>
+                    <br>
+                    <input id="form_S1_name" value=""/>
+                </p>
+                <input id="form_S1_button" type="submit" value="search"/>
+            </form>
+            <form id="form_S2">
+                <p>
+                    <span> Dish Name </span>
+                    <br>
+                    <input id="form_S2_name" value=""/>
+                </p>
+                <input id="form_S2_button" type="submit" value="search"/>
+            </form>
+            <form id="form_S3">
+                <p>
+                    <span> Ingedient Name </span>
+                    <br>
+                    <input id="form_S3_name" value=""/>
+                </p>
+                <input id="form_S3_button" type="submit" value="search"/>
+            </form>
+        </div>
+
+        <div class="w50">
+            <h2> Advanced Search </h2>
+            <form id="form_SA">
+                <p>
+                    <span> Place Name </span>
+                    <br>
+                    <input id="form_SA_res_name" value=""/>
+                </p>
+                <p>
+                    <span> Dish Name </span>
+                    <br>
+                    <input id="form_SA_dish_name" value=""/>
+                </p>
+                <p>
+                    <span> Ingedient Name </span>
+                    <br>
+                    <input id="form_SA_ing_name" value=""/>
+                </p>
+                <input id="form_SA_button" type="submit" value="search"/>
+            </form>
+        </div>
+    </div>
     <p id="places_list">  </p>
+
     <hr>
 
-    <!-- Example login form -->
-    <h2> Login </h2>
-    <form id="form_U1">
-        <p>
-            <span> Login </span>
-            <br>
-            <input id="form_U1_login" value=""/>  
-        </p>
-        <p>
-            <span> Pass </span>
-            <br>
-            <input type="password" id="form_U1_pass" value=""/>  
-        </p>
-        <input id="form_U1_button" type="submit" value="login"/>
-    </form>
-    <p id="login_info">  </p>
+    <div class="flex center">
+        <div class="w50">
+            <!-- Example login form -->
+            <h2> Login </h2>
+            <form id="form_U1">
+                <p>
+                    <span> Login </span>
+                    <br>
+                    <input id="form_U1_login" value=""/>  
+                </p>
+                <p>
+                    <span> Pass </span>
+                    <br>
+                    <input type="password" id="form_U1_pass" value=""/>  
+                </p>
+                <input id="form_U1_button" type="submit" value="login"/>
+            </form>
+            <p id="login_info">  </p>
+        </div>
+        <div class="w50">
+            <!-- Example register form -->
+            <h2> Register </h2>
+            <form id="form_U2">
+                <p>
+                    <span> Login </span>
+                    <br>
+                    <input id="form_U2_login" value=""/>  
+                </p>
+                <p>
+                    <span> Pass </span>
+                    <br>
+                    <input type="password" id="form_U2_pass" value=""/>  
+                </p>
+                <p>
+                    <span> Pass2 </span>
+                    <br>
+                    <input type="password" id="form_U2_pass2" value=""/>  
+                </p>
+                <p>
+                    <span> Email </span>
+                    <br>
+                    <input id="form_U2_email" value=""/>  
+                </p>
+                <input id="form_U2_button" type="submit" value="register"/>
+            </form>
+            <p id="register_info">  </p>
+        </div>
+    </div>
     <hr>
+    <input style="display: none;" id="clicker" value="click" type="submit"/>
 
-    <!-- Example register form -->
-    <h2> Register </h2>
-    <form id="form_U2">
-        <p>
-            <span> Login </span>
-            <br>
-            <input id="form_U2_login" value=""/>  
-        </p>
-        <p>
-            <span> Pass </span>
-            <br>
-            <input type="password" id="form_U2_pass" value=""/>  
-        </p>
-        <p>
-            <span> Pass2 </span>
-            <br>
-            <input type="password" id="form_U2_pass2" value=""/>  
-        </p>
-        <p>
-            <span> Email </span>
-            <br>
-            <input id="form_U2_email" value=""/>  
-        </p>
-        <input id="form_U2_button" type="submit" value="register"/>
-    </form>
-    <p id="register_info">  </p>
-    <hr>
-    <input id="clicker" value="click" type="submit"/>
+    
+    
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -136,6 +183,16 @@
                     let name = document.querySelector("#form_S3_name").value;
                     sock.emit("searchByIngredient", name);
                 });
+            document
+                .querySelector("#form_SA_button")
+                .addEventListener('click', (e) => {
+                    let data = {
+                        res_name: document.querySelector("#form_SA_res_name").value,
+                        dish_name: document.querySelector("#form_SA_dish_name").value,
+                        ing_name: document.querySelector("#form_SA_ing_name").value,
+                    } 
+                    sock.emit("advancedSearch", JSON.stringify(data));
+                });
 
             //send info to backend - form 2 - login
             document
@@ -177,6 +234,11 @@
             });
         document
             .querySelector("#form_S3")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_SA")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });

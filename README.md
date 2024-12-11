@@ -1,2 +1,2 @@
-# NodeBaseConnections
-Frontend, backend and db connection via node, express and socketio
+# Menufy
+Application for searching restaurants and dishes. (Database Project)
