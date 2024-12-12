@@ -1,69 +1,291 @@
 [
     {
-        "type": "Pakistani"
+        "type": "Gluten-Free"
     },
     {
-        "type": "Ethiopian"
+        "type": "Swiss"
     },
     {
-        "type": "Donut Shop"
+        "type": "Fusion"
     },
     {
-        "type": "Canadian"
+        "type": "Korean"
     },
     {
-        "type": "Tea House"
+        "type": "Filipino"
     },
     {
-        "type": "Indonesian"
+        "type": "BBQ"
     },
     {
-        "type": "Singaporean"
+        "type": "Bakery"
     },
     {
-        "type": "Creole"
+        "type": "German"
     },
     {
-        "type": "Sandwich Shop"
+        "type": "Soul Food"
     },
     {
-        "type": "Farm-to-Table"
+        "type": "Tibetan"
     },
     {
-        "type": "Cuban"
+        "type": "Middle Eastern"
     },
     {
-        "type": "Turkish"
+        "type": "Peruvian"
     },
     {
-        "type": "Paleo"
+        "type": "Sri Lankan"
     },
     {
-        "type": "Serbian"
-    },
-    {
-        "type": "Australian"
-    },
-    {
-        "type": "Brasserie"
-    },
-    {
-        "type": "Polish"
-    },
-    {
-        "type": "Chinese"
+        "type": "Deli"
     },
     {
         "type": "Bistro"
     },
     {
-        "type": "Ice Cream Parlor"
+        "type": "Dutch"
+    },
+    {
+        "type": "Tex-Mex"
+    },
+    {
+        "type": "Mexican"
+    },
+    {
+        "type": "Moroccan"
+    },
+    {
+        "type": "Farm-to-Table"
+    },
+    {
+        "type": "Bulgarian"
+    },
+    {
+        "type": "Armenian"
+    },
+    {
+        "type": "Swedish"
     },
     {
         "type": "Keto"
     },
     {
+        "type": "Tea House"
+    },
+    {
+        "type": "Street Food"
+    },
+    {
+        "type": "Smoothie Bar"
+    },
+    {
+        "type": "Serbian"
+    },
+    {
+        "type": "Brazilian"
+    },
+    {
+        "type": "Vegetarian"
+    },
+    {
+        "type": "Healthy"
+    },
+    {
+        "type": "Pakistani"
+    },
+    {
+        "type": "Coffee Shop"
+    },
+    {
+        "type": "Croatian"
+    },
+    {
+        "type": "Kazakh"
+    },
+    {
+        "type": "American"
+    },
+    {
+        "type": "Ethiopian"
+    },
+    {
+        "type": "Malaysian"
+    },
+    {
+        "type": "Slovak"
+    },
+    {
+        "type": "Gelateria"
+    },
+    {
+        "type": "Azerbaijani"
+    },
+    {
+        "type": "Juice Bar"
+    },
+    {
+        "type": "Slovenian"
+    },
+    {
+        "type": "Austrian"
+    },
+    {
+        "type": "Georgian"
+    },
+    {
+        "type": "Russian"
+    },
+    {
+        "type": "Organic"
+    },
+    {
+        "type": "Japanese"
+    },
+    {
+        "type": "African"
+    },
+    {
+        "type": "Indian"
+    },
+    {
+        "type": "Donut Shop"
+    },
+    {
+        "type": "Vegan"
+    },
+    {
+        "type": "Mediterranean"
+    },
+    {
+        "type": "Ice Cream Parlor"
+    },
+    {
+        "type": "Brasserie"
+    },
+    {
+        "type": "Sandwich Shop"
+    },
+    {
+        "type": "Czech"
+    },
+    {
+        "type": "Raw"
+    },
+    {
+        "type": "Uzbek"
+    },
+    {
+        "type": "Danish"
+    },
+    {
+        "type": "Seafood"
+    },
+    {
+        "type": "Norwegian"
+    },
+    {
+        "type": "Romanian"
+    },
+    {
+        "type": "Southern"
+    },
+    {
+        "type": "Australian"
+    },
+    {
+        "type": "Persian"
+    },
+    {
+        "type": "Italian"
+    },
+    {
+        "type": "Cuban"
+    },
+    {
+        "type": "Spanish"
+    },
+    {
+        "type": "Afghan"
+    },
+    {
+        "type": "Mongolian"
+    },
+    {
+        "type": "Hungarian"
+    },
+    {
+        "type": "Canadian"
+    },
+    {
+        "type": "Singaporean"
+    },
+    {
+        "type": "Gastropub"
+    },
+    {
+        "type": "Lebanese"
+    },
+    {
+        "type": "Bagel Shop"
+    },
+    {
+        "type": "Chinese"
+    },
+    {
+        "type": "Paleo"
+    },
+    {
+        "type": "Finnish"
+    },
+    {
+        "type": "Argentinian"
+    },
+    {
+        "type": "Fast Food"
+    },
+    {
+        "type": "Polish"
+    },
+    {
+        "type": "Chocolatier"
+    },
+    {
+        "type": "New Zealand"
+    },
+    {
+        "type": "Comfort Food"
+    },
+    {
+        "type": "Nepalese"
+    },
+    {
+        "type": "Creole"
+    },
+    {
         "type": "Icelandic"
+    },
+    {
+        "type": "Caribbean"
+    },
+    {
+        "type": "Cajun"
+    },
+    {
+        "type": "Turkish"
+    },
+    {
+        "type": "Patisserie"
+    },
+    {
+        "type": "Bangladeshi"
+    },
+    {
+        "type": "Hawaiian"
+    },
+    {
+        "type": "Belgian"
     },
     {
         "type": "Mexican-American"
@@ -72,231 +294,9 @@
         "type": "Portuguese"
     },
     {
-        "type": "Slovak"
-    },
-    {
-        "type": "Sri Lankan"
-    },
-    {
-        "type": "Finnish"
-    },
-    {
-        "type": "Smoothie Bar"
-    },
-    {
-        "type": "Bangladeshi"
-    },
-    {
-        "type": "Bosnian"
-    },
-    {
-        "type": "Hungarian"
-    },
-    {
-        "type": "Indian"
-    },
-    {
-        "type": "Croatian"
-    },
-    {
-        "type": "Soul Food"
-    },
-    {
-        "type": "Austrian"
-    },
-    {
-        "type": "Danish"
-    },
-    {
-        "type": "Deli"
-    },
-    {
-        "type": "Belgian"
-    },
-    {
-        "type": "Tex-Mex"
-    },
-    {
-        "type": "Mediterranean"
-    },
-    {
-        "type": "Brazilian"
-    },
-    {
-        "type": "Georgian"
-    },
-    {
-        "type": "Southern"
-    },
-    {
-        "type": "Swiss"
-    },
-    {
-        "type": "Bagel Shop"
-    },
-    {
-        "type": "Seafood"
-    },
-    {
-        "type": "Japanese"
-    },
-    {
-        "type": "Mexican"
-    },
-    {
-        "type": "African"
-    },
-    {
-        "type": "Malaysian"
-    },
-    {
-        "type": "Organic"
-    },
-    {
-        "type": "Afghan"
-    },
-    {
-        "type": "Fusion"
-    },
-    {
-        "type": "Tibetan"
-    },
-    {
-        "type": "Dutch"
-    },
-    {
-        "type": "Peruvian"
-    },
-    {
-        "type": "Raw"
-    },
-    {
-        "type": "Middle Eastern"
-    },
-    {
-        "type": "Spanish"
-    },
-    {
-        "type": "Street Food"
-    },
-    {
-        "type": "Russian"
-    },
-    {
-        "type": "Vegetarian"
-    },
-    {
-        "type": "German"
-    },
-    {
-        "type": "Gluten-Free"
-    },
-    {
-        "type": "Filipino"
-    },
-    {
-        "type": "Vegan"
-    },
-    {
-        "type": "Italian"
-    },
-    {
-        "type": "American"
-    },
-    {
-        "type": "Azerbaijani"
-    },
-    {
-        "type": "Slovenian"
-    },
-    {
-        "type": "Romanian"
-    },
-    {
         "type": "Thai"
     },
     {
-        "type": "BBQ"
-    },
-    {
-        "type": "New Zealand"
-    },
-    {
-        "type": "Juice Bar"
-    },
-    {
-        "type": "Norwegian"
-    },
-    {
-        "type": "Mongolian"
-    },
-    {
-        "type": "Caribbean"
-    },
-    {
-        "type": "Gelateria"
-    },
-    {
-        "type": "Kazakh"
-    },
-    {
-        "type": "Armenian"
-    },
-    {
-        "type": "Uzbek"
-    },
-    {
-        "type": "Swedish"
-    },
-    {
         "type": "Vietnamese"
-    },
-    {
-        "type": "Cajun"
-    },
-    {
-        "type": "Czech"
-    },
-    {
-        "type": "Bakery"
-    },
-    {
-        "type": "Korean"
-    },
-    {
-        "type": "Gastropub"
-    },
-    {
-        "type": "Chocolatier"
-    },
-    {
-        "type": "Lebanese"
-    },
-    {
-        "type": "Persian"
-    },
-    {
-        "type": "Moroccan"
-    },
-    {
-        "type": "French"
-    },
-    {
-        "type": "Argentinian"
-    },
-    {
-        "type": "Bulgarian"
-    },
-    {
-        "type": "Patisserie"
-    },
-    {
-        "type": "Healthy"
-    },
-    {
-        "type": "Nepalese"
-    },
-    {
-        "type": "Hawaiian"
     }
 ]
