@@ -35,6 +35,7 @@
                 </p>
                 <input id="form_S1_button" type="submit" value="search"/>
             </form>
+            <hr>
             <form id="form_S2">
                 <p>
                     <span> Dish Name </span>
@@ -43,6 +44,7 @@
                 </p>
                 <input id="form_S2_button" type="submit" value="search"/>
             </form>
+            <hr>
             <form id="form_S3">
                 <p>
                     <span> Ingedient Name </span>
@@ -50,6 +52,18 @@
                     <input id="form_S3_name" value=""/>
                 </p>
                 <input id="form_S3_button" type="submit" value="search"/>
+            </form>
+            <hr>
+            <form id="form_S4">
+                <p>
+                    <span> Coord X </span><br>
+                    <input id="form_S4_x" value=""/><br>
+                    <span> Coord Y </span><br>
+                    <input id="form_S4_y" value=""/><br>
+                    <span> Coord R </span><br>
+                    <input id="form_S4_r" value=""/><br>
+                </p>
+                <input id="form_S4_button" type="submit" value="search"/>
             </form>
         </div>
 
@@ -184,6 +198,16 @@
                     sock.emit("searchByIngredient", name);
                 });
             document
+                .querySelector("#form_S4_button")
+                .addEventListener('click', (e) => {
+                    let coords = {
+                        x: document.querySelector("#form_S4_x").value,
+                        y: document.querySelector("#form_S4_y").value,
+                        r: document.querySelector("#form_S4_r").value,
+                    }
+                    sock.emit("searchByCoords", JSON.stringify(coords));
+                });
+            document
                 .querySelector("#form_SA_button")
                 .addEventListener('click', (e) => {
                     let data = {
@@ -234,6 +258,11 @@
             });
         document
             .querySelector("#form_S3")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_S4")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });

@@ -184,10 +184,24 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by coords:
 	sock.on("searchByCoords", (json) => {
 		let data = JSON.parse(json);
-		if(data.x !== undefined && data.y !== undefined && data.range !== undefined){
-			let sql = "SELECT * FROM restaurants";
-			queryDatabase(sql, [data.x, data.y, data.range])
+		console.log(data);
+		if(data.x !== undefined && data.y !== undefined && data.r !== undefined){
+			console.log(data.x, data.y, data.r);
+			let sql = `
+				SELECT id, name, address,
+					(6371 * acos(
+						cos(radians(?)) * cos(radians(ST_Y(coordinates))) *
+						cos(radians(ST_X(coordinates)) - radians(?)) +
+						sin(radians(?)) * sin(radians(ST_Y(coordinates)))
+					)) AS distance_km
+				FROM restaurants
+				WHERE ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0
+				HAVING distance_km <= ?
+				ORDER BY distance_km
+			`;
+			queryDatabase(sql, [data.y, data.x, data.y, data.r])
 			.then((res) => {
+				console.log(res);
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
