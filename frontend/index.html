@@ -85,10 +85,18 @@
                     <br>
                     <input id="form_SA_ing_name" value=""/>
                 </p>
+                <p>
+                    <span> Coords </span>
+                    <br>
+                    <input id="form_SA_res_x" value="" placeholder="longitude (x)"/>
+                    <input id="form_SA_res_y" value="" placeholder="latitude (y)"/>
+                    <input id="form_SA_res_r" value="" placeholder="radius"/>
+                </p>
                 <input id="form_SA_button" type="submit" value="search"/>
             </form>
         </div>
     </div>
+    <hr>
     <p id="places_list">  </p>
 
     <hr>
@@ -214,6 +222,9 @@
                         res_name: document.querySelector("#form_SA_res_name").value,
                         dish_name: document.querySelector("#form_SA_dish_name").value,
                         ing_name: document.querySelector("#form_SA_ing_name").value,
+                        res_x: document.querySelector("#form_SA_res_x").value,
+                        res_y: document.querySelector("#form_SA_res_y").value,
+                        res_r: document.querySelector("#form_SA_res_r").value,
                     } 
                     sock.emit("advancedSearch", JSON.stringify(data));
                 });

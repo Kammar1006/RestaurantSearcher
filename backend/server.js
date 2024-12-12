@@ -254,6 +254,9 @@ io.on('connection', (sock) => {
 		let res_r = data.res_r;
 		let sql_flag = false;
 		let where = "";
+		let coords = "";
+		let having = "";
+		let order = "";
 		if(res_name && isAlnum(res_name)){
 			where += `WHERE restaurants.name LIKE '%${res_name}%'`;
 			sql_flag = true;
@@ -270,15 +273,36 @@ io.on('connection', (sock) => {
 			where += `ingredients.name LIKE '%${ing_name}%'`;
 			sql_flag = true;
 		}
+		if(ing_name && isAlnum(ing_name)){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			where += `ingredients.name LIKE '%${ing_name}%'`;
+			sql_flag = true;
+		}
+		if(Number(res_x) && Number(res_y) && Number(res_r)){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			coords = `(6371 * acos(
+						cos(radians(${res_y})) * cos(radians(ST_Y(coordinates))) *
+						cos(radians(ST_X(coordinates)) - radians(${res_x})) +
+						sin(radians(${res_y})) * sin(radians(ST_Y(coordinates)))
+					)) AS distance_km,
+				`;
+			where +=` ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0`;
+			having = `HAVING distance_km <= ${res_r}`
+			order += `distance_km, `;
+			sql_flag = true;
+		}
 		if(sql_flag){
 			let sql = `
-				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight, ingredients.name AS ing_name, ingredients.vegetarian, ingredients.vegan FROM restaurants 
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, ${coords} dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight, ingredients.name AS ing_name, ingredients.vegetarian, ingredients.vegan FROM restaurants 
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
 				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
-				ORDER BY res_id
+				${having}
+				ORDER BY ${order} res_id
 			`;
 			queryDatabase(sql, [])
 			.then((res) => {
