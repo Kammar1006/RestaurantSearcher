@@ -184,10 +184,24 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by coords:
 	sock.on("searchByCoords", (json) => {
 		let data = JSON.parse(json);
-		if(data.x !== undefined && data.y !== undefined && data.range !== undefined){
-			let sql = "SELECT * FROM restaurants";
-			queryDatabase(sql, [data.x, data.y, data.range])
+		console.log(data);
+		if(data.x !== undefined && data.y !== undefined && data.r !== undefined){
+			console.log(data.x, data.y, data.r);
+			let sql = `
+				SELECT id, name, address,
+					(6371 * acos(
+						cos(radians(?)) * cos(radians(ST_Y(coordinates))) *
+						cos(radians(ST_X(coordinates)) - radians(?)) +
+						sin(radians(?)) * sin(radians(ST_Y(coordinates)))
+					)) AS distance_km
+				FROM restaurants
+				WHERE ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0
+				HAVING distance_km <= ?
+				ORDER BY distance_km
+			`;
+			queryDatabase(sql, [data.y, data.x, data.y, data.r])
 			.then((res) => {
+				console.log(res);
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
@@ -223,6 +237,50 @@ io.on('connection', (sock) => {
 				ORDER BY res_id
 			`;
 			queryDatabase(sql, [`%${name}%`])
+			.then((res) => {
+				sock.emit("restaurants", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	//advanced search:
+	sock.on("advancedSearch", (data) => {
+		data = JSON.parse(data);
+		let res_name = data.res_name;
+		let dish_name = data.dish_name;
+		let ing_name = data.ing_name;
+		let res_x = data.res_x;
+		let res_y = data.res_y;
+		let res_r = data.res_r;
+		let sql_flag = false;
+		let where = "";
+		if(res_name && isAlnum(res_name)){
+			where += `WHERE restaurants.name LIKE '%${res_name}%'`;
+			sql_flag = true;
+		}
+		if(dish_name && isAlnum(dish_name)){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			where += `dishes.name LIKE '%${dish_name}%'`;
+			sql_flag = true;
+		}
+		if(ing_name && isAlnum(ing_name)){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			where += `ingredients.name LIKE '%${ing_name}%'`;
+			sql_flag = true;
+		}
+		if(sql_flag){
+			let sql = `
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight, ingredients.name AS ing_name, ingredients.vegetarian, ingredients.vegan FROM restaurants 
+				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
+				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
+				ORDER BY res_id
+			`;
+			queryDatabase(sql, [])
 			.then((res) => {
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
