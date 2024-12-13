@@ -273,12 +273,6 @@ io.on('connection', (sock) => {
 			where += `ingredients.name LIKE '%${ing_name}%'`;
 			sql_flag = true;
 		}
-		if(ing_name && isAlnum(ing_name)){
-			if(sql_flag) where += "AND ";
-			else where += "WHERE ";
-			where += `ingredients.name LIKE '%${ing_name}%'`;
-			sql_flag = true;
-		}
 		if(Number(res_x) && Number(res_y) && Number(res_r)){
 			if(sql_flag) where += "AND ";
 			else where += "WHERE ";
@@ -295,14 +289,19 @@ io.on('connection', (sock) => {
 		}
 		if(sql_flag){
 			let sql = `
-				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, ${coords} dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight, ingredients.name AS ing_name, ingredients.vegetarian, ingredients.vegan FROM restaurants 
+				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
+				restaurants.cuisine_type AS res_cusine, ${coords}
+				GROUP_CONCAT(dishes.name) AS dish_names,
+				GROUP_CONCAT(ingredients.name) AS ingredient_names
+				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
 				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
+				GROUP BY res_id, res_name, res_score
 				${having}
-				ORDER BY ${order} res_id
+				ORDER BY ${order} sort_score
 			`;
 			queryDatabase(sql, [])
 			.then((res) => {
