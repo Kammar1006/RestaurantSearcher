@@ -184,7 +184,7 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by coords:
 	sock.on("searchByCoords", (json) => {
 		let data = JSON.parse(json);
-		console.log(data);
+		//console.log(data);
 		if(data.x !== undefined && data.y !== undefined && data.r !== undefined){
 			console.log(data.x, data.y, data.r);
 			let sql = `
@@ -201,7 +201,7 @@ io.on('connection', (sock) => {
 			`;
 			queryDatabase(sql, [data.y, data.x, data.y, data.r])
 			.then((res) => {
-				console.log(res);
+				//console.log(res);
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
@@ -314,6 +314,44 @@ io.on('connection', (sock) => {
 			queryDatabase(sql, [])
 			.then((res) => {
 				sock.emit("restaurants", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	sock.on("getDishesByResId", (id) => {
+		console.log(id);
+		if(isAlnum(id)){
+			let sql = `
+				SELECT dishes.id, dishes.name, dishes.calories, dishes.price, dishes.weight,
+				GROUP_CONCAT(ingredients.name) AS ingredient_names
+				FROM dishes
+				INNER JOIN restaurants_dishes ON restaurants_dishes.id_dish = dishes.id
+				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
+				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+				WHERE restaurants_dishes.id_restaurant = ?
+				GROUP BY dishes.id
+				ORDER BY dishes.id
+			`;
+			queryDatabase(sql, [`${id}`])
+			.then((res) => {
+				sock.emit("dishesList", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	sock.on("getIngredientsByDishId", (id) => {
+		if(isAlnum(id)){
+			let sql = `
+				SELECT ingredients.id, name, vegetarian, vegan
+				FROM ingredients
+				INNER JOIN ingredients_dishes ON ingredients_dishes.id_ingredient = ingredients.id
+				WHERE ingredients_dishes.id_dish = ?
+				ORDER BY ingredients.id
+			`;
+			// ^^^ to add alergens
+			queryDatabase(sql, [`${id}`])
+			.then((res) => {
+				sock.emit("ingredientsList", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
 	});
