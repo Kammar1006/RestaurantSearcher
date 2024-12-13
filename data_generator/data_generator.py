@@ -2,6 +2,7 @@ import itertools
 import random
 import os
 import json
+import datetime
 
 parent_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -28,12 +29,10 @@ def read_lines_from_file(file_path):
         return [line.strip() for line in file.readlines()]
 
 
+def generate_coordinates(include_zero: bool):
 
-
-def generate_coordinates():
-
-    if random.randint(0, 2) == 1: 
-        return None
+    if random.randint(0, 2) == 1 and include_zero: 
+        return f'POINT({0}, {0})'
     x = random.uniform(51.051500, 51.181850)
     y = random.uniform(16.924000, 17.160050)
 
@@ -48,10 +47,13 @@ def generate_restaurants_dishes(num_records: int):
 
         for j in range(random.randint(3, 5)):
 
+            verified = random.randint(0, 1)
             retstaurant_dishes.append({
                 "id_dish": random.randint(1, num_records),
                 "id_restaurant": i,
-                "verified": random.randint(0, 1)
+                "verified": verified,
+                "updated_by": random.randint(1,10),
+                "verified_by": None if verified == 0 else random.randint(1,5)
             })
 
     with open(os.path.join(output_dir, 'retstaurant_dishes_table.json'), 'w') as file:
@@ -73,6 +75,7 @@ def generate_ingredient_dish(num_records: int):
     with open(os.path.join(output_dir, 'retstaurant_dishes_table.json'), 'w') as file:
         json.dump(ingredient_dish, file, indent=4)
 
+
 def restaurant_generator(num_records: int):
 
     names = set()
@@ -81,9 +84,9 @@ def restaurant_generator(num_records: int):
     random.shuffle(addresses)
     restaurants = []
     
-    for adj, option in all_combinations:
+    for i, (adj, option) in enumerate(all_combinations):
 
-        if len(names) >= num_records:
+        if len(names) >= num_records or len(addresses) == 0:
             break
 
         name = f"{adj} {option}"
@@ -91,20 +94,21 @@ def restaurant_generator(num_records: int):
         if name not in names:
 
             names.add(name)
-            cuisine = random.choice(cuisine_types)
             address = addresses.pop()
             address = address.split(',')
             address = f"st. {address[0]} {address[1]}, {address[3]}, {address[2]}"
             restaurants.append({
+                "id_hours": i,
                 "name": name,
                 "opinion": 0.0,
                 "verified": False,
-                "cuisine_type": cuisine,
                 "address": address,
-                "coordinates": generate_coordinates(),
-                "coordinates_verified": generate_coordinates(),
-                "coordinates_to_verify": generate_coordinates(),
-                "coordinates_verified": False
+                "coordinates": generate_coordinates(True),
+                "coordinates_to_verify": generate_coordinates(False),
+                "coordinates_verified": generate_coordinates(False),
+                "coordinates_verified": False,
+                "updated_by": random.randint(1,10),
+                "verified_by": random.randint(1,5)
             })
 
     with open(os.path.join(output_dir, 'restaurants_table.json'), 'w') as file:
@@ -134,6 +138,7 @@ def dishes_generator(num_records: int):
 
     with open(os.path.join(output_dir, 'dishes_table.json'), 'w') as file:
         json.dump(dishes, file, indent=4)
+
 
 def generate_ingredients_table(num_records):
     names = set()
@@ -210,6 +215,71 @@ def generate_ingredients_dishes_table(num_records):
         json.dump(ingredient_dish, file, indent=4)
 
 
+def generate_cousine_table(num_records):
+
+    names = set()
+    cousines = []
+
+    while len(cousines) < num_records:
+        name = random.choice(cuisine_types)
+
+        if name not in names:
+
+            names.add(name)
+            cousines.append({"type": name})
+
+    with open(os.path.join(output_dir, 'cousine_table.json'), 'w') as file:
+        json.dump(cousines, file, indent=4)
+
+
+def generate_cousines_restaurants_table(num_records):
+
+    cousines_restaurant = []
+
+    for restaurant_id in range(1, num_records + 1):
+        num_cousines = random.randint(1, 3)
+
+        for _ in range(num_cousines):
+
+            cousines_restaurant.append({
+                "id_restaurant": restaurant_id,
+                "id_cousine": random.randint(1, num_records),
+            })
+
+    with open(os.path.join(output_dir, 'cousines_restaurant.json'), 'w') as file:
+        json.dump(cousines_restaurant, file, indent=4)
+
+
+def generate_hours_table(num_records: int):
+    days_of_week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+    hours_table = []
+
+    for _ in range(num_records):
+        hours = {day: f"{random.randint(6, 10):02d}:{0:02d}-{random.randint(17, 23):02d}:{0:02d}" for day in days_of_week}
+        
+        special_days = {}
+        for _ in range(random.randint(4, 5)):
+            special_date = (datetime.datetime.now() + datetime.timedelta(days=random.randint(1, 365))).strftime("%d.%m.%Y")
+            if random.choice([True, False]):
+                special_days[special_date] = "closed"
+            else:
+                special_days[special_date] = f"{random.randint(6, 10):02d}:{0:02d}-{random.randint(13, 16):02d}:{0:02d}"
+        
+        hours_table.append({
+            "mon": hours["mon"],
+            "tue": hours["tue"],
+            "wed": hours["wed"],
+            "thu": hours["thu"],
+            "fri": hours["fri"],
+            "sat": hours["sat"],
+            "sun": hours["sun"],
+            "special": special_days
+        })
+
+    with open(os.path.join(output_dir, 'hours_table.json'), 'w') as file:
+        json.dump(hours_table, file, indent=4)
+
+
 restaurant_adjectives = read_lines_from_file(adjectives_file_path)
 restaurant_options = read_lines_from_file(options_file_path)
 cuisine_types = read_lines_from_file(cuisine_file_path)
@@ -230,4 +300,7 @@ if __name__ == "__main__":
     generate_allergens_table(num_records)
     generate_allergens_ingredients_table(num_records)
     generate_ingredients_dishes_table(num_records)
+    generate_cousine_table(num_records)
+    generate_cousines_restaurants_table(num_records)
+    generate_hours_table(num_records)
     
