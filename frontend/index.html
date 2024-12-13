@@ -85,10 +85,18 @@
                     <br>
                     <input id="form_SA_ing_name" value=""/>
                 </p>
+                <p>
+                    <span> Coords </span>
+                    <br>
+                    <input id="form_SA_res_x" value="" placeholder="longitude (x)"/>
+                    <input id="form_SA_res_y" value="" placeholder="latitude (y)"/>
+                    <input id="form_SA_res_r" value="" placeholder="radius"/>
+                </p>
                 <input id="form_SA_button" type="submit" value="search"/>
             </form>
         </div>
     </div>
+    <hr>
     <p id="places_list">  </p>
 
     <hr>
@@ -142,6 +150,33 @@
         </div>
     </div>
     <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Page for Restaurant </h2>
+            <form id="form_RI">
+                <p>
+                    <span> Restaurant ID </span>
+                    <br>
+                    <input id="form_RI_id" value=""/>
+                </p>
+                <input id="form_RI_button" type="submit" value="search"/>
+            </form>
+        </div>
+        <div class="w50">
+            <h2> Page for Dishes </h2>
+            <form id="form_DI">
+                <p>
+                    <span> Dish ID </span>
+                    <br>
+                    <input id="form_DI_id" value=""/>
+                </p>
+                <input id="form_DI_button" type="submit" value="search"/>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <p id="menu_list">  </p>
+    <hr>
     <input style="display: none;" id="clicker" value="click" type="submit"/>
 
     
@@ -158,6 +193,18 @@
                 document.getElementById("places_list").innerHTML = "";
                 places.forEach(e => document.getElementById("places_list").innerHTML += JSON.stringify(e)+"<br>");
                 //document.querySelector("#places_list").innerHTML = JSON.stringify(places);
+            });
+
+            sock.on("dishesList", (d) => {
+                console.log(d); //show in console
+                document.getElementById("menu_list").innerHTML = "";
+                d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
+            });
+
+            sock.on("ingredientsList", (d) => {
+                console.log(d); //show in console
+                document.getElementById("menu_list").innerHTML = "";
+                d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
             });
 
             sock.on("login", (e) => {
@@ -214,6 +261,9 @@
                         res_name: document.querySelector("#form_SA_res_name").value,
                         dish_name: document.querySelector("#form_SA_dish_name").value,
                         ing_name: document.querySelector("#form_SA_ing_name").value,
+                        res_x: document.querySelector("#form_SA_res_x").value,
+                        res_y: document.querySelector("#form_SA_res_y").value,
+                        res_r: document.querySelector("#form_SA_res_r").value,
                     } 
                     sock.emit("advancedSearch", JSON.stringify(data));
                 });
@@ -236,6 +286,18 @@
                     let pass2 = document.querySelector("#form_U2_pass2").value;
                     let email = document.querySelector("#form_U2_email").value;
                     sock.emit("register", login, pass, pass2, email);
+                });
+
+            document
+                .querySelector("#form_RI_button")
+                .addEventListener('click', (e) => {
+                    sock.emit("getDishesByResId", document.querySelector("#form_RI_id").value);
+                });
+
+            document
+                .querySelector("#form_DI_button")
+                .addEventListener('click', (e) => {
+                    sock.emit("getIngredientsByDishId", document.querySelector("#form_DI_id").value);
                 });
 
             document
@@ -278,6 +340,16 @@
             });
         document
             .querySelector("#form_U2")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_RI")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_DI")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });

@@ -174,7 +174,7 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by name
 	sock.on("searchByName", (name) => {
 		if(isAlnum(name)){
-			queryDatabase("SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords FROM restaurants WHERE name LIKE ? AND restaurants.verified = 1", [`%${name}%`])
+			queryDatabase("SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, address AS res_address FROM restaurants WHERE name LIKE ? AND restaurants.verified = 1", [`%${name}%`])
 			.then((res) => {
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
@@ -184,7 +184,7 @@ io.on('connection', (sock) => {
 	//for all users searching restaurant by coords:
 	sock.on("searchByCoords", (json) => {
 		let data = JSON.parse(json);
-		console.log(data);
+		//console.log(data);
 		if(data.x !== undefined && data.y !== undefined && data.r !== undefined){
 			console.log(data.x, data.y, data.r);
 			let sql = `
@@ -201,7 +201,7 @@ io.on('connection', (sock) => {
 			`;
 			queryDatabase(sql, [data.y, data.x, data.y, data.r])
 			.then((res) => {
-				console.log(res);
+				//console.log(res);
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
@@ -211,10 +211,14 @@ io.on('connection', (sock) => {
 	sock.on("searchByDish", (name) => {
 		if(isAlnum(name)){
 			let sql = `
-				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight FROM restaurants 
+				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, 
+				GROUP_CONCAT(dishes.name) AS dish_names
+				FROM restaurants 
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				WHERE dishes.name LIKE ? AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
+				GROUP BY res_id, res_name, res_score
+				ORDER BY sort_score DESC
 			`;
 			queryDatabase(sql, [`%${name}%`])
 			.then((res) => {
@@ -228,13 +232,17 @@ io.on('connection', (sock) => {
 	sock.on("searchByIngredient", (name) => {
 		if(isAlnum(name)){
 			let sql = `
-				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight, ingredients.name AS ing_name, ingredients.vegetarian, ingredients.vegan FROM restaurants 
+				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, 
+				GROUP_CONCAT(dishes.name) AS dish_names,
+				GROUP_CONCAT(ingredients.name) AS ing_names
+				FROM restaurants 
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
 				WHERE ingredients.name LIKE ? AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
-				ORDER BY res_id
+				GROUP BY res_id, res_name, res_score
+				ORDER BY sort_score DESC
 			`;
 			queryDatabase(sql, [`%${name}%`])
 			.then((res) => {
@@ -254,6 +262,9 @@ io.on('connection', (sock) => {
 		let res_r = data.res_r;
 		let sql_flag = false;
 		let where = "";
+		let coords = "";
+		let having = "";
+		let order = "";
 		if(res_name && isAlnum(res_name)){
 			where += `WHERE restaurants.name LIKE '%${res_name}%'`;
 			sql_flag = true;
@@ -270,19 +281,77 @@ io.on('connection', (sock) => {
 			where += `ingredients.name LIKE '%${ing_name}%'`;
 			sql_flag = true;
 		}
+		if(Number(res_x) && Number(res_y) && Number(res_r)){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			coords = `(6371 * acos(
+						cos(radians(${res_y})) * cos(radians(ST_Y(coordinates))) *
+						cos(radians(ST_X(coordinates)) - radians(${res_x})) +
+						sin(radians(${res_y})) * sin(radians(ST_Y(coordinates)))
+					)) AS distance_km,
+				`;
+			where +=` ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0`;
+			having = `HAVING distance_km <= ${res_r}`
+			order += `distance_km, `;
+			sql_flag = true;
+		}
 		if(sql_flag){
 			let sql = `
-				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, restaurants.cuisine_type AS res_cusine, restaurants.coordinates AS res_coords, dishes.id AS dish_id, dishes.name AS dish_name, dishes.calories, dishes.price, dishes.weight, ingredients.name AS ing_name, ingredients.vegetarian, ingredients.vegan FROM restaurants 
+				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
+				restaurants.cuisine_type AS res_cusine, ${coords}
+				GROUP_CONCAT(dishes.name) AS dish_names,
+				GROUP_CONCAT(ingredients.name) AS ingredient_names
+				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
 				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
-				ORDER BY res_id
+				GROUP BY res_id, res_name, res_score
+				${having}
+				ORDER BY ${order} sort_score DESC
 			`;
 			queryDatabase(sql, [])
 			.then((res) => {
 				sock.emit("restaurants", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	sock.on("getDishesByResId", (id) => {
+		console.log(id);
+		if(isAlnum(id)){
+			let sql = `
+				SELECT dishes.id, dishes.name, dishes.calories, dishes.price, dishes.weight,
+				GROUP_CONCAT(ingredients.name) AS ingredient_names
+				FROM dishes
+				INNER JOIN restaurants_dishes ON restaurants_dishes.id_dish = dishes.id
+				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
+				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+				WHERE restaurants_dishes.id_restaurant = ?
+				GROUP BY dishes.id
+				ORDER BY dishes.id
+			`;
+			queryDatabase(sql, [`${id}`])
+			.then((res) => {
+				sock.emit("dishesList", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	sock.on("getIngredientsByDishId", (id) => {
+		if(isAlnum(id)){
+			let sql = `
+				SELECT ingredients.id, name, vegetarian, vegan
+				FROM ingredients
+				INNER JOIN ingredients_dishes ON ingredients_dishes.id_ingredient = ingredients.id
+				WHERE ingredients_dishes.id_dish = ?
+				ORDER BY ingredients.id
+			`;
+			// ^^^ to add alergens
+			queryDatabase(sql, [`${id}`])
+			.then((res) => {
+				sock.emit("ingredientsList", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
 	});
