@@ -98,7 +98,6 @@ def restaurant_generator(num_records: int):
             address = address.split(',')
             address = f"st. {address[0]} {address[1]}, {address[3]}, {address[2]}"
             restaurants.append({
-                "id_hours": i,
                 "name": name,
                 "opinion": 0.0,
                 "verified": False,
@@ -294,13 +293,13 @@ if __name__ == "__main__":
 
     num_records = 100
     restaurant_generator(num_records)
-    dishes_generator(num_records)
-    generate_restaurants_dishes(num_records)
-    generate_ingredients_table(num_records)
-    generate_allergens_table(num_records)
-    generate_allergens_ingredients_table(num_records)
-    generate_ingredients_dishes_table(num_records)
-    generate_cousine_table(num_records)
-    generate_cousines_restaurants_table(num_records)
-    generate_hours_table(num_records)
+    #dishes_generator(num_records)
+    #generate_restaurants_dishes(num_records)
+    #generate_ingredients_table(num_records)
+    #generate_allergens_table(num_records)
+    #generate_allergens_ingredients_table(num_records)
+    #generate_ingredients_dishes_table(num_records)
+    #generate_cousine_table(num_records)
+    #generate_cousines_restaurants_table(num_records)
+    #generate_hours_table(num_records)
     

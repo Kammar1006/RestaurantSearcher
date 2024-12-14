@@ -318,6 +318,10 @@ io.on('connection', (sock) => {
 		}
 	});
 
+	sock.on("getRestaurantInfo", (id) => {
+		
+	});
+
 	sock.on("getDishesByResId", (id) => {
 		console.log(id);
 		if(isAlnum(id)){
@@ -356,17 +360,42 @@ io.on('connection', (sock) => {
 		}
 	});
 
-	//for auth users sth:
-	sock.on("auth_user_only", (some_data) => {
+	//for auth users:
+	sock.on("add_restaurant", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		//do sth:
+	});
 
-		/*
-			//if in db exist sth like rank/grade, may use only for rank:
-			if(translationTab[cid].db_stats.is_admin == 1){
-				//do sth
-			}
-		*/
+	sock.on("add_dish", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+	});
+
+	sock.on("update_dish", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+	});
+
+	sock.on("update_location", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+	});
+
+	sock.on("add_comment", () => {
+		if(translationTab[cid].user_id === -1) return;
+	});
+
+	//for admins:
+	sock.on("verify_restaurant", () => {
+		if(translationTab[cid].user_id === -1) return;
+	});
+
+	sock.on("verify_dish", () => {
+		if(translationTab[cid].user_id === -1) return;
+	});
+
+	sock.on("verify_location", () => {
+		if(translationTab[cid].user_id === -1) return;
+	});
+
+	sock.on("verify_comment", () => {
+		if(translationTab[cid].user_id === -1) return;
 	});
 });
 
