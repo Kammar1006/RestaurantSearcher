@@ -175,6 +175,8 @@
         </div>
     </div>
     <hr>
+    <p id="res_info">  </p>
+    <p id="res_comments">  </p>
     <p id="menu_list">  </p>
     <hr>
     <input style="display: none;" id="clicker" value="click" type="submit"/>
@@ -199,6 +201,12 @@
                 console.log(d); //show in console
                 document.getElementById("menu_list").innerHTML = "";
                 d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
+            });
+
+            sock.on("restaurantInfo", (d) => {
+                console.log(d); //show in console
+                document.getElementById("res_info").innerHTML = "";
+                d.forEach(e => document.getElementById("res_info").innerHTML += JSON.stringify(e)+"<br>");
             });
 
             sock.on("ingredientsList", (d) => {
@@ -292,6 +300,8 @@
                 .querySelector("#form_RI_button")
                 .addEventListener('click', (e) => {
                     sock.emit("getDishesByResId", document.querySelector("#form_RI_id").value);
+                    sock.emit("getRestaurantInfo", document.querySelector("#form_RI_id").value);
+                    sock.emit("getComments", document.querySelector("#form_RI_id").value);
                 });
 
             document

@@ -319,7 +319,26 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getRestaurantInfo", (id) => {
-		
+		if(isAlnum(id)){
+			let sql = `
+				SELECT name, opinion, coordinates, address, GROUP_CONCAT(cousines.type) AS res_cousines, client.username AS up_by, admin.username AS ver_by
+				FROM restaurants
+				INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
+				INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+				LEFT JOIN users AS client ON client.id = restaurants.updated_by
+				LEFT JOIN users AS admin ON admin.id = restaurants.verified_by
+				WHERE restaurants.id = ?
+			`;
+			queryDatabase(sql, [`${id}`])
+			.then((res) => {
+				//console.log(res);
+				sock.emit("restaurantInfo", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
+	});
+
+	sock.on("getComments", (id) => {
+
 	});
 
 	sock.on("getDishesByResId", (id) => {
