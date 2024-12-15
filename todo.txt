@@ -13,5 +13,6 @@ endpoints (backend):
 - verify_location
 - verify_comment
 -- search by cousines def / adv
+-- fix all wrong names in backend, frontend, generator, and db
 add sort system
 for all sort system add info about hours / open / closed

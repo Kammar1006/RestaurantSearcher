@@ -183,7 +183,7 @@
     <hr>
     <div class="flex center">
         <div class="w50">
-            <h2> Add restaurant </h2>
+            <h2> Add Restaurant </h2>
             <form id="form_U3">
                 <p>
                     <span> Name </span>
@@ -195,11 +195,20 @@
                     <br>
                     <input id="form_U3_address" value=""/>
                 </p>
-                <input id="form_U3_button" type="submit" value="add"/>
+                <p>
+                    <span> Cuisine(s) </span>
+                    <br>
+                    <select id="form_U3_cuisines" multiple>
+                    </select>
+                </p>
+                <input id="form_U3_button" type="submit" value="Add Restaurant"/>
             </form>
         </div>
         <div class="w50">
             <h2> Add Dish </h2>
+            <form id="form_U4">
+                <input id="form_U4_button" type="submit" value="add"/>
+            </form>
         </div>
     </div>
     <hr>
@@ -223,6 +232,9 @@
         </div>
         <div class="w50">
             <h2> Add Comment </h2>
+            <form id="form_U6">
+                <input id="form_U6_button" type="submit" value="add"/>
+            </form>
         </div>
     </div>
     <hr>
@@ -295,6 +307,22 @@
 
             sock.on("message", (t) => {
                 console.log("message: ", t);
+            });
+
+            sock.emit("get_cuisines");
+
+            sock.on("cuisinesList", (data) => {
+                let cuisinesList = JSON.parse(data);
+                
+                let selectElement = document.querySelector("#form_U3_cuisines");
+                selectElement.innerHTML = '';
+
+                cuisinesList.forEach(cuisine => {
+                    let option = document.createElement("option");
+                    option.value = cuisine.type;
+                    option.textContent = cuisine.type;
+                    selectElement.appendChild(option);
+                });
             });
 
             //send info to backend - form 1
@@ -370,6 +398,28 @@
                 });
 
             document
+                .querySelector("#form_U3_button")
+                .addEventListener('click', (e) => {
+                    console.log("click")
+                    let name = document.querySelector("#form_U3_name").value;
+                    let address = document.querySelector("#form_U3_address").value;
+
+                    let cuisines = Array.from(
+                        document.querySelector("#form_U3_cuisines").selectedOptions
+                    ).map(option => option.value); 
+
+                    let restaurantData = {
+                        name: name,
+                        address: address,
+                        cuisines: cuisines
+                    };
+
+                    console.log(restaurantData)
+
+                    sock.emit("add_restaurant", JSON.stringify(restaurantData));
+                });
+
+            document
                 .querySelector("#form_DI_button")
                 .addEventListener('click', (e) => {
                     sock.emit("getIngredientsByDishId", document.querySelector("#form_DI_id").value);
@@ -415,6 +465,27 @@
             });
         document
             .querySelector("#form_U2")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+
+        document
+            .querySelector("#form_U3")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_U4")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_U5")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_U6")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });

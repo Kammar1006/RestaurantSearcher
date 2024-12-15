@@ -404,21 +404,53 @@ io.on('connection', (sock) => {
 		if(translationTab[cid].user_id === -1) return;
 		json = JSON.parse(json);
 		let name = json.name;
-		if(isAlnum(name) == false) return;
 		let address = json.address;
-		if(isAlnum(address.replaceAll(',', '')) == false) return;
+		let cuisines = json.cuisines;
+		console.log("test");
+		if(isAlnum(name) == false || isAlnum(address.replaceAll(',', '')) == false) return;
+		console.log("test");
 		let up_by = translationTab[cid].user_id;
-		//insert into
+	
 		let sql = `
-			INSERT INTO restaurants 
-			(id, name, opinion, verified, coordinates, coordinates_to_verify, coordinates_verified, address, updated_by, verified_by) 
+			INSERT INTO restaurants (id, name, opinion, verified, coordinates, coordinates_to_verify, coordinates_verified, address, updated_by, verified_by) 
 			VALUES (NULL, ?, '', '0', POINT(0, 0), POINT(0, 0), 0, ?, ?, '')
 		`;
+		
 		queryDatabase(sql, [name, address, up_by])
 		.then((res) => {
-			//console.log(res);
+			let restaurantId = res.insertId;
+			console.log(restaurantId);
+			cuisines.forEach(cuisine => {
+				let sqlCuisine = `SELECT id FROM cousines WHERE type = ?`;
+				queryDatabase(sqlCuisine, [cuisine])
+				.then(cuisineRes => {
+					let cuisineId = cuisineRes.length > 0 ? cuisineRes[0].id : null;
+	
+					if (cuisineId) {
+						let sqlInsertCuisineLink = `INSERT INTO cousines_restaurants (id_restaurant, id_cousine) VALUES (?, ?)`;
+						queryDatabase(sqlInsertCuisineLink, [restaurantId, cuisineId]);
+					}
+				}).catch(err => {
+					console.log("DB Error: " + err);
+				});
+			});
+	
 			sock.emit("restaurantAdded", json);
-		}).catch((err) => {console.log("DB Error: "+err);});
+		}).catch((err) => {
+			console.log("DB Error: " + err);
+		});
+	});
+
+	sock.on("get_cuisines", () => {
+		let sql = "SELECT type FROM cousines";
+		
+		queryDatabase(sql)
+		.then((res) => {
+			sock.emit("cuisinesList", JSON.stringify(res));
+		})
+		.catch((err) => {
+			console.log("DB Error: " + err);
+		});
 	});
 
 	sock.on("add_dish", (json) => {
