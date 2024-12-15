@@ -179,10 +179,75 @@
     <p id="res_comments">  </p>
     <p id="menu_list">  </p>
     <hr>
+    <h1 class="center"> For Auth Users </h1>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Add restaurant </h2>
+            <form id="form_U3">
+                <p>
+                    <span> Name </span>
+                    <br>
+                    <input id="form_U3_name" value=""/>
+                </p>
+                <p> 
+                    <span> Address </span>
+                    <br>
+                    <input id="form_U3_address" value=""/>
+                </p>
+                <input id="form_U3_button" type="submit" value="add"/>
+            </form>
+        </div>
+        <div class="w50">
+            <h2> Add Dish </h2>
+        </div>
+    </div>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Change Coords </h2>
+            <form id="form_U5">
+                <p>
+                    <span> ID </span>
+                    <br>
+                    <input id="form_U5_id" value=""/>
+                </p>
+                <p>
+                    <span> Coords </span>
+                    <br>
+                    <input id="form_U5_coord_x" value=""/>
+                    <input id="form_U5_coord_y" value=""/>
+                </p>
+                <input id="form_U5_button" type="submit" value="update"/>
+            </form>
+        </div>
+        <div class="w50">
+            <h2> Add Comment </h2>
+        </div>
+    </div>
+    <hr>
+    <h1 class="center"> For Admins </h1>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Verify restaurant </h2>
+        </div>
+        <div class="w50">
+            <h2> Verify Dish </h2>
+        </div>
+    </div>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Verify Coords </h2>
+        </div>
+        <div class="w50">
+            <h2> Verify Comment </h2>
+        </div>
+    </div>
+    <hr>
     <input style="display: none;" id="clicker" value="click" type="submit"/>
 
-    
-    
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
