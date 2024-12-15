@@ -1,6 +1,18 @@
-[V] Authe
-[V] Autho
-[] Redirection
-[] Rooms / Multicast
-[V] Save db info
-[V] Better Cookie / Session
+add vegan/vegetarian to dishes (db)
+add hours table
+endpoints (backend):
+- getRestaurantInfo //add hours
+- getComments
+- add_restaurant
+- add_dish
+- update_dish
+- update_location
+- add_comment
+- verify_restaurant
+- verify_dish
+- verify_location
+- verify_comment
+-- search by cousines def / adv
+-- fix all wrong names in backend, frontend, generator, and db
+add sort system
+for all sort system add info about hours / open / closed
