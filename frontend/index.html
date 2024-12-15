@@ -205,10 +205,53 @@
             </form>
         </div>
         <div class="w50">
-            <h2> Add Dish </h2>
-            <form id="form_U4">
-                <input id="form_U4_button" type="submit" value="add"/>
-            </form>
+            <div class="add-dish-form">
+                <h2>Add Dish</h2>
+                <form id="form_U4">
+                    <p>
+                        <span>RestaurantID</span><br>
+                        <input id="form_U4_id" value=""/>
+                    </p>
+                    <p>
+                        <span>Name</span><br>
+                        <input id="form_U4_name" value=""/>
+                    </p>
+                    <p>
+                        <span>Calories</span><br>
+                        <input id="form_U4_calories" type="number" value=""/>
+                    </p>
+                    <p>
+                        <span>Weight</span><br>
+                        <input id="form_U4_weight" type="number" value=""/>
+                    </p>
+                    <p>
+                        <span>Price</span><br>
+                        <input id="form_U4_price" type="number" value=""/>
+                    </p>
+                    <p>
+                        <span>Vegan</span><br>
+                        <input id="form_U4_vegan" type="checkbox"/>
+                    </p>
+                    <p>
+                        <span>Vegetarian</span><br>
+                        <input id="form_U4_vegetarian" type="checkbox"/>
+                    </p>
+            
+                    <!-- Składniki -->
+                    <h3>Ingredients</h3>
+                    <div id="ingredients-list">
+                        <!-- Dynamically populate ingredients list -->
+                    </div>
+                    <button type="button" id="add-ingredient-btn">Add Ingredient</button>
+            
+                    <!-- Alergeny -->
+                    <div id="allergens-list">
+                        <!-- Dynamically populate allergens for the selected ingredient -->
+                    </div>
+            
+                    <input type="submit" value="Add Dish"/>
+                </form>
+            </div>       
         </div>
     </div>
     <hr>
@@ -263,6 +306,69 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        let ingredients = [];
+        let allergens = []; 
+        let currentIngredientIndex = -1;
+
+        function addIngredient() {
+            const ingredientName = prompt("Enter ingredient name:");
+            if (ingredientName) {
+                ingredients.push({ name: ingredientName, allergens: [] });
+                renderIngredients();
+            }
+        }
+
+        function renderIngredients() {
+            const ingredientsListDiv = document.getElementById("ingredients-list");
+            ingredientsListDiv.innerHTML = "";
+            ingredients.forEach((ingredient, index) => {
+                const ingredientDiv = document.createElement("div");
+                ingredientDiv.classList.add("ingredient");
+                ingredientDiv.innerHTML = `
+                    <span>${ingredient.name}</span>
+                    <button type="button" onclick="editIngredient(${index})">Edit</button>
+                `;
+                ingredientsListDiv.appendChild(ingredientDiv);
+            });
+        }
+
+        function editIngredient(index) {
+            currentIngredientIndex = index;
+            const ingredient = ingredients[index];
+
+            const allergensListDiv = document.getElementById("allergens-list");
+            allergensListDiv.innerHTML = `<h4>Allergens for ${ingredient.name}</h4>`;
+
+            const allergenInput = document.createElement("input");
+            allergenInput.type = "text";
+            allergenInput.placeholder = "Enter allergen name";
+            allergensListDiv.appendChild(allergenInput);
+
+            const addAllergenButton = document.createElement("button");
+            addAllergenButton.innerText = "Add Allergen";
+            addAllergenButton.addEventListener("click", () => {
+                const allergenName = allergenInput.value.trim();
+                if (allergenName) {
+                    allergens.push({ name: allergenName });
+                    ingredient.allergens.push(allergenName);
+                    renderAllergens();
+                    allergenInput.value = ""; 
+                }
+            });
+            allergensListDiv.appendChild(addAllergenButton);
+        }
+
+        function renderAllergens() {
+            const allergensListDiv = document.getElementById("allergens-list");
+            allergensListDiv.innerHTML = `<h4>Allergens</h4>`;
+            const ingredient = ingredients[currentIngredientIndex];
+            ingredient.allergens.forEach((allergen) => {
+                const allergenDiv = document.createElement("div");
+                allergenDiv.innerHTML = `<span>${allergen}</span>`;
+                allergensListDiv.appendChild(allergenDiv);
+            });
+        }
+
         (() => {
             const sock = io();
 
@@ -322,6 +428,29 @@
                     option.value = cuisine.type;
                     option.textContent = cuisine.type;
                     selectElement.appendChild(option);
+                });
+            });
+
+            document.getElementById("add-ingredient-btn").addEventListener("click", addIngredient);
+
+            document.getElementById("form_U4").addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const dish = {
+                    id: document.getElementById("form_U4_id").value,
+                    name: document.getElementById("form_U4_name").value,
+                    calories: document.getElementById("form_U4_calories").value,
+                    weight: document.getElementById("form_U4_weight").value,
+                    price: document.getElementById("form_U4_price").value,
+                    vegan: document.getElementById("form_U4_vegan").checked,
+                    vegetarian: document.getElementById("form_U4_vegetarian").checked,
+                    ingredients: ingredients,
+                };
+
+                console.log(dish);
+
+                sock.emit("addDish", JSON.stringify(dish), (response) => {
+                    alert(response.message);
                 });
             });
 

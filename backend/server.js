@@ -453,16 +453,77 @@ io.on('connection', (sock) => {
 		});
 	});
 
-	sock.on("add_dish", (json) => {
-		if(translationTab[cid].user_id === -1) return;
-		json = JSON.parse(json);
-		let name = json.name;
-		let res_id = json.res_id;
-		let up_by = translationTab[cid].user_id;
-		//if name exist in that res.
-		//search if res exist
-		//insert into
+	const isValidPrice = (price) => price > 0;
+	const isValidCalorie = (calories) => calories > 0;
+	const isValidWeight = (weight) => weight > 0;
+
+	async function addIngredientAndAllergen(name, allergenNames = []) {
+		let ingredientId;
+		
+		let ingredientInsertSql = `INSERT INTO ingredients (name) VALUES (?)`;
+		let insertResult = await queryDatabase(ingredientInsertSql, [name]);
+		ingredientId = insertResult.insertId;
+
+		for (let allergenName of allergenNames) {
+			let allergenId;
+			let allergenCheckSql = `SELECT id FROM allergens WHERE name = ?`;
+			let allergenResult = await queryDatabase(allergenCheckSql, [allergenName]);
+
+			if (allergenResult.length === 0) {
+				let allergenInsertSql = `INSERT INTO allergens (name) VALUES (?)`;
+				let allergenInsertResult = await queryDatabase(allergenInsertSql, [allergenName]);
+				allergenId = allergenInsertResult.insertId;
+			} else {
+				allergenId = allergenResult[0].id;
+			}
+
+			let allergenLinkSql = `INSERT INTO allergens_ingredients (id_ingredient, id_allergen) VALUES (?, ?)`;
+			await queryDatabase(allergenLinkSql, [ingredientId, allergenId]);
+		}
+
+		return ingredientId;
+	}
+
+	sock.on("addDish", async (json) => {
+		let dishData = JSON.parse(json);
+		let { name, calories, weight, price, vegan, vegetarian, ingredients, id } = dishData;
+
+		if (!isAlnum(name.replaceAll(' ', ''))) return sock.emit("dishAdded", { message: "Invalid dish name." });
+		if (!isValidPrice(price)) return sock.emit("dishAdded", { message: "Invalid price." });
+		if (!isValidCalorie(calories)) return sock.emit("dishAdded", { message: "Invalid calories." });
+		if (!isValidWeight(weight)) return sock.emit("dishAdded", { message: "Invalid weight." });
+
+		let restaurantCheckSql = `SELECT id FROM restaurants WHERE id = ?`;
+		let restaurantResult = await queryDatabase(restaurantCheckSql, [id]);
+		if (restaurantResult.length === 0) {
+			return sock.emit("dishAdded", { message: "Restaurant does not exist." });
+		}
+
+		try {
+			let dishSql = `INSERT INTO dishes (name, calories, weight, price, vegan, vegetarian) 
+						VALUES (?, ?, ?, ?, ?, ?)`;
+			let dishResult = await queryDatabase(dishSql, [name, calories, weight, price, vegan, vegetarian]);
+			let dishId = dishResult.insertId;
+
+			let restaurantDishSql = `INSERT INTO restaurants_dishes (id_restaurant, id_dish) VALUES (?, ?)`;
+			await queryDatabase(restaurantDishSql, [id, dishId]);
+
+			for (let ingredient of ingredients) {
+				let { name: ingredientName, allergens } = ingredient;
+
+				let ingredientId = await addIngredientAndAllergen(ingredientName, allergens);
+				
+				let ingredientDishSql = `INSERT INTO ingredients_dishes (id_dish, id_ingredient) VALUES (?, ?)`;
+				await queryDatabase(ingredientDishSql, [dishId, ingredientId]);
+			}
+
+			sock.emit("dishAdded", { message: "Dish added successfully!" });
+		} catch (err) {
+			console.error("DB Error: ", err);
+			sock.emit("dishAdded", { message: "An error occurred while adding the dish." });
+		}
 	});
+
 
 	sock.on("update_dish", (json) => {
 		if(translationTab[cid].user_id === -1) return;
