@@ -485,6 +485,7 @@ io.on('connection', (sock) => {
 	}
 
 	sock.on("addDish", async (json) => {
+		if(translationTab[cid].user_id === -1) return;
 		let dishData = JSON.parse(json);
 		let { name, calories, weight, price, vegan, vegetarian, ingredients, id } = dishData;
 
@@ -505,8 +506,8 @@ io.on('connection', (sock) => {
 			let dishResult = await queryDatabase(dishSql, [name, calories, weight, price, vegan, vegetarian]);
 			let dishId = dishResult.insertId;
 
-			let restaurantDishSql = `INSERT INTO restaurants_dishes (id_restaurant, id_dish) VALUES (?, ?)`;
-			await queryDatabase(restaurantDishSql, [id, dishId]);
+			let restaurantDishSql = `INSERT INTO restaurants_dishes (id_restaurant, id_dish, updated_by) VALUES (?, ?, ?)`;
+			await queryDatabase(restaurantDishSql, [id, dishId, translationTab[cid].user_id]);
 
 			for (let ingredient of ingredients) {
 				let { name: ingredientName, allergens } = ingredient;
@@ -524,32 +525,33 @@ io.on('connection', (sock) => {
 		}
 	});
 
-
-	sock.on("update_dish", (json) => {
-		if(translationTab[cid].user_id === -1) return;
-	});
-
 	sock.on("update_location", (json) => {
 		if(translationTab[cid].user_id === -1) return;
 		json = JSON.parse(json);
-		let res_id = json.res_id;
-		let coordinates = json.new_coordinates;
+		let res_id = json.id;
+		let coordinates = {x: json.coord_x, y: json.coord_y};
 		let up_by = translationTab[cid].user_id;
 		//search if res exist
 		let sql = `SELECT * FROM restaurants WHERE id = ?`;
 		queryDatabase(sql, [res_id])
 		.then((res) => {
+			console.log(res);
 			if(res.length == 1){
 				//update
+				console.log(coordinates);
 				if(!(Number(coordinates.x) && Number(coordinates.y))){
 					coordinates.x = 0;
 					coordinates.y = 0;
 				}
-
-				sql = `UPDATE restaurants SET coordinates_to_verify = ?, coordinates_verified = 0, updated_by = ? WHERE id = ?`;
-				queryDatabase(sql, [`POINT(${coordinates.x}, ${coordinates.y})`, up_by, res_id])
-
-				
+				console.log(coordinates);
+				sql = `UPDATE restaurants SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), coordinates_verified = 0, updated_by = ? WHERE id = ?`;
+				queryDatabase(sql, [up_by, res_id])
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log("DB Error: " + err);
+				});
 			}
 		}).catch((err) => {console.log("DB Error: "+err);});
 		

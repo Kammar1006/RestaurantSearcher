@@ -549,6 +549,23 @@
                 });
 
             document
+                .querySelector("#form_U5_button")
+                .addEventListener('click', (e) => {
+                    console.log("click")
+                    let id = document.querySelector("#form_U5_id").value;
+                    let coord_x = document.querySelector("#form_U5_coord_x").value;
+                    let coord_y = document.querySelector("#form_U5_coord_y").value;
+
+                    let json = {
+                        id: id,
+                        coord_x: coord_x,
+                        coord_y: coord_y
+                    }
+
+                    sock.emit("update_location", JSON.stringify(json));
+                });
+
+            document
                 .querySelector("#form_DI_button")
                 .addEventListener('click', (e) => {
                     sock.emit("getIngredientsByDishId", document.querySelector("#form_DI_id").value);
