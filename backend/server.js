@@ -62,7 +62,46 @@ const hashCompare = (data, hash) => {
 }
 const emit_login_data = (sock, db_stats) => {
 	let emit_db_stats = {...db_stats};
-	sock.emit("login", emit_db_stats); 
+	let json = {
+		restaurants: [],
+		dishes: [],
+		coords: [],
+		comments: []
+	};
+
+	let sql  = `
+		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cousines.type) AS res_cousines, 
+		address AS res_address, restaurants.verified AS res_ver
+		FROM restaurants 
+		INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
+		INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+		WHERE restaurants.updated_by = ?
+		GROUP BY res_id
+	`;
+	queryDatabase(sql, [emit_db_stats.id])
+	.then((res) => {
+		console.log(res);
+		json.restaurants = res;
+
+		let sql = `
+			SELECT restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
+			FROM comments 
+			INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id 
+			INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id 
+			WHERE comments.updated_by = 3 
+			ORDER BY restaurants.id DESC
+		`;
+
+		queryDatabase(sql, [emit_db_stats.id])
+		.then((res) => {
+			console.log(res);
+			json.comments = res;
+
+			//to add dishes & coords
+
+			sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+		}).catch((err) => {console.log("DB Error: "+err);});
+	}).catch((err) => {console.log("DB Error: "+err);});
 }
 
 io.on('connection', (sock) => {
@@ -73,6 +112,8 @@ io.on('connection', (sock) => {
 	}
 	setTranslationTab(cid);
 	console.log("User: "+cid);
+	if(translationTab[cid].user_id !== -1)
+		emit_login_data(sock, translationTab[cid].db_stats);
 
 	sock.on("counter", () => {
 		translationTab[cid].test_counter++;
@@ -105,8 +146,6 @@ io.on('connection', (sock) => {
 		}).catch((err) => {
 			console.log("DB ERROR: "+err);
 		})
-			
-		
 	});
 
 	//register:
@@ -453,42 +492,105 @@ io.on('connection', (sock) => {
 		});
 	});
 
-	sock.on("add_dish", (json) => {
-		if(translationTab[cid].user_id === -1) return;
-		json = JSON.parse(json);
-		let name = json.name;
-		let res_id = json.res_id;
-		let up_by = translationTab[cid].user_id;
-		//if name exist in that res.
-		//search if res exist
-		//insert into
-	});
+	const isValidPrice = (price) => price > 0;
+	const isValidCalorie = (calories) => calories > 0;
+	const isValidWeight = (weight) => weight > 0;
 
-	sock.on("update_dish", (json) => {
+	async function addIngredientAndAllergen(name, allergenNames = []) {
+		let ingredientId;
+		
+		let ingredientInsertSql = `INSERT INTO ingredients (name) VALUES (?)`;
+		let insertResult = await queryDatabase(ingredientInsertSql, [name]);
+		ingredientId = insertResult.insertId;
+
+		for (let allergenName of allergenNames) {
+			let allergenId;
+			let allergenCheckSql = `SELECT id FROM allergens WHERE name = ?`;
+			let allergenResult = await queryDatabase(allergenCheckSql, [allergenName]);
+
+			if (allergenResult.length === 0) {
+				let allergenInsertSql = `INSERT INTO allergens (name) VALUES (?)`;
+				let allergenInsertResult = await queryDatabase(allergenInsertSql, [allergenName]);
+				allergenId = allergenInsertResult.insertId;
+			} else {
+				allergenId = allergenResult[0].id;
+			}
+
+			let allergenLinkSql = `INSERT INTO allergens_ingredients (id_ingredient, id_allergen) VALUES (?, ?)`;
+			await queryDatabase(allergenLinkSql, [ingredientId, allergenId]);
+		}
+
+		return ingredientId;
+	}
+
+	sock.on("addDish", async (json) => {
 		if(translationTab[cid].user_id === -1) return;
+		let dishData = JSON.parse(json);
+		let { name, calories, weight, price, vegan, vegetarian, ingredients, id } = dishData;
+
+		if (!isAlnum(name.replaceAll(' ', ''))) return sock.emit("dishAdded", { message: "Invalid dish name." });
+		if (!isValidPrice(price)) return sock.emit("dishAdded", { message: "Invalid price." });
+		if (!isValidCalorie(calories)) return sock.emit("dishAdded", { message: "Invalid calories." });
+		if (!isValidWeight(weight)) return sock.emit("dishAdded", { message: "Invalid weight." });
+
+		let restaurantCheckSql = `SELECT id FROM restaurants WHERE id = ?`;
+		let restaurantResult = await queryDatabase(restaurantCheckSql, [id]);
+		if (restaurantResult.length === 0) {
+			return sock.emit("dishAdded", { message: "Restaurant does not exist." });
+		}
+
+		try {
+			let dishSql = `INSERT INTO dishes (name, calories, weight, price, vegan, vegetarian) 
+						VALUES (?, ?, ?, ?, ?, ?)`;
+			let dishResult = await queryDatabase(dishSql, [name, calories, weight, price, vegan, vegetarian]);
+			let dishId = dishResult.insertId;
+
+			let restaurantDishSql = `INSERT INTO restaurants_dishes (id_restaurant, id_dish, updated_by) VALUES (?, ?, ?)`;
+			await queryDatabase(restaurantDishSql, [id, dishId, translationTab[cid].user_id]);
+
+			for (let ingredient of ingredients) {
+				let { name: ingredientName, allergens } = ingredient;
+
+				let ingredientId = await addIngredientAndAllergen(ingredientName, allergens);
+				
+				let ingredientDishSql = `INSERT INTO ingredients_dishes (id_dish, id_ingredient) VALUES (?, ?)`;
+				await queryDatabase(ingredientDishSql, [dishId, ingredientId]);
+			}
+
+			sock.emit("dishAdded", { message: "Dish added successfully!" });
+		} catch (err) {
+			console.error("DB Error: ", err);
+			sock.emit("dishAdded", { message: "An error occurred while adding the dish." });
+		}
 	});
 
 	sock.on("update_location", (json) => {
 		if(translationTab[cid].user_id === -1) return;
 		json = JSON.parse(json);
-		let res_id = json.res_id;
-		let coordinates = json.new_coordinates;
+		let res_id = json.id;
+		let coordinates = {x: json.coord_x, y: json.coord_y};
 		let up_by = translationTab[cid].user_id;
 		//search if res exist
 		let sql = `SELECT * FROM restaurants WHERE id = ?`;
 		queryDatabase(sql, [res_id])
 		.then((res) => {
+			console.log(res);
 			if(res.length == 1){
 				//update
+				console.log(coordinates);
 				if(!(Number(coordinates.x) && Number(coordinates.y))){
 					coordinates.x = 0;
 					coordinates.y = 0;
 				}
-
-				sql = `UPDATE restaurants SET coordinates_to_verify = ?, coordinates_verified = 0, updated_by = ? WHERE id = ?`;
-				queryDatabase(sql, [`POINT(${coordinates.x}, ${coordinates.y})`, up_by, res_id])
-
-				
+				console.log(coordinates);
+				sql = `UPDATE restaurants SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), coordinates_verified = 0, updated_by = ? WHERE id = ?`;
+				queryDatabase(sql, [up_by, res_id])
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log("DB Error: " + err);
+				});
 			}
 		}).catch((err) => {console.log("DB Error: "+err);});
 		
@@ -500,10 +602,68 @@ io.on('connection', (sock) => {
 		//search if res exist
 		//if not:
 		json = JSON.parse(json);
-		let res_id = json.res_id;
+		let res_id = json.id;
 		let score = json.score;
 		let desc = json.desc;
 		let created_by = translationTab[cid].user_id;
+		console.log("HI");
+		if(!Number(res_id)) return;
+		if(score < 0 || score > 5) return;
+		if(!isAlnum(desc)) return;
+		console.log("HI");
+		let sql = `SELECT * FROM restaurants WHERE id = ?`;
+		queryDatabase(sql, [res_id])
+		.then((res) => {
+			console.log(res);
+			if(res.length == 1){
+				sql = `
+					SELECT id FROM comments
+					INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id
+					WHERE restaurants_comments.id_restaurant = ?
+				`;
+				queryDatabase(sql, [res_id])
+				.then((res2) => {
+					if(res2.length == 1){
+						//comment exist
+						sql = `
+							UPDATE comments SET
+							comment = ?,
+							score = ${score},
+							verified = 0,
+							updated_by = ${created_by}
+							WHERE id = ${res2[0].id}
+						`;
+						queryDatabase(sql, [`${desc}`])
+						.then((res) => {
+							sock.emit("comment", "edited");
+						})
+						.catch((err) => {console.log("DB Error: "+err);});
+					}
+					else{
+						//comment not exist
+						sql = `
+							INSERT INTO comments (comment, score, verified, updated_by)
+							VALUES (?, ${score}, 0, ${created_by})
+						`;
+						queryDatabase(sql, [`${desc}`])
+						.then((res) => {
+							sql = `
+								INSERT INTO restaurants_comments (id_restaurant, id_comment)
+								VALUES (?, ?)
+							`;
+							queryDatabase(sql, [res_id, res.insertId])
+
+
+
+							sock.emit("comment", "added");
+						})
+						.catch((err) => {console.log("DB Error: "+err);});
+					}
+				})
+				.catch((err) => {console.log("DB Error: "+err);});
+			}
+		})
+		.catch((err) => {console.log("DB Error: "+err);});
 	});
 
 	//for admins:
