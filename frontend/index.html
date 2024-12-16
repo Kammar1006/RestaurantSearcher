@@ -198,7 +198,7 @@
                 <p>
                     <span> Cuisine(s) </span>
                     <br>
-                    <select id="form_U3_cuisines" multiple>
+                    <select style="height: 250px;" id="form_U3_cuisines" multiple>
                     </select>
                 </p>
                 <input id="form_U3_button" type="submit" value="Add Restaurant"/>
@@ -296,6 +296,15 @@
             <p id="form_U6_res"></p>
         </div>
     </div>
+    <hr>
+    <h3> Added Restaurant </h3>
+    <p id="user_restaurants_added"></p>
+    <h3> Added Dishes </h3>
+    <p id="user_dishes_added"></p>
+    <h3> Fixed Coords </h3>
+    <p id="user_coords_added"></p>
+    <h3> Added Comments </h3>
+    <p id="user_comments_added"></p>
     <hr>
     <h1 class="center"> For Admins </h1>
     <hr>
@@ -414,9 +423,20 @@
                 d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
             });
 
-            sock.on("login", (e) => {
-                console.log(e);
+            sock.on("login", (e, j) => {
+                console.log(e, j);
                 document.getElementById("form_U1_res").innerHTML = e;
+                if(j){
+                    j = JSON.parse(j);
+                    document.getElementById("user_restaurants_added").innerHTML = "";
+                    j.restaurants.forEach(k => document.getElementById("user_restaurants_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("user_dishes_added").innerHTML = "";
+                    j.dishes.forEach(k => document.getElementById("user_dishes_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("user_coords_added").innerHTML = "";
+                    j.coords.forEach(k => document.getElementById("user_coords_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("user_comments_added").innerHTML = "";
+                    j.comments.forEach(k => document.getElementById("user_comments_added").innerHTML += JSON.stringify(k)+"<br>");
+                }
             });
 
             sock.on("register", (e) => {

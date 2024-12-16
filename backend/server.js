@@ -62,7 +62,46 @@ const hashCompare = (data, hash) => {
 }
 const emit_login_data = (sock, db_stats) => {
 	let emit_db_stats = {...db_stats};
-	sock.emit("login", emit_db_stats); 
+	let json = {
+		restaurants: [],
+		dishes: [],
+		coords: [],
+		comments: []
+	};
+
+	let sql  = `
+		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cousines.type) AS res_cousines, 
+		address AS res_address, restaurants.verified AS res_ver
+		FROM restaurants 
+		INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
+		INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+		WHERE restaurants.updated_by = ?
+		GROUP BY res_id
+	`;
+	queryDatabase(sql, [emit_db_stats.id])
+	.then((res) => {
+		console.log(res);
+		json.restaurants = res;
+
+		let sql = `
+			SELECT restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
+			FROM comments 
+			INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id 
+			INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id 
+			WHERE comments.updated_by = 3 
+			ORDER BY restaurants.id DESC
+		`;
+
+		queryDatabase(sql, [emit_db_stats.id])
+		.then((res) => {
+			console.log(res);
+			json.comments = res;
+
+			//to add dishes & coords
+
+			sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+		}).catch((err) => {console.log("DB Error: "+err);});
+	}).catch((err) => {console.log("DB Error: "+err);});
 }
 
 io.on('connection', (sock) => {
@@ -73,6 +112,8 @@ io.on('connection', (sock) => {
 	}
 	setTranslationTab(cid);
 	console.log("User: "+cid);
+	if(translationTab[cid].user_id !== -1)
+		emit_login_data(sock, translationTab[cid].db_stats);
 
 	sock.on("counter", () => {
 		translationTab[cid].test_counter++;
@@ -105,8 +146,6 @@ io.on('connection', (sock) => {
 		}).catch((err) => {
 			console.log("DB ERROR: "+err);
 		})
-			
-		
 	});
 
 	//register:
