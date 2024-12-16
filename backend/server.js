@@ -563,10 +563,68 @@ io.on('connection', (sock) => {
 		//search if res exist
 		//if not:
 		json = JSON.parse(json);
-		let res_id = json.res_id;
+		let res_id = json.id;
 		let score = json.score;
 		let desc = json.desc;
 		let created_by = translationTab[cid].user_id;
+		console.log("HI");
+		if(!Number(res_id)) return;
+		if(score < 0 || score > 5) return;
+		if(!isAlnum(desc)) return;
+		console.log("HI");
+		let sql = `SELECT * FROM restaurants WHERE id = ?`;
+		queryDatabase(sql, [res_id])
+		.then((res) => {
+			console.log(res);
+			if(res.length == 1){
+				sql = `
+					SELECT id FROM comments
+					INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id
+					WHERE restaurants_comments.id_restaurant = ?
+				`;
+				queryDatabase(sql, [res_id])
+				.then((res2) => {
+					if(res2.length == 1){
+						//comment exist
+						sql = `
+							UPDATE comments SET
+							comment = ?,
+							score = ${score},
+							verified = 0,
+							updated_by = ${created_by}
+							WHERE id = ${res2[0].id}
+						`;
+						queryDatabase(sql, [`${desc}`])
+						.then((res) => {
+							sock.emit("comment", "edited");
+						})
+						.catch((err) => {console.log("DB Error: "+err);});
+					}
+					else{
+						//comment not exist
+						sql = `
+							INSERT INTO comments (comment, score, verified, updated_by)
+							VALUES (?, ${score}, 0, ${created_by})
+						`;
+						queryDatabase(sql, [`${desc}`])
+						.then((res) => {
+							sql = `
+								INSERT INTO restaurants_comments (id_restaurant, id_comment)
+								VALUES (?, ?)
+							`;
+							queryDatabase(sql, [res_id, res.insertId])
+
+
+
+							sock.emit("comment", "added");
+						})
+						.catch((err) => {console.log("DB Error: "+err);});
+					}
+				})
+				.catch((err) => {console.log("DB Error: "+err);});
+			}
+		})
+		.catch((err) => {console.log("DB Error: "+err);});
 	});
 
 	//for admins:

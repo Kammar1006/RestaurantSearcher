@@ -4,13 +4,13 @@ endpoints (backend):
 - getRestaurantInfo //add hours
 - getComments
 - update_dish
-- update_location
 - add_comment
 - verify_restaurant
 - verify_dish
 - verify_location
 - verify_comment
 -- search by cousines def / adv
+-- users / admin information about all data for verification or created
 -- fix all wrong names in backend, frontend, generator, and db
 add sort system
 for all sort system add info about hours / open / closed

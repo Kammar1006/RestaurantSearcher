@@ -118,7 +118,7 @@
                 </p>
                 <input id="form_U1_button" type="submit" value="login"/>
             </form>
-            <p id="login_info">  </p>
+            <p id="form_U1_res">  </p>
         </div>
         <div class="w50">
             <!-- Example register form -->
@@ -146,7 +146,7 @@
                 </p>
                 <input id="form_U2_button" type="submit" value="register"/>
             </form>
-            <p id="register_info">  </p>
+            <p id="form_U2_res"></p>
         </div>
     </div>
     <hr>
@@ -270,14 +270,30 @@
                     <input id="form_U5_coord_x" value=""/>
                     <input id="form_U5_coord_y" value=""/>
                 </p>
-                <input id="form_U5_button" type="submit" value="update"/>
+                <input id="form_U5_button" type="submit" value="Update Coords"/>
             </form>
         </div>
         <div class="w50">
-            <h2> Add Comment </h2>
+            <h2> Add/Edit Comment </h2>
             <form id="form_U6">
-                <input id="form_U6_button" type="submit" value="add"/>
+                <p>
+                    <span> ID </span>
+                    <br>
+                    <input id="form_U6_id" value=""/>
+                </p>
+                <p>
+                    <span> Score </span>
+                    <br>
+                    <input id="form_U6_score" value=""/>
+                </p>
+                <p>
+                    <span> Desc: </span>
+                    <br>
+                    <input id="form_U6_desc" value=""/>
+                </p>
+                <input id="form_U6_button" type="submit" value="Add/Edit"/>
             </form>
+            <p id="form_U6_res"></p>
         </div>
     </div>
     <hr>
@@ -400,10 +416,12 @@
 
             sock.on("login", (e) => {
                 console.log(e);
+                document.getElementById("form_U1_res").innerHTML = e;
             });
 
             sock.on("register", (e) => {
                 console.log(e);
+                document.getElementById("form_U2_res").innerHTML = e;
             });
 
             sock.on("set-cookie", (cookie) => {
@@ -416,6 +434,10 @@
             });
 
             sock.emit("get_cuisines");
+
+            sock.on("comment", (t) => {
+                document.getElementById("form_U6_res").innerHTML = t;
+            })
 
             sock.on("cuisinesList", (data) => {
                 let cuisinesList = JSON.parse(data);
@@ -563,6 +585,24 @@
                     }
 
                     sock.emit("update_location", JSON.stringify(json));
+                });
+
+            document
+                .querySelector("#form_U6")
+                .addEventListener("submit", (e) => {
+                    console.log("click")
+                    e.preventDefault();
+                    let id = document.querySelector("#form_U6_id").value;
+                    let score = document.querySelector("#form_U6_score").value;
+                    let desc = document.querySelector("#form_U6_desc").value;
+
+                    let json = {
+                        id: id,
+                        score: score,
+                        desc: desc
+                    }
+
+                    sock.emit("add_comment", JSON.stringify(json));
                 });
 
             document
