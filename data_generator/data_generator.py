@@ -320,4 +320,5 @@ if __name__ == "__main__":
     generate_cuisines_restaurants_table(num_records)
     generate_hours_table(num_records)
     generate_coords_table(num_records)
+
     

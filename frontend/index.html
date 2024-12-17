@@ -85,10 +85,18 @@
                     <br>
                     <input id="form_SA_ing_name" value=""/>
                 </p>
+                <p>
+                    <span> Coords </span>
+                    <br>
+                    <input id="form_SA_res_x" value="" placeholder="longitude (x)"/>
+                    <input id="form_SA_res_y" value="" placeholder="latitude (y)"/>
+                    <input id="form_SA_res_r" value="" placeholder="radius"/>
+                </p>
                 <input id="form_SA_button" type="submit" value="search"/>
             </form>
         </div>
     </div>
+    <hr>
     <p id="places_list">  </p>
 
     <hr>
@@ -110,7 +118,7 @@
                 </p>
                 <input id="form_U1_button" type="submit" value="login"/>
             </form>
-            <p id="login_info">  </p>
+            <p id="form_U1_res">  </p>
         </div>
         <div class="w50">
             <!-- Example register form -->
@@ -138,17 +146,254 @@
                 </p>
                 <input id="form_U2_button" type="submit" value="register"/>
             </form>
-            <p id="register_info">  </p>
+            <p id="form_U2_res"></p>
+        </div>
+    </div>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Page for Restaurant </h2>
+            <form id="form_RI">
+                <p>
+                    <span> Restaurant ID </span>
+                    <br>
+                    <input id="form_RI_id" value=""/>
+                </p>
+                <input id="form_RI_button" type="submit" value="search"/>
+            </form>
+        </div>
+        <div class="w50">
+            <h2> Page for Dishes </h2>
+            <form id="form_DI">
+                <p>
+                    <span> Dish ID </span>
+                    <br>
+                    <input id="form_DI_id" value=""/>
+                </p>
+                <input id="form_DI_button" type="submit" value="search"/>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <p id="res_info">  </p>
+    <p id="res_comments">  </p>
+    <p id="menu_list">  </p>
+    <hr>
+    <h1 class="center"> For Auth Users </h1>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Add Restaurant </h2>
+            <form id="form_U3">
+                <p>
+                    <span> Name </span>
+                    <br>
+                    <input id="form_U3_name" value=""/>
+                </p>
+                <p> 
+                    <span> Address </span>
+                    <br>
+                    <input id="form_U3_address" value=""/>
+                </p>
+                <p>
+                    <span> Cuisine(s) </span>
+                    <br>
+                    <select style="height: 250px;" id="form_U3_cuisines" multiple>
+                    </select>
+                </p>
+                <input id="form_U3_button" type="submit" value="Add Restaurant"/>
+            </form>
+        </div>
+        <div class="w50">
+            <div class="add-dish-form">
+                <h2>Add Dish</h2>
+                <form id="form_U4">
+                    <p>
+                        <span>RestaurantID</span><br>
+                        <input id="form_U4_id" value=""/>
+                    </p>
+                    <p>
+                        <span>Name</span><br>
+                        <input id="form_U4_name" value=""/>
+                    </p>
+                    <p>
+                        <span>Calories</span><br>
+                        <input id="form_U4_calories" type="number" value=""/>
+                    </p>
+                    <p>
+                        <span>Weight</span><br>
+                        <input id="form_U4_weight" type="number" value=""/>
+                    </p>
+                    <p>
+                        <span>Price</span><br>
+                        <input id="form_U4_price" type="number" value=""/>
+                    </p>
+                    <p>
+                        <span>Vegan</span><br>
+                        <input id="form_U4_vegan" type="checkbox"/>
+                    </p>
+                    <p>
+                        <span>Vegetarian</span><br>
+                        <input id="form_U4_vegetarian" type="checkbox"/>
+                    </p>
+            
+                    <!-- Składniki -->
+                    <h3>Ingredients</h3>
+                    <div id="ingredients-list">
+                        <!-- Dynamically populate ingredients list -->
+                    </div>
+                    <button type="button" id="add-ingredient-btn">Add Ingredient</button>
+            
+                    <!-- Alergeny -->
+                    <div id="allergens-list">
+                        <!-- Dynamically populate allergens for the selected ingredient -->
+                    </div>
+            
+                    <input type="submit" value="Add Dish"/>
+                </form>
+            </div>       
+        </div>
+    </div>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Change Coords </h2>
+            <form id="form_U5">
+                <p>
+                    <span> ID </span>
+                    <br>
+                    <input id="form_U5_id" value=""/>
+                </p>
+                <p>
+                    <span> Coords </span>
+                    <br>
+                    <input id="form_U5_coord_x" value=""/>
+                    <input id="form_U5_coord_y" value=""/>
+                </p>
+                <input id="form_U5_button" type="submit" value="Update Coords"/>
+            </form>
+        </div>
+        <div class="w50">
+            <h2> Add/Edit Comment </h2>
+            <form id="form_U6">
+                <p>
+                    <span> ID </span>
+                    <br>
+                    <input id="form_U6_id" value=""/>
+                </p>
+                <p>
+                    <span> Score </span>
+                    <br>
+                    <input id="form_U6_score" value=""/>
+                </p>
+                <p>
+                    <span> Desc: </span>
+                    <br>
+                    <input id="form_U6_desc" value=""/>
+                </p>
+                <input id="form_U6_button" type="submit" value="Add/Edit"/>
+            </form>
+            <p id="form_U6_res"></p>
+        </div>
+    </div>
+    <hr>
+    <h3> Added Restaurant </h3>
+    <p id="user_restaurants_added"></p>
+    <h3> Added Dishes </h3>
+    <p id="user_dishes_added"></p>
+    <h3> Fixed Coords </h3>
+    <p id="user_coords_added"></p>
+    <h3> Added Comments </h3>
+    <p id="user_comments_added"></p>
+    <hr>
+    <h1 class="center"> For Admins </h1>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Verify restaurant </h2>
+        </div>
+        <div class="w50">
+            <h2> Verify Dish </h2>
+        </div>
+    </div>
+    <hr>
+    <div class="flex center">
+        <div class="w50">
+            <h2> Verify Coords </h2>
+        </div>
+        <div class="w50">
+            <h2> Verify Comment </h2>
         </div>
     </div>
     <hr>
     <input style="display: none;" id="clicker" value="click" type="submit"/>
 
-    
-    
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        let ingredients = [];
+        let allergens = []; 
+        let currentIngredientIndex = -1;
+
+        function addIngredient() {
+            const ingredientName = prompt("Enter ingredient name:");
+            if (ingredientName) {
+                ingredients.push({ name: ingredientName, allergens: [] });
+                renderIngredients();
+            }
+        }
+
+        function renderIngredients() {
+            const ingredientsListDiv = document.getElementById("ingredients-list");
+            ingredientsListDiv.innerHTML = "";
+            ingredients.forEach((ingredient, index) => {
+                const ingredientDiv = document.createElement("div");
+                ingredientDiv.classList.add("ingredient");
+                ingredientDiv.innerHTML = `
+                    <span>${ingredient.name}</span>
+                    <button type="button" onclick="editIngredient(${index})">Edit</button>
+                `;
+                ingredientsListDiv.appendChild(ingredientDiv);
+            });
+        }
+
+        function editIngredient(index) {
+            currentIngredientIndex = index;
+            const ingredient = ingredients[index];
+
+            const allergensListDiv = document.getElementById("allergens-list");
+            allergensListDiv.innerHTML = `<h4>Allergens for ${ingredient.name}</h4>`;
+
+            const allergenInput = document.createElement("input");
+            allergenInput.type = "text";
+            allergenInput.placeholder = "Enter allergen name";
+            allergensListDiv.appendChild(allergenInput);
+
+            const addAllergenButton = document.createElement("button");
+            addAllergenButton.innerText = "Add Allergen";
+            addAllergenButton.addEventListener("click", () => {
+                const allergenName = allergenInput.value.trim();
+                if (allergenName) {
+                    allergens.push({ name: allergenName });
+                    ingredient.allergens.push(allergenName);
+                    renderAllergens();
+                    allergenInput.value = ""; 
+                }
+            });
+            allergensListDiv.appendChild(addAllergenButton);
+        }
+
+        function renderAllergens() {
+            const allergensListDiv = document.getElementById("allergens-list");
+            allergensListDiv.innerHTML = `<h4>Allergens</h4>`;
+            const ingredient = ingredients[currentIngredientIndex];
+            ingredient.allergens.forEach((allergen) => {
+                const allergenDiv = document.createElement("div");
+                allergenDiv.innerHTML = `<span>${allergen}</span>`;
+                allergensListDiv.appendChild(allergenDiv);
+            });
+        }
+
         (() => {
             const sock = io();
 
@@ -160,12 +405,43 @@
                 //document.querySelector("#places_list").innerHTML = JSON.stringify(places);
             });
 
-            sock.on("login", (e) => {
-                console.log(e);
+            sock.on("dishesList", (d) => {
+                console.log(d); //show in console
+                document.getElementById("menu_list").innerHTML = "";
+                d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
+            });
+
+            sock.on("restaurantInfo", (d) => {
+                console.log(d); //show in console
+                document.getElementById("res_info").innerHTML = "";
+                d.forEach(e => document.getElementById("res_info").innerHTML += JSON.stringify(e)+"<br>");
+            });
+
+            sock.on("ingredientsList", (d) => {
+                console.log(d); //show in console
+                document.getElementById("menu_list").innerHTML = "";
+                d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
+            });
+
+            sock.on("login", (e, j) => {
+                console.log(e, j);
+                document.getElementById("form_U1_res").innerHTML = e;
+                if(j){
+                    j = JSON.parse(j);
+                    document.getElementById("user_restaurants_added").innerHTML = "";
+                    j.restaurants.forEach(k => document.getElementById("user_restaurants_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("user_dishes_added").innerHTML = "";
+                    j.dishes.forEach(k => document.getElementById("user_dishes_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("user_coords_added").innerHTML = "";
+                    j.coords.forEach(k => document.getElementById("user_coords_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("user_comments_added").innerHTML = "";
+                    j.comments.forEach(k => document.getElementById("user_comments_added").innerHTML += JSON.stringify(k)+"<br>");
+                }
             });
 
             sock.on("register", (e) => {
                 console.log(e);
+                document.getElementById("form_U2_res").innerHTML = e;
             });
 
             sock.on("set-cookie", (cookie) => {
@@ -175,6 +451,49 @@
 
             sock.on("message", (t) => {
                 console.log("message: ", t);
+            });
+
+            sock.emit("get_cuisines");
+
+            sock.on("comment", (t) => {
+                document.getElementById("form_U6_res").innerHTML = t;
+            })
+
+            sock.on("cuisinesList", (data) => {
+                let cuisinesList = JSON.parse(data);
+                
+                let selectElement = document.querySelector("#form_U3_cuisines");
+                selectElement.innerHTML = '';
+
+                cuisinesList.forEach(cuisine => {
+                    let option = document.createElement("option");
+                    option.value = cuisine.type;
+                    option.textContent = cuisine.type;
+                    selectElement.appendChild(option);
+                });
+            });
+
+            document.getElementById("add-ingredient-btn").addEventListener("click", addIngredient);
+
+            document.getElementById("form_U4").addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const dish = {
+                    id: document.getElementById("form_U4_id").value,
+                    name: document.getElementById("form_U4_name").value,
+                    calories: document.getElementById("form_U4_calories").value,
+                    weight: document.getElementById("form_U4_weight").value,
+                    price: document.getElementById("form_U4_price").value,
+                    vegan: document.getElementById("form_U4_vegan").checked,
+                    vegetarian: document.getElementById("form_U4_vegetarian").checked,
+                    ingredients: ingredients,
+                };
+
+                console.log(dish);
+
+                sock.emit("addDish", JSON.stringify(dish), (response) => {
+                    alert(response.message);
+                });
             });
 
             //send info to backend - form 1
@@ -214,6 +533,9 @@
                         res_name: document.querySelector("#form_SA_res_name").value,
                         dish_name: document.querySelector("#form_SA_dish_name").value,
                         ing_name: document.querySelector("#form_SA_ing_name").value,
+                        res_x: document.querySelector("#form_SA_res_x").value,
+                        res_y: document.querySelector("#form_SA_res_y").value,
+                        res_r: document.querySelector("#form_SA_res_r").value,
                     } 
                     sock.emit("advancedSearch", JSON.stringify(data));
                 });
@@ -236,6 +558,77 @@
                     let pass2 = document.querySelector("#form_U2_pass2").value;
                     let email = document.querySelector("#form_U2_email").value;
                     sock.emit("register", login, pass, pass2, email);
+                });
+
+            document
+                .querySelector("#form_RI_button")
+                .addEventListener('click', (e) => {
+                    sock.emit("getDishesByResId", document.querySelector("#form_RI_id").value);
+                    sock.emit("getRestaurantInfo", document.querySelector("#form_RI_id").value);
+                    sock.emit("getComments", document.querySelector("#form_RI_id").value);
+                });
+
+            document
+                .querySelector("#form_U3_button")
+                .addEventListener('click', (e) => {
+                    console.log("click")
+                    let name = document.querySelector("#form_U3_name").value;
+                    let address = document.querySelector("#form_U3_address").value;
+
+                    let cuisines = Array.from(
+                        document.querySelector("#form_U3_cuisines").selectedOptions
+                    ).map(option => option.value); 
+
+                    let restaurantData = {
+                        name: name,
+                        address: address,
+                        cuisines: cuisines
+                    };
+
+                    console.log(restaurantData)
+
+                    sock.emit("add_restaurant", JSON.stringify(restaurantData));
+                });
+
+            document
+                .querySelector("#form_U5_button")
+                .addEventListener('click', (e) => {
+                    console.log("click")
+                    let id = document.querySelector("#form_U5_id").value;
+                    let coord_x = document.querySelector("#form_U5_coord_x").value;
+                    let coord_y = document.querySelector("#form_U5_coord_y").value;
+
+                    let json = {
+                        id: id,
+                        coord_x: coord_x,
+                        coord_y: coord_y
+                    }
+
+                    sock.emit("update_location", JSON.stringify(json));
+                });
+
+            document
+                .querySelector("#form_U6")
+                .addEventListener("submit", (e) => {
+                    console.log("click")
+                    e.preventDefault();
+                    let id = document.querySelector("#form_U6_id").value;
+                    let score = document.querySelector("#form_U6_score").value;
+                    let desc = document.querySelector("#form_U6_desc").value;
+
+                    let json = {
+                        id: id,
+                        score: score,
+                        desc: desc
+                    }
+
+                    sock.emit("add_comment", JSON.stringify(json));
+                });
+
+            document
+                .querySelector("#form_DI_button")
+                .addEventListener('click', (e) => {
+                    sock.emit("getIngredientsByDishId", document.querySelector("#form_DI_id").value);
                 });
 
             document
@@ -278,6 +671,37 @@
             });
         document
             .querySelector("#form_U2")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+
+        document
+            .querySelector("#form_U3")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_U4")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_U5")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_U6")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_RI")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_DI")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });
