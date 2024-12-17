@@ -3,4 +3,4 @@ logs/
 opt.json
 settings.json
 db_secrets.json
-*.json
+data_generator/output_data/
