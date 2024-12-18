@@ -280,7 +280,8 @@ io.on('connection', (sock) => {
 				FROM restaurants
 				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
 				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
-				WHERE ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0
+				INNER JOIN coordinates ON coordinates.id = restaurants.id
+				WHERE ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0 AND NOT ST_Equals(coordinates, POINT(0, 0))
 				GROUP BY res_id
 				HAVING distance_km <= ?
 				ORDER BY distance_km
@@ -381,7 +382,7 @@ io.on('connection', (sock) => {
 						sin(radians(${res_y})) * sin(radians(ST_Y(coordinates)))
 					)) AS distance_km,
 				`;
-			where +=` ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0`;
+			where +=` ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0 AND NOT ST_Equals(coordinates, POINT(0, 0))`;
 			having = `HAVING distance_km <= ${res_r}`
 			order += `distance_km, `;
 			sql_flag = true;
@@ -394,6 +395,7 @@ io.on('connection', (sock) => {
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN coordinates ON restaurants.id = coordinates.id
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
@@ -417,6 +419,7 @@ io.on('connection', (sock) => {
 				SELECT name, opinion, coordinates, address, GROUP_CONCAT(cuisines.type) AS res_cuisines, client.username AS up_by, admin.username AS ver_by
 				FROM restaurants
 				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN coordinates ON restaurants.id = coordinates.id
 				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
 				LEFT JOIN users AS client ON client.id = restaurants.updated_by
 				LEFT JOIN users AS admin ON admin.id = restaurants.verified_by
@@ -480,13 +483,13 @@ io.on('connection', (sock) => {
 		let address = json.address;
 		let cuisines = json.cuisines;
 		console.log("test");
-		if(isAlnum(name) == false || isAlnum(address.replaceAll(',', '')) == false) return;
+		if(isAlnum(name) == false || isAlnum(address.replaceAll(',', '').replaceAll(" ", "")) == false) return;
 		console.log("test");
 		let up_by = translationTab[cid].user_id;
 	
 		let sql = `
-			INSERT INTO restaurants (id, name, opinion, verified, coordinates, coordinates_to_verify, coordinates_verified, address, updated_by, verified_by) 
-			VALUES (NULL, ?, '', '0', POINT(0, 0), POINT(0, 0), 0, ?, ?, '')
+			INSERT INTO restaurants (id, name, opinion, verified, address, updated_by, verified_by) 
+			VALUES (NULL, ?, 0, 0, ?, ?, '')
 		`;
 		
 		queryDatabase(sql, [name, address, up_by])
@@ -617,7 +620,7 @@ io.on('connection', (sock) => {
 					coordinates.y = 0;
 				}
 				console.log(coordinates);
-				sql = `UPDATE restaurants SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), coordinates_verified = 0, updated_by = ? WHERE id = ?`;
+				sql = `UPDATE coordinates SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), verified = 0, updated_by = ? WHERE id = ?`;
 				queryDatabase(sql, [up_by, res_id])
 				.then((res) => {
 					console.log(res);
@@ -640,11 +643,11 @@ io.on('connection', (sock) => {
 		let score = json.score;
 		let desc = json.desc;
 		let created_by = translationTab[cid].user_id;
-		console.log("HI");
-		if(!Number(res_id)) return;
-		if(score < 0 || score > 5) return;
-		if(!isAlnum(desc)) return;
-		console.log("HI");
+		
+		if(!Number(res_id)) return sock.emit("comment", "wrong res id");
+		if(score < 0 || score > 5 || !Number(score)) return sock.emit("comment", "wrong score");
+		if(!isAlnum(desc.replaceAll(",", "").replaceAll(".", ""))) return sock.emit("comment", "wrong desc, only alnum, ',' and '.'");
+		
 		let sql = `SELECT * FROM restaurants WHERE id = ?`;
 		queryDatabase(sql, [res_id])
 		.then((res) => {
