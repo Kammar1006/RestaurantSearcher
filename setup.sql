@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Gru 2024, 12:57
+-- Czas generowania: 18 Gru 2024, 14:39
 -- Wersja serwera: 10.1.36-MariaDB
 -- Wersja PHP: 7.2.11
 
@@ -38,109 +38,106 @@ CREATE TABLE `allergens` (
 --
 
 INSERT INTO `allergens` (`id`, `name`) VALUES
-(0, 'Millet'),
-(0, 'Oat Milk'),
-(0, 'Cod'),
-(0, 'Quinoa'),
-(0, 'Eggplant'),
-(0, 'Soybeans'),
-(0, 'Mustard Seeds'),
-(0, 'Parsley'),
-(0, 'Almond Milk'),
-(0, 'Corn Starch'),
-(0, 'Corn Flour'),
-(0, 'Sunset Yellow'),
-(0, 'Gelatin'),
-(0, 'Lychee'),
-(0, 'Brazil Nuts'),
-(0, 'Psyllium Husk'),
-(0, 'Pecans'),
-(0, 'Allura Red'),
-(0, 'Lamb'),
-(0, 'Buckwheat'),
-(0, 'Tilapia'),
-(0, 'Hemp Milk'),
-(0, 'Sunflower Seeds'),
-(0, 'Sodium Nitrate'),
-(0, 'Natto'),
-(0, 'Xanthan Gum'),
-(0, 'Passion Fruit'),
-(0, 'Hominy'),
-(0, 'Tamari'),
-(0, 'Cumin'),
-(0, 'Amaranth'),
-(0, 'Saccharin'),
-(0, 'Mint'),
-(0, 'Soy Lecithin'),
-(0, 'Sodium Nitrite'),
-(0, 'Tragacanth Gum'),
-(0, 'Duck'),
-(0, 'Pea Shoots'),
-(0, 'Acacia Gum'),
-(0, 'Tartrazine'),
-(0, 'Lobster'),
-(0, 'Anise'),
-(0, 'Navy Beans'),
-(0, 'Basil'),
-(0, 'Sage'),
-(0, 'Annatto'),
-(0, 'Split Peas'),
-(0, 'Nutritional Yeast'),
-(0, 'Poppy Seeds'),
-(0, 'Coriander'),
-(0, 'Pistachios'),
-(0, 'Chives'),
-(0, 'Halibut'),
-(0, 'Miso Paste'),
-(0, 'Chickpeas'),
-(0, 'Carmine'),
-(0, 'Onions'),
-(0, 'Acesulfame Potassium'),
-(0, 'Green Peas'),
-(0, 'Kamut'),
-(0, 'Millet Flour'),
-(0, 'Carob Bean Gum'),
-(0, 'Royal Jelly'),
-(0, 'Stevia'),
-(0, 'Barley'),
-(0, 'Soy Sauce'),
-(0, 'Pea Protein'),
-(0, 'Potatoes'),
-(0, 'Teff'),
-(0, 'Thyme'),
-(0, 'Hydrolyzed Vegetable Protein (HVP)'),
-(0, 'Grits'),
-(0, 'Chestnuts'),
-(0, 'Anchovies'),
-(0, 'Sucralose'),
-(0, 'Scallops'),
-(0, 'Chia Seeds'),
-(0, 'Bananas'),
-(0, 'Venison'),
-(0, 'Disodium Inosinate'),
-(0, 'Seitan'),
-(0, 'Peanuts'),
-(0, 'Dragon Fruit'),
-(0, 'Salmon'),
-(0, 'Papaya'),
-(0, 'Sesame Seeds'),
-(0, 'Nutmeg'),
-(0, 'Erythrosine'),
-(0, 'Cream'),
-(0, 'Tuna'),
-(0, 'Hemp Seeds'),
-(0, 'Fish'),
-(0, 'Dill'),
-(0, 'Polenta'),
-(0, 'Star Fruit'),
-(0, 'Shallots'),
-(0, 'Haddock'),
-(0, 'Beef'),
-(0, 'Almonds'),
-(0, 'Crab'),
-(0, 'test11'),
-(0, 'test12'),
-(0, 'test31');
+(1, 'Millet'),
+(2, 'Oat Milk'),
+(3, 'Cod'),
+(4, 'Quinoa'),
+(5, 'Eggplant'),
+(6, 'Soybeans'),
+(7, 'Mustard Seeds'),
+(8, 'Parsley'),
+(9, 'Almond Milk'),
+(10, 'Corn Starch'),
+(11, 'Corn Flour'),
+(12, 'Sunset Yellow'),
+(13, 'Gelatin'),
+(14, 'Lychee'),
+(15, 'Brazil Nuts'),
+(16, 'Psyllium Husk'),
+(17, 'Pecans'),
+(18, 'Allura Red'),
+(19, 'Lamb'),
+(20, 'Buckwheat'),
+(21, 'Tilapia'),
+(22, 'Hemp Milk'),
+(23, 'Sunflower Seeds'),
+(24, 'Sodium Nitrate'),
+(25, 'Natto'),
+(26, 'Xanthan Gum'),
+(27, 'Passion Fruit'),
+(28, 'Hominy'),
+(29, 'Tamari'),
+(30, 'Cumin'),
+(31, 'Amaranth'),
+(32, 'Saccharin'),
+(33, 'Mint'),
+(34, 'Soy Lecithin'),
+(35, 'Sodium Nitrite'),
+(36, 'Tragacanth Gum'),
+(37, 'Duck'),
+(38, 'Pea Shoots'),
+(39, 'Acacia Gum'),
+(40, 'Tartrazine'),
+(41, 'Lobster'),
+(42, 'Anise'),
+(43, 'Navy Beans'),
+(44, 'Basil'),
+(45, 'Sage'),
+(46, 'Annatto'),
+(47, 'Split Peas'),
+(48, 'Nutritional Yeast'),
+(49, 'Poppy Seeds'),
+(50, 'Coriander'),
+(51, 'Pistachios'),
+(52, 'Chives'),
+(53, 'Halibut'),
+(54, 'Miso Paste'),
+(55, 'Chickpeas'),
+(56, 'Carmine'),
+(57, 'Onions'),
+(58, 'Acesulfame Potassium'),
+(59, 'Green Peas'),
+(60, 'Kamut'),
+(61, 'Millet Flour'),
+(62, 'Carob Bean Gum'),
+(63, 'Royal Jelly'),
+(64, 'Stevia'),
+(65, 'Barley'),
+(66, 'Soy Sauce'),
+(67, 'Pea Protein'),
+(68, 'Potatoes'),
+(69, 'Teff'),
+(70, 'Thyme'),
+(71, 'Hydrolyzed Vegetable Protein (HVP)'),
+(72, 'Grits'),
+(73, 'Chestnuts'),
+(74, 'Anchovies'),
+(75, 'Sucralose'),
+(76, 'Scallops'),
+(77, 'Chia Seeds'),
+(78, 'Bananas'),
+(79, 'Venison'),
+(80, 'Disodium Inosinate'),
+(81, 'Seitan'),
+(82, 'Peanuts'),
+(83, 'Dragon Fruit'),
+(84, 'Salmon'),
+(85, 'Papaya'),
+(86, 'Sesame Seeds'),
+(87, 'Nutmeg'),
+(88, 'Erythrosine'),
+(89, 'Cream'),
+(90, 'Tuna'),
+(91, 'Hemp Seeds'),
+(92, 'Fish'),
+(93, 'Dill'),
+(94, 'Polenta'),
+(95, 'Star Fruit'),
+(96, 'Shallots'),
+(97, 'Haddock'),
+(98, 'Beef'),
+(99, 'Almonds'),
+(100, 'Crab');
 
 -- --------------------------------------------------------
 
@@ -258,12 +255,12 @@ INSERT INTO `allergens_ingredients` (`id_allergen`, `id_ingredient`) VALUES
 (75, 86),
 (46, 96),
 (9, 68),
-(0, 90),
-(0, 90),
-(0, 92),
-(0, 93),
-(0, 93),
-(0, 95);
+(50, 90),
+(50, 90),
+(50, 92),
+(50, 93),
+(50, 93),
+(50, 95);
 
 -- --------------------------------------------------------
 
@@ -285,24 +282,25 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `comment`, `score`, `verified`, `updated_by`, `verified_by`) VALUES
-(1, 'Great', 4.5, 0, 3, 0);
+(1, 'Great', 4.5, 0, 3, 0),
+(2, 'Good', 4.2, 0, 3, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `cousines`
+-- Struktura tabeli dla tabeli `cuisines`
 --
 
-CREATE TABLE `cousines` (
+CREATE TABLE `cuisines` (
   `id` int(11) NOT NULL,
   `type` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Zrzut danych tabeli `cousines`
+-- Zrzut danych tabeli `cuisines`
 --
 
-INSERT INTO `cousines` (`id`, `type`) VALUES
+INSERT INTO `cuisines` (`id`, `type`) VALUES
 (1, 'Gluten-Free'),
 (2, 'Swiss'),
 (3, 'Fusion'),
@@ -407,19 +405,19 @@ INSERT INTO `cousines` (`id`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `cousines_restaurants`
+-- Struktura tabeli dla tabeli `cuisines_restaurants`
 --
 
-CREATE TABLE `cousines_restaurants` (
+CREATE TABLE `cuisines_restaurants` (
   `id_restaurant` int(11) NOT NULL,
-  `id_cousine` int(11) NOT NULL
+  `id_cuisine` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Zrzut danych tabeli `cousines_restaurants`
+-- Zrzut danych tabeli `cuisines_restaurants`
 --
 
-INSERT INTO `cousines_restaurants` (`id_restaurant`, `id_cousine`) VALUES
+INSERT INTO `cuisines_restaurants` (`id_restaurant`, `id_cuisine`) VALUES
 (1, 41),
 (1, 16),
 (2, 61),
@@ -636,7 +634,9 @@ INSERT INTO `cousines_restaurants` (`id_restaurant`, `id_cousine`) VALUES
 (99, 65),
 (100, 53),
 (105, 2),
-(105, 3);
+(105, 3),
+(106, 4),
+(106, 8);
 
 -- --------------------------------------------------------
 
@@ -1468,7 +1468,8 @@ INSERT INTO `restaurants` (`id`, `name`, `opinion`, `verified`, `coordinates`, `
 (102, 'test', 0, 0, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 0, 'test', 3, 0),
 (103, 'test', 0, 0, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 0, 'test', 3, 0),
 (104, 'test', 0, 0, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 0, 'test', 3, 0),
-(105, 'test', 0, 1, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '\0\0\0\0\0\0\0fffff¦I@ffffff1@', 0, 'test', 3, 0);
+(105, 'test', 0, 1, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '\0\0\0\0\0\0\0fffff¦I@ffffff1@', 0, 'test', 3, 0),
+(106, 'Test', 0, 0, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 0, 'testowy', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -1486,7 +1487,8 @@ CREATE TABLE `restaurants_comments` (
 --
 
 INSERT INTO `restaurants_comments` (`id_restaurant`, `id_comment`) VALUES
-(100, 1);
+(100, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -1955,15 +1957,21 @@ INSERT INTO `users` (`id`, `login`, `password`, `email`, `username`, `is_admin`)
 --
 
 --
+-- Indeksy dla tabeli `allergens`
+--
+ALTER TABLE `allergens`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeksy dla tabeli `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeksy dla tabeli `cousines`
+-- Indeksy dla tabeli `cuisines`
 --
-ALTER TABLE `cousines`
+ALTER TABLE `cuisines`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1996,15 +2004,21 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT dla tabeli `allergens`
+--
+ALTER TABLE `allergens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
+--
 -- AUTO_INCREMENT dla tabeli `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT dla tabeli `cousines`
+-- AUTO_INCREMENT dla tabeli `cuisines`
 --
-ALTER TABLE `cousines`
+ALTER TABLE `cuisines`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
@@ -2023,7 +2037,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT dla tabeli `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
