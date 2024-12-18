@@ -1,10 +1,8 @@
-add vegan/vegetarian to dishes (db)
 add hours table
 endpoints (backend):
 - getRestaurantInfo //add hours
 - getComments
 - update_dish
-- add_comment
 - verify_restaurant
 - verify_dish
 - verify_location

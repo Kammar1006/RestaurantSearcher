@@ -70,11 +70,11 @@ const emit_login_data = (sock, db_stats) => {
 	};
 
 	let sql  = `
-		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cousines.type) AS res_cousines, 
+		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cuisines.type) AS res_cuisines, 
 		address AS res_address, restaurants.verified AS res_ver
 		FROM restaurants 
-		INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
-		INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+		INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+		INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
 		WHERE restaurants.updated_by = ?
 		GROUP BY res_id
 	`;
@@ -84,7 +84,7 @@ const emit_login_data = (sock, db_stats) => {
 		json.restaurants = res;
 
 		let sql = `
-			SELECT restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
+			SELECT restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
 			FROM comments 
 			INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id 
 			INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id 
@@ -98,8 +98,42 @@ const emit_login_data = (sock, db_stats) => {
 			json.comments = res;
 
 			//to add dishes & coords
+			let sql = `
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, dishes.id AS dish_id, dishes.name AS dish_name,
+				restaurants_dishes.verified AS dish_ver
+				FROM restaurants
+				INNER JOIN restaurants_dishes ON restaurants_dishes.id_restaurant = restaurants.id
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				WHERE restaurants_dishes.updated_by = ?
+			`;
+			queryDatabase(sql, [emit_db_stats.id])
+			.then((res) => {
+				console.log(res);
+				json.dishes = [...res];
+				json.dishes.forEach((d, i) => {
+					//d.ing = [];
+					let sql = `
+						SELECT ingredients.id AS ing_id, ingredients.name AS ing_name, 
+						GROUP_CONCAT(DISTINCT allergens.name) AS allergens_names
+						FROM ingredients_dishes
+						INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+						INNER JOIN allergens_ingredients ON allergens_ingredients.id_ingredient = ingredients.id
+						INNER JOIN allergens ON allergens_ingredients.id_allergen = allergens.id
+						WHERE ingredients_dishes.id_dish = ? AND allergens.id > 0
+						GROUP BY ing_id
+					`;
 
-			sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+					queryDatabase(sql, [d.dish_id])
+					.then((res) => {
+						console.log(res);
+						d.ing = res;
+
+						if(i == json.dishes.length - 1){
+							sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+						}
+					}).catch((err) => {console.log("DB Error: "+err);});
+				});
+			}).catch((err) => {console.log("DB Error: "+err);});
 		}).catch((err) => {console.log("DB Error: "+err);});
 	}).catch((err) => {console.log("DB Error: "+err);});
 }
@@ -214,11 +248,11 @@ io.on('connection', (sock) => {
 	sock.on("searchByName", (name) => {
 		if(isAlnum(name)){
 			let sql = `
-				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cousines.type) AS res_cousines, 
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cuisines.type) AS res_cuisines, 
 				address AS res_address 
 				FROM restaurants 
-				INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
-				INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
 				WHERE name LIKE ? AND restaurants.verified = 1
 				GROUP BY res_id
 			`;
@@ -237,16 +271,17 @@ io.on('connection', (sock) => {
 			console.log(data.x, data.y, data.r);
 			let sql = `
 				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score,
-					GROUP_CONCAT(DISTINCT cousines.type) AS res_cousines, address AS res_address,
+					GROUP_CONCAT(DISTINCT cuisines.type) AS res_cuisines, address AS res_address,
 					(6371 * acos(
 						cos(radians(?)) * cos(radians(ST_Y(coordinates))) *
 						cos(radians(ST_X(coordinates)) - radians(?)) +
 						sin(radians(?)) * sin(radians(ST_Y(coordinates)))
 					)) AS distance_km
 				FROM restaurants
-				INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
-				INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
-				WHERE ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
+				INNER JOIN coordinates ON coordinates.id = restaurants.id
+				WHERE ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0 AND NOT ST_Equals(coordinates, POINT(0, 0))
 				GROUP BY res_id
 				HAVING distance_km <= ?
 				ORDER BY distance_km
@@ -264,12 +299,12 @@ io.on('connection', (sock) => {
 		if(isAlnum(name)){
 			let sql = `
 				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
-				GROUP_CONCAT(DISTINCT cousines.type) AS res_cousines, GROUP_CONCAT(DISTINCT dishes.name) AS dish_names
+				GROUP_CONCAT(DISTINCT cuisines.type) AS res_cuisines, GROUP_CONCAT(DISTINCT dishes.name) AS dish_names
 				FROM restaurants 
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
-				INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
-				INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
 				WHERE dishes.name LIKE ? AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
 				GROUP BY res_id, res_name, res_score
 				ORDER BY sort_score DESC
@@ -287,7 +322,7 @@ io.on('connection', (sock) => {
 		if(isAlnum(name)){
 			let sql = `
 				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
-				GROUP_CONCAT(DISTINCT  cousines.type) AS res_cousines, 
+				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, 
 				GROUP_CONCAT(DISTINCT dishes.name) AS dish_names,
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ing_names
 				FROM restaurants 
@@ -295,8 +330,8 @@ io.on('connection', (sock) => {
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
-				INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
-				INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
 				WHERE ingredients.name LIKE ? AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
 				GROUP BY res_id, res_name, res_score
 				ORDER BY sort_score DESC
@@ -347,7 +382,7 @@ io.on('connection', (sock) => {
 						sin(radians(${res_y})) * sin(radians(ST_Y(coordinates)))
 					)) AS distance_km,
 				`;
-			where +=` ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0`;
+			where +=` ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0 AND NOT ST_Equals(coordinates, POINT(0, 0))`;
 			having = `HAVING distance_km <= ${res_r}`
 			order += `distance_km, `;
 			sql_flag = true;
@@ -355,16 +390,17 @@ io.on('connection', (sock) => {
 		if(sql_flag){
 			let sql = `
 				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
-				GROUP_CONCAT(DISTINCT  cousines.type) AS res_cousines, ${coords}
+				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, ${coords}
 				GROUP_CONCAT(DISTINCT dishes.name) AS dish_names,
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN coordinates ON restaurants.id = coordinates.id
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
-				INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
-				INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
 				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
 				GROUP BY res_id, res_name, res_score
 				${having}
@@ -380,10 +416,11 @@ io.on('connection', (sock) => {
 	sock.on("getRestaurantInfo", (id) => {
 		if(isAlnum(id)){
 			let sql = `
-				SELECT name, opinion, coordinates, address, GROUP_CONCAT(cousines.type) AS res_cousines, client.username AS up_by, admin.username AS ver_by
+				SELECT name, opinion, coordinates, address, GROUP_CONCAT(cuisines.type) AS res_cuisines, client.username AS up_by, admin.username AS ver_by
 				FROM restaurants
-				INNER JOIN cousines_restaurants ON restaurants.id = cousines_restaurants.id_restaurant
-				INNER JOIN cousines ON cousines.id = cousines_restaurants.id_cousine
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN coordinates ON restaurants.id = coordinates.id
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
 				LEFT JOIN users AS client ON client.id = restaurants.updated_by
 				LEFT JOIN users AS admin ON admin.id = restaurants.verified_by
 				WHERE restaurants.id = ?
@@ -446,13 +483,13 @@ io.on('connection', (sock) => {
 		let address = json.address;
 		let cuisines = json.cuisines;
 		console.log("test");
-		if(isAlnum(name) == false || isAlnum(address.replaceAll(',', '')) == false) return;
+		if(isAlnum(name) == false || isAlnum(address.replaceAll(',', '').replaceAll(" ", "")) == false) return;
 		console.log("test");
 		let up_by = translationTab[cid].user_id;
 	
 		let sql = `
-			INSERT INTO restaurants (id, name, opinion, verified, coordinates, coordinates_to_verify, coordinates_verified, address, updated_by, verified_by) 
-			VALUES (NULL, ?, '', '0', POINT(0, 0), POINT(0, 0), 0, ?, ?, '')
+			INSERT INTO restaurants (id, name, opinion, verified, address, updated_by, verified_by) 
+			VALUES (NULL, ?, 0, 0, ?, ?, '')
 		`;
 		
 		queryDatabase(sql, [name, address, up_by])
@@ -460,13 +497,13 @@ io.on('connection', (sock) => {
 			let restaurantId = res.insertId;
 			console.log(restaurantId);
 			cuisines.forEach(cuisine => {
-				let sqlCuisine = `SELECT id FROM cousines WHERE type = ?`;
+				let sqlCuisine = `SELECT id FROM cuisines WHERE type = ?`;
 				queryDatabase(sqlCuisine, [cuisine])
 				.then(cuisineRes => {
 					let cuisineId = cuisineRes.length > 0 ? cuisineRes[0].id : null;
 	
 					if (cuisineId) {
-						let sqlInsertCuisineLink = `INSERT INTO cousines_restaurants (id_restaurant, id_cousine) VALUES (?, ?)`;
+						let sqlInsertCuisineLink = `INSERT INTO cuisines_restaurants (id_restaurant, id_cuisine) VALUES (?, ?)`;
 						queryDatabase(sqlInsertCuisineLink, [restaurantId, cuisineId]);
 					}
 				}).catch(err => {
@@ -481,7 +518,7 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("get_cuisines", () => {
-		let sql = "SELECT type FROM cousines";
+		let sql = "SELECT type FROM cuisines";
 		
 		queryDatabase(sql)
 		.then((res) => {
@@ -583,7 +620,7 @@ io.on('connection', (sock) => {
 					coordinates.y = 0;
 				}
 				console.log(coordinates);
-				sql = `UPDATE restaurants SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), coordinates_verified = 0, updated_by = ? WHERE id = ?`;
+				sql = `UPDATE coordinates SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), verified = 0, updated_by = ? WHERE id = ?`;
 				queryDatabase(sql, [up_by, res_id])
 				.then((res) => {
 					console.log(res);
@@ -606,11 +643,11 @@ io.on('connection', (sock) => {
 		let score = json.score;
 		let desc = json.desc;
 		let created_by = translationTab[cid].user_id;
-		console.log("HI");
-		if(!Number(res_id)) return;
-		if(score < 0 || score > 5) return;
-		if(!isAlnum(desc)) return;
-		console.log("HI");
+		
+		if(!Number(res_id)) return sock.emit("comment", "wrong res id");
+		if(score < 0 || score > 5 || !Number(score)) return sock.emit("comment", "wrong score");
+		if(!isAlnum(desc.replaceAll(",", "").replaceAll(".", ""))) return sock.emit("comment", "wrong desc, only alnum, ',' and '.'");
+		
 		let sql = `SELECT * FROM restaurants WHERE id = ?`;
 		queryDatabase(sql, [res_id])
 		.then((res) => {
