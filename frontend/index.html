@@ -417,6 +417,12 @@
                 d.forEach(e => document.getElementById("res_info").innerHTML += JSON.stringify(e)+"<br>");
             });
 
+            sock.on("restaurantComments", (d) => {
+                console.log(d); //show in console
+                document.getElementById("res_comments").innerHTML = "";
+                d.forEach(e => document.getElementById("res_comments").innerHTML += JSON.stringify(e)+"<br>");
+            });
+
             sock.on("ingredientsList", (d) => {
                 console.log(d); //show in console
                 document.getElementById("menu_list").innerHTML = "";

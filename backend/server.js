@@ -129,7 +129,18 @@ const emit_login_data = (sock, db_stats) => {
 						d.ing = res;
 
 						if(i == json.dishes.length - 1){
-							sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+
+							let sql = `
+								SELECT coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
+								FROM coordinates
+								WHERE updated_by = ?
+							`;
+							queryDatabase(sql, [emit_db_stats.id])
+							.then((res) => {
+								json.coords = res;
+
+								sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
 				});
@@ -434,7 +445,20 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getComments", (id) => {
-
+		if(isAlnum(id)){
+			let sql = `
+				SELECT comments.id, comment, users.username AS up_by, score
+				FROM comments
+				INNER JOIN restaurants_comments ON comments.id = restaurants_comments.id_comment
+				LEFT JOIN users ON users.id = comments.updated_by
+				WHERE restaurants_comments.id_restaurant = ? AND verified = 1
+			`;
+			queryDatabase(sql, [`${id}`])
+			.then((res) => {
+				//console.log(res);
+				sock.emit("restaurantComments", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
 	});
 
 	sock.on("getDishesByResId", (id) => {
