@@ -62,11 +62,40 @@ const hashCompare = (data, hash) => {
 }
 const emit_login_data = (sock, db_stats) => {
 	let emit_db_stats = {...db_stats};
+	userInfo(sock, emit_db_stats);
+}
+
+const adminInfo = (sock, emit_db_stats, json) => {
+	let sql  = `
+		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cuisines.type) AS res_cuisines, 
+		address AS res_address, restaurants.verified AS res_ver
+		FROM restaurants 
+		INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+		INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
+		WHERE restaurants.verified = 0
+		GROUP BY res_id
+	`;
+	queryDatabase(sql, [emit_db_stats.id])
+	.then((res) => {
+		console.log(res);
+		json.admin_restaurants = res;
+
+
+		sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+		
+	}).catch((err) => {console.log("DB Error: "+err);});
+}
+
+const userInfo = (sock, emit_db_stats) => {
 	let json = {
 		restaurants: [],
 		dishes: [],
 		coords: [],
-		comments: []
+		comments: [],
+		admin_restaurants: [],
+		admin_dishes: [],
+		admin_coords: [],
+		admin_comments: []
 	};
 
 	let sql  = `
@@ -139,7 +168,12 @@ const emit_login_data = (sock, db_stats) => {
 							.then((res) => {
 								json.coords = res;
 
-								sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+								if(emit_db_stats.is_admin == 1){
+									adminInfo(sock, emit_db_stats, json);
+								}
+								else{
+									sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+								}
 							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
