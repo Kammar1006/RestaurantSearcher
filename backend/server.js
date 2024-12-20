@@ -75,14 +75,76 @@ const adminInfo = (sock, emit_db_stats, json) => {
 		WHERE restaurants.verified = 0
 		GROUP BY res_id
 	`;
-	queryDatabase(sql, [emit_db_stats.id])
+	queryDatabase(sql, [])
 	.then((res) => {
-		console.log(res);
+		//console.log(res);
 		json.admin_restaurants = res;
 
+		let sql = `
+			SELECT restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
+			FROM comments 
+			INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id 
+			INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id 
+			WHERE comments.verified = 0 
+			ORDER BY restaurants.id DESC
+		`;
 
-		sock.emit("login", emit_db_stats, JSON.stringify(json)); 
-		
+		queryDatabase(sql, [])
+		.then((res) => {
+			//console.log(res);
+			json.admin_comments = res;
+
+			//to add dishes & coords
+			let sql = `
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, dishes.id AS dish_id, dishes.name AS dish_name,
+				restaurants_dishes.verified AS dish_ver
+				FROM restaurants
+				INNER JOIN restaurants_dishes ON restaurants_dishes.id_restaurant = restaurants.id
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				WHERE restaurants_dishes.verified = 0
+				ORDER BY res_id
+			`;
+			queryDatabase(sql, [])
+			.then((res) => {
+				//console.log(res);
+				json.admin_dishes = [...res];
+				json.admin_dishes.forEach((d, i) => {
+					//d.ing = [];
+					let sql = `
+						SELECT ingredients.id AS ing_id, ingredients.name AS ing_name, 
+						GROUP_CONCAT(DISTINCT allergens.name) AS allergens_names
+						FROM ingredients_dishes
+						INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+						INNER JOIN allergens_ingredients ON allergens_ingredients.id_ingredient = ingredients.id
+						INNER JOIN allergens ON allergens_ingredients.id_allergen = allergens.id
+						WHERE ingredients_dishes.id_dish = ? AND allergens.id > 0
+						GROUP BY ing_id
+					`;
+
+					queryDatabase(sql, [d.dish_id])
+					.then((res) => {
+						//console.log(res);
+						d.ing = res;
+
+						if(i == json.admin_dishes.length - 1){
+
+							let sql = `
+								SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
+								FROM coordinates
+								WHERE verified = 0 AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
+							`;
+							queryDatabase(sql, [])
+							.then((res) => {
+								json.admin_coords = res;
+
+								sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+								
+							}).catch((err) => {console.log("DB Error: "+err);});
+						}
+					}).catch((err) => {console.log("DB Error: "+err);});
+				});
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}).catch((err) => {console.log("DB Error: "+err);});
 	}).catch((err) => {console.log("DB Error: "+err);});
 }
 
@@ -109,7 +171,7 @@ const userInfo = (sock, emit_db_stats) => {
 	`;
 	queryDatabase(sql, [emit_db_stats.id])
 	.then((res) => {
-		console.log(res);
+		//console.log(res);
 		json.restaurants = res;
 
 		let sql = `
@@ -123,7 +185,7 @@ const userInfo = (sock, emit_db_stats) => {
 
 		queryDatabase(sql, [emit_db_stats.id])
 		.then((res) => {
-			console.log(res);
+			//console.log(res);
 			json.comments = res;
 
 			//to add dishes & coords
@@ -137,7 +199,7 @@ const userInfo = (sock, emit_db_stats) => {
 			`;
 			queryDatabase(sql, [emit_db_stats.id])
 			.then((res) => {
-				console.log(res);
+				//console.log(res);
 				json.dishes = [...res];
 				json.dishes.forEach((d, i) => {
 					//d.ing = [];
@@ -154,15 +216,15 @@ const userInfo = (sock, emit_db_stats) => {
 
 					queryDatabase(sql, [d.dish_id])
 					.then((res) => {
-						console.log(res);
+						//console.log(res);
 						d.ing = res;
 
 						if(i == json.dishes.length - 1){
 
 							let sql = `
-								SELECT coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
-								FROM coordinates
-								WHERE updated_by = ?
+								SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
+								FROM coordinates 
+								WHERE updated_by = ? AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
 							`;
 							queryDatabase(sql, [emit_db_stats.id])
 							.then((res) => {
