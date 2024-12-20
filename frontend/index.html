@@ -326,6 +326,15 @@
         </div>
     </div>
     <hr>
+    <h3> Added Restaurant </h3>
+    <p id="admin_restaurants_added"></p>
+    <h3> Added Dishes </h3>
+    <p id="admin_dishes_added"></p>
+    <h3> Fixed Coords </h3>
+    <p id="admin_coords_added"></p>
+    <h3> Added Comments </h3>
+    <p id="admin_comments_added"></p>
+    <hr>
     <input style="display: none;" id="clicker" value="click" type="submit"/>
 
 
@@ -417,6 +426,12 @@
                 d.forEach(e => document.getElementById("res_info").innerHTML += JSON.stringify(e)+"<br>");
             });
 
+            sock.on("restaurantComments", (d) => {
+                console.log(d); //show in console
+                document.getElementById("res_comments").innerHTML = "";
+                d.forEach(e => document.getElementById("res_comments").innerHTML += JSON.stringify(e)+"<br>");
+            });
+
             sock.on("ingredientsList", (d) => {
                 console.log(d); //show in console
                 document.getElementById("menu_list").innerHTML = "";
@@ -436,6 +451,15 @@
                     j.coords.forEach(k => document.getElementById("user_coords_added").innerHTML += JSON.stringify(k)+"<br>");
                     document.getElementById("user_comments_added").innerHTML = "";
                     j.comments.forEach(k => document.getElementById("user_comments_added").innerHTML += JSON.stringify(k)+"<br>");
+
+                    document.getElementById("admin_restaurants_added").innerHTML = "";
+                    j.admin_restaurants.forEach(k => document.getElementById("admin_restaurants_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("admin_dishes_added").innerHTML = "";
+                    j.admin_dishes.forEach(k => document.getElementById("admin_dishes_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("admin_coords_added").innerHTML = "";
+                    j.admin_coords.forEach(k => document.getElementById("admin_coords_added").innerHTML += JSON.stringify(k)+"<br>");
+                    document.getElementById("admin_comments_added").innerHTML = "";
+                    j.admin_comments.forEach(k => document.getElementById("admin_comments_added").innerHTML += JSON.stringify(k)+"<br>");
                 }
             });
 

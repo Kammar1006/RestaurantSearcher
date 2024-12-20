@@ -62,11 +62,102 @@ const hashCompare = (data, hash) => {
 }
 const emit_login_data = (sock, db_stats) => {
 	let emit_db_stats = {...db_stats};
+	userInfo(sock, emit_db_stats);
+}
+
+const adminInfo = (sock, emit_db_stats, json) => {
+	let sql  = `
+		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cuisines.type) AS res_cuisines, 
+		address AS res_address, restaurants.verified AS res_ver
+		FROM restaurants 
+		INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+		INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
+		WHERE restaurants.verified = 0
+		GROUP BY res_id
+	`;
+	queryDatabase(sql, [])
+	.then((res) => {
+		//console.log(res);
+		json.admin_restaurants = res;
+
+		let sql = `
+			SELECT restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
+			FROM comments 
+			INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id 
+			INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id 
+			WHERE comments.verified = 0 
+			ORDER BY restaurants.id DESC
+		`;
+
+		queryDatabase(sql, [])
+		.then((res) => {
+			//console.log(res);
+			json.admin_comments = res;
+
+			//to add dishes & coords
+			let sql = `
+				SELECT restaurants.id AS res_id, restaurants.name AS res_name, dishes.id AS dish_id, dishes.name AS dish_name,
+				restaurants_dishes.verified AS dish_ver
+				FROM restaurants
+				INNER JOIN restaurants_dishes ON restaurants_dishes.id_restaurant = restaurants.id
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				WHERE restaurants_dishes.verified = 0
+				ORDER BY res_id
+			`;
+			queryDatabase(sql, [])
+			.then((res) => {
+				//console.log(res);
+				json.admin_dishes = [...res];
+				json.admin_dishes.forEach((d, i) => {
+					//d.ing = [];
+					let sql = `
+						SELECT ingredients.id AS ing_id, ingredients.name AS ing_name, 
+						GROUP_CONCAT(DISTINCT allergens.name) AS allergens_names
+						FROM ingredients_dishes
+						INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+						INNER JOIN allergens_ingredients ON allergens_ingredients.id_ingredient = ingredients.id
+						INNER JOIN allergens ON allergens_ingredients.id_allergen = allergens.id
+						WHERE ingredients_dishes.id_dish = ? AND allergens.id > 0
+						GROUP BY ing_id
+					`;
+
+					queryDatabase(sql, [d.dish_id])
+					.then((res) => {
+						//console.log(res);
+						d.ing = res;
+
+						if(i == json.admin_dishes.length - 1){
+
+							let sql = `
+								SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
+								FROM coordinates
+								WHERE verified = 0 AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
+							`;
+							queryDatabase(sql, [])
+							.then((res) => {
+								json.admin_coords = res;
+
+								sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+								
+							}).catch((err) => {console.log("DB Error: "+err);});
+						}
+					}).catch((err) => {console.log("DB Error: "+err);});
+				});
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}).catch((err) => {console.log("DB Error: "+err);});
+	}).catch((err) => {console.log("DB Error: "+err);});
+}
+
+const userInfo = (sock, emit_db_stats) => {
 	let json = {
 		restaurants: [],
 		dishes: [],
 		coords: [],
-		comments: []
+		comments: [],
+		admin_restaurants: [],
+		admin_dishes: [],
+		admin_coords: [],
+		admin_comments: []
 	};
 
 	let sql  = `
@@ -80,7 +171,7 @@ const emit_login_data = (sock, db_stats) => {
 	`;
 	queryDatabase(sql, [emit_db_stats.id])
 	.then((res) => {
-		console.log(res);
+		//console.log(res);
 		json.restaurants = res;
 
 		let sql = `
@@ -94,7 +185,7 @@ const emit_login_data = (sock, db_stats) => {
 
 		queryDatabase(sql, [emit_db_stats.id])
 		.then((res) => {
-			console.log(res);
+			//console.log(res);
 			json.comments = res;
 
 			//to add dishes & coords
@@ -108,7 +199,7 @@ const emit_login_data = (sock, db_stats) => {
 			`;
 			queryDatabase(sql, [emit_db_stats.id])
 			.then((res) => {
-				console.log(res);
+				//console.log(res);
 				json.dishes = [...res];
 				json.dishes.forEach((d, i) => {
 					//d.ing = [];
@@ -125,11 +216,27 @@ const emit_login_data = (sock, db_stats) => {
 
 					queryDatabase(sql, [d.dish_id])
 					.then((res) => {
-						console.log(res);
+						//console.log(res);
 						d.ing = res;
 
 						if(i == json.dishes.length - 1){
-							sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+
+							let sql = `
+								SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
+								FROM coordinates 
+								WHERE updated_by = ? AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
+							`;
+							queryDatabase(sql, [emit_db_stats.id])
+							.then((res) => {
+								json.coords = res;
+
+								if(emit_db_stats.is_admin == 1){
+									adminInfo(sock, emit_db_stats, json);
+								}
+								else{
+									sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+								}
+							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
 				});
@@ -434,7 +541,20 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getComments", (id) => {
-
+		if(isAlnum(id)){
+			let sql = `
+				SELECT comments.id, comment, users.username AS up_by, score
+				FROM comments
+				INNER JOIN restaurants_comments ON comments.id = restaurants_comments.id_comment
+				LEFT JOIN users ON users.id = comments.updated_by
+				WHERE restaurants_comments.id_restaurant = ? AND verified = 1
+			`;
+			queryDatabase(sql, [`${id}`])
+			.then((res) => {
+				//console.log(res);
+				sock.emit("restaurantComments", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}
 	});
 
 	sock.on("getDishesByResId", (id) => {
