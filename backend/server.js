@@ -81,11 +81,11 @@ const adminInfo = (sock, emit_db_stats, json) => {
 		json.admin_restaurants = res;
 
 		let sql = `
-			SELECT restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
+			SELECT comments.id AS c_id, restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
 			FROM comments 
 			INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id 
 			INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id 
-			WHERE comments.verified = 0 
+			WHERE comments.verified = 0 AND comments.deleted = 0
 			ORDER BY restaurants.id DESC
 		`;
 
@@ -826,7 +826,7 @@ io.on('connection', (sock) => {
 	//for admins:
 	sock.on("verify_restaurant", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
 		let res_id = json.res_id;
 		let action = json.action; //delete or confirm
@@ -835,20 +835,46 @@ io.on('connection', (sock) => {
 
 	sock.on("verify_dish", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
 	});
 
 	sock.on("verify_location", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
 	});
 
 	sock.on("verify_comment", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
+		console.log(json);
+		let id = json.id;
+		let action = json.action;
+		console.log(id, action);
+		if(id > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE comments SET deleted = 1, verified_by = ?
+					WHERE id = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_comment", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					UPDATE comments SET verified = 1, verified_by = ?
+					WHERE id = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_comment", "verified");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
 	});
 });
 

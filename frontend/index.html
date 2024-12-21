@@ -15,6 +15,12 @@
         .center{
             text-align: center;
         }
+        .green{
+            background-color: #4a4;
+        }
+        .red{
+            background-color: #a44;
+        }
     </style>
 </head>
 <body>
@@ -323,6 +329,16 @@
         </div>
         <div class="w50">
             <h2> Verify Comment </h2>
+            <form id="form_A4">
+                <p>
+                    <span> ID </span>
+                    <br>
+                    <input id="form_A4_id" value=""/>
+                </p>
+                <input class="red" id="form_A4_button_DEL" type="submit" value="Delete"/>
+                <input class="green" id="form_A4_button_VER" type="submit" value="Verify"/>
+            </form>
+            <p id="form_A4_res"></p>
         </div>
     </div>
     <hr>
@@ -520,6 +536,10 @@
                 });
             });
 
+            sock.on("verify_comment", (data) => {
+                document.getElementById("form_A4_res").innerHTML = data;
+            });
+
             //send info to backend - form 1
             document
                 .querySelector("#form_S1_button")
@@ -660,6 +680,23 @@
                 .addEventListener("click", (e) => {
                     sock.emit("counter");
                 });
+
+            document
+                .querySelector("#form_A4_button_DEL")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_comment", JSON.stringify({
+                        id: document.getElementById("form_A4_id").value,
+                        action: "DEL"
+                    }));
+                });
+            document
+                .querySelector("#form_A4_button_VER")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_comment", JSON.stringify({
+                        id: document.getElementById("form_A4_id").value,
+                        action: "VER"
+                    }));
+                });
         })();
 
         //not reload site when click form
@@ -726,6 +763,11 @@
             });
         document
             .querySelector("#form_DI")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_A4")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });
