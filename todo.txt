@@ -5,7 +5,6 @@ endpoints (backend):
 - verify_restaurant
 - verify_dish
 - verify_location
-- verify_comment
 -- search by cousines def / adv
 add sort system
 for all sort system add info about hours / open / closed

@@ -81,11 +81,11 @@ const adminInfo = (sock, emit_db_stats, json) => {
 		json.admin_restaurants = res;
 
 		let sql = `
-			SELECT restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
+			SELECT comments.id AS c_id, restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver 
 			FROM comments 
 			INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id 
 			INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id 
-			WHERE comments.verified = 0 
+			WHERE comments.verified = 0 AND comments.deleted = 0
 			ORDER BY restaurants.id DESC
 		`;
 
@@ -129,7 +129,7 @@ const adminInfo = (sock, emit_db_stats, json) => {
 						if(i == json.admin_dishes.length - 1){
 
 							let sql = `
-								SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
+								SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver, updated_by AS up_by, edited_by AS ed_by
 								FROM coordinates
 								WHERE verified = 0 AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
 							`;
@@ -224,7 +224,7 @@ const userInfo = (sock, emit_db_stats) => {
 							let sql = `
 								SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
 								FROM coordinates 
-								WHERE updated_by = ? AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
+								WHERE edited_by = ? AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
 							`;
 							queryDatabase(sql, [emit_db_stats.id])
 							.then((res) => {
@@ -740,7 +740,7 @@ io.on('connection', (sock) => {
 					coordinates.y = 0;
 				}
 				console.log(coordinates);
-				sql = `UPDATE coordinates SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), verified = 0, updated_by = ? WHERE id = ?`;
+				sql = `UPDATE coordinates SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), verified = 0, edited_by = ? WHERE id = ?`;
 				queryDatabase(sql, [up_by, res_id])
 				.then((res) => {
 					console.log(res);
@@ -776,9 +776,9 @@ io.on('connection', (sock) => {
 				sql = `
 					SELECT id FROM comments
 					INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id
-					WHERE restaurants_comments.id_restaurant = ?
+					WHERE restaurants_comments.id_restaurant = ? AND comments.updated_by = ?
 				`;
-				queryDatabase(sql, [res_id])
+				queryDatabase(sql, [res_id, created_by])
 				.then((res2) => {
 					if(res2.length == 1){
 						//comment exist
@@ -787,7 +787,9 @@ io.on('connection', (sock) => {
 							comment = ?,
 							score = ${score},
 							verified = 0,
-							updated_by = ${created_by}
+							updated_by = ${created_by},
+							verified_by = 0,
+							deleted = 0
 							WHERE id = ${res2[0].id}
 						`;
 						queryDatabase(sql, [`${desc}`])
@@ -826,7 +828,7 @@ io.on('connection', (sock) => {
 	//for admins:
 	sock.on("verify_restaurant", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
 		let res_id = json.res_id;
 		let action = json.action; //delete or confirm
@@ -835,20 +837,79 @@ io.on('connection', (sock) => {
 
 	sock.on("verify_dish", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
 	});
 
 	sock.on("verify_location", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
+		console.log(json);
+		let id = json.id;
+		let action = json.action; //delete or confirm
+		console.log(id, action);
+		if(id > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE coordinates 
+					SET coordinates_to_verify = POINT(0, 0), verified = 0, verified_by = ?, edited_by = 0
+					WHERE id = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_location", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					UPDATE coordinates 
+					SET coordinates = coordinates_to_verify, 
+					coordinates_to_verify = POINT(0, 0),
+					verified = 1, 
+					verified_by = ?, 
+					updated_by = edited_by, 
+					edited_by = 0
+					WHERE id = ? AND verified = 0
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_location", "verified");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
 	});
 
 	sock.on("verify_comment", (json) => {
 		if(translationTab[cid].user_id === -1) return;
-		if(translationTab[cid].db_stats,is_admin !== 1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
+		console.log(json);
+		let id = json.id;
+		let action = json.action;
+		console.log(id, action);
+		if(id > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE comments SET deleted = 1, verified_by = ?
+					WHERE id = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_comment", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					UPDATE comments SET verified = 1, verified_by = ?
+					WHERE id = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_comment", "verified");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
 	});
 });
 
