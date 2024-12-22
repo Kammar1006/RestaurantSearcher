@@ -7,13 +7,13 @@ To run this project locally, follow these steps:
 1. **Clone the repository**:
     ```
     git clone https://github.com/Kammar1006/RestaurantSearcher.git
-     cd RestaurantSearcher
+    cd RestaurantSearcher
     ```
 2. **Install dependencies:**
     ```
     npm i
     ```
-3. **Create settings.json files:**
+3. **Create file settings.json:**
     ```
     "port": 8005,
     "db_on": true,
@@ -31,4 +31,4 @@ To run this project locally, follow these steps:
     node start
     ```
 
-Your API should now be running locally at ```http://127.0.0.1:8005```.
+Your APK should now be running locally at ```http://127.0.0.1:8005/test.html```.
