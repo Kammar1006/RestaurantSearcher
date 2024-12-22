@@ -863,6 +863,29 @@ io.on('connection', (sock) => {
 		let id_res = json.id_res;
 		let id_dish = json.id_dish;
 		let action = json.action; //delete or confirm
+		console.log(id_res, id_dish, action);
+		if(id_res > 0 && id_dish > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE restaurants_dishes SET deleted = 1, verified_by = ?
+					WHERE id_restaurant = ? AND id_dish = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id_res, id_dish])
+				.then((res) => {
+					sock.emit("verify_dish", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					UPDATE restaurants_dishes SET verified = 1, verified_by = ?
+					WHERE id_restaurant = ? AND id_dish = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id_res, id_dish])
+				.then((res) => {
+					sock.emit("verify_dish", "verified");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
 	});
 
 	sock.on("verify_location", (json) => {
