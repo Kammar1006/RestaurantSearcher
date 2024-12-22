@@ -62,10 +62,21 @@ const hashCompare = (data, hash) => {
 }
 const emit_login_data = (sock, db_stats) => {
 	let emit_db_stats = {...db_stats};
+	sock.emit("login", "Successful login", emit_db_stats);
 	userInfo(sock, emit_db_stats);
+	if(emit_db_stats.is_admin == 1){
+		adminInfo(sock);
+	}
 }
 
-const adminInfo = (sock, emit_db_stats, json) => {
+const adminInfo = (sock) => {
+	let json = {
+		admin_restaurants: [],
+		admin_dishes: [],
+		admin_coords: [],
+		admin_comments: []
+	};
+	
 	let sql  = `
 		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cuisines.type) AS res_cuisines, 
 		address AS res_address, restaurants.verified AS res_ver
@@ -137,7 +148,7 @@ const adminInfo = (sock, emit_db_stats, json) => {
 							.then((res) => {
 								json.admin_coords = res;
 
-								sock.emit("login", emit_db_stats, JSON.stringify(json)); 
+								sock.emit("authAdminTables", JSON.stringify(json)); 
 								
 							}).catch((err) => {console.log("DB Error: "+err);});
 						}
@@ -153,11 +164,7 @@ const userInfo = (sock, emit_db_stats) => {
 		restaurants: [],
 		dishes: [],
 		coords: [],
-		comments: [],
-		admin_restaurants: [],
-		admin_dishes: [],
-		admin_coords: [],
-		admin_comments: []
+		comments: []
 	};
 
 	let sql  = `
@@ -230,12 +237,8 @@ const userInfo = (sock, emit_db_stats) => {
 							.then((res) => {
 								json.coords = res;
 
-								if(emit_db_stats.is_admin == 1){
-									adminInfo(sock, emit_db_stats, json);
-								}
-								else{
-									sock.emit("login", emit_db_stats, JSON.stringify(json)); 
-								}
+								sock.emit("authUserTables", JSON.stringify(json)); 
+
 							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
@@ -375,7 +378,7 @@ io.on('connection', (sock) => {
 		let data = JSON.parse(json);
 		//console.log(data);
 		if(data.x !== undefined && data.y !== undefined && data.r !== undefined){
-			console.log(data.x, data.y, data.r);
+			//console.log(data.x, data.y, data.r);
 			let sql = `
 				SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score,
 					GROUP_CONCAT(DISTINCT cuisines.type) AS res_cuisines, address AS res_address,
@@ -558,7 +561,7 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getDishesByResId", (id) => {
-		console.log(id);
+		//console.log(id);
 		if(isAlnum(id)){
 			let sql = `
 				SELECT dishes.id, dishes.name, dishes.calories, dishes.price, dishes.weight,
@@ -602,9 +605,9 @@ io.on('connection', (sock) => {
 		let name = json.name;
 		let address = json.address;
 		let cuisines = json.cuisines;
-		console.log("test");
+		//console.log("test");
 		if(isAlnum(name) == false || isAlnum(address.replaceAll(',', '').replaceAll(" ", "")) == false) return;
-		console.log("test");
+		//console.log("test");
 		let up_by = translationTab[cid].user_id;
 	
 		let sql = `
@@ -615,7 +618,7 @@ io.on('connection', (sock) => {
 		queryDatabase(sql, [name, address, up_by])
 		.then((res) => {
 			let restaurantId = res.insertId;
-			console.log(restaurantId);
+			//console.log(restaurantId);
 			cuisines.forEach(cuisine => {
 				let sqlCuisine = `SELECT id FROM cuisines WHERE type = ?`;
 				queryDatabase(sqlCuisine, [cuisine])
@@ -731,19 +734,19 @@ io.on('connection', (sock) => {
 		let sql = `SELECT * FROM restaurants WHERE id = ?`;
 		queryDatabase(sql, [res_id])
 		.then((res) => {
-			console.log(res);
+			//console.log(res);
 			if(res.length == 1){
 				//update
-				console.log(coordinates);
+				//console.log(coordinates);
 				if(!(Number(coordinates.x) && Number(coordinates.y))){
 					coordinates.x = 0;
 					coordinates.y = 0;
 				}
-				console.log(coordinates);
+				//console.log(coordinates);
 				sql = `UPDATE coordinates SET coordinates_to_verify = POINT(${coordinates.x}, ${coordinates.y}), verified = 0, edited_by = ? WHERE id = ?`;
 				queryDatabase(sql, [up_by, res_id])
 				.then((res) => {
-					console.log(res);
+					//console.log(res);
 				})
 				.catch((err) => {
 					console.log("DB Error: " + err);
@@ -771,7 +774,7 @@ io.on('connection', (sock) => {
 		let sql = `SELECT * FROM restaurants WHERE id = ?`;
 		queryDatabase(sql, [res_id])
 		.then((res) => {
-			console.log(res);
+			//console.log(res);
 			if(res.length == 1){
 				sql = `
 					SELECT id FROM comments
@@ -863,7 +866,7 @@ io.on('connection', (sock) => {
 		let id_res = json.id_res;
 		let id_dish = json.id_dish;
 		let action = json.action; //delete or confirm
-		console.log(id_res, id_dish, action);
+		//console.log(id_res, id_dish, action);
 		if(id_res > 0 && id_dish > 0){
 			if(action == "DEL"){
 				let sql = `
@@ -892,10 +895,10 @@ io.on('connection', (sock) => {
 		if(translationTab[cid].user_id === -1) return;
 		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
-		console.log(json);
+		//console.log(json);
 		let id = json.id;
 		let action = json.action; //delete or confirm
-		console.log(id, action);
+		//console.log(id, action);
 		if(id > 0){
 			if(action == "DEL"){
 				let sql = `
@@ -931,10 +934,10 @@ io.on('connection', (sock) => {
 		if(translationTab[cid].user_id === -1) return;
 		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
-		console.log(json);
+		//console.log(json);
 		let id = json.id;
 		let action = json.action;
-		console.log(id, action);
+		//console.log(id, action);
 		if(id > 0){
 			if(action == "DEL"){
 				let sql = `
