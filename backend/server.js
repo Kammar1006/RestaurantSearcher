@@ -72,7 +72,7 @@ const adminInfo = (sock, emit_db_stats, json) => {
 		FROM restaurants 
 		INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
 		INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
-		WHERE restaurants.verified = 0
+		WHERE restaurants.verified = 0 AND restaurants.deleted = 0
 		GROUP BY res_id
 	`;
 	queryDatabase(sql, [])
@@ -101,7 +101,7 @@ const adminInfo = (sock, emit_db_stats, json) => {
 				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants_dishes.id_restaurant = restaurants.id
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
-				WHERE restaurants_dishes.verified = 0
+				WHERE restaurants_dishes.verified = 0 AND restaurants_dishes.deleted = 0
 				ORDER BY res_id
 			`;
 			queryDatabase(sql, [])
@@ -830,15 +830,39 @@ io.on('connection', (sock) => {
 		if(translationTab[cid].user_id === -1) return;
 		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
-		let res_id = json.res_id;
+		let id = json.id;
 		let action = json.action; //delete or confirm
-		//search if res exist & is ver
+		if(id > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE restaurants SET deleted = 1, verified_by = ?
+					WHERE id = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_restaurant", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					UPDATE restaurants SET verified = 1, verified_by = ?
+					WHERE id = ?
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_restaurant", "verified");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
 	});
 
 	sock.on("verify_dish", (json) => {
 		if(translationTab[cid].user_id === -1) return;
 		if(translationTab[cid].db_stats.is_admin !== 1) return;
 		json = JSON.parse(json);
+		let id_res = json.id_res;
+		let id_dish = json.id_dish;
+		let action = json.action; //delete or confirm
 	});
 
 	sock.on("verify_location", (json) => {

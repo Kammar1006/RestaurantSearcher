@@ -317,9 +317,34 @@
     <div class="flex center">
         <div class="w50">
             <h2> Verify restaurant </h2>
+            <form id="form_A1">
+                <p>
+                    <span> RES ID </span>
+                    <br>
+                    <input id="form_A1_id" value=""/>
+                </p>
+                <input class="red" id="form_A1_button_DEL" type="submit" value="Delete"/>
+                <input class="green" id="form_A1_button_VER" type="submit" value="Verify"/>
+            </form>
+            <p id="form_A1_res"></p>
         </div>
         <div class="w50">
             <h2> Verify Dish </h2>
+            <form id="form_A2">
+                <p>
+                    <span> RES ID </span>
+                    <br>
+                    <input id="form_A2_id" value=""/>
+                </p>
+                <p>
+                    <span> Dish ID </span>
+                    <br>
+                    <input id="form_A2_id_dish" value=""/>
+                </p>
+                <input class="red" id="form_A2_button_DEL" type="submit" value="Delete"/>
+                <input class="green" id="form_A2_button_VER" type="submit" value="Verify"/>
+            </form>
+            <p id="form_A2_res"></p>
         </div>
     </div>
     <hr>
@@ -554,6 +579,14 @@
                 document.getElementById("form_A3_res").innerHTML = data;
             });
 
+            sock.on("verify_dish", (data) => {
+                document.getElementById("form_A2_res").innerHTML = data;
+            });
+
+            sock.on("verify_restaurant", (data) => {
+                document.getElementById("form_A1_res").innerHTML = data;
+            });
+
             //send info to backend - form 1
             document
                 .querySelector("#form_S1_button")
@@ -695,6 +728,40 @@
                     sock.emit("counter");
                 });
             document
+                .querySelector("#form_A1_button_DEL")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_restaurant", JSON.stringify({
+                        id: document.getElementById("form_A1_id").value,
+                        action: "DEL"
+                    }));
+                });
+            document
+                .querySelector("#form_A1_button_VER")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_restaurant", JSON.stringify({
+                        id: document.getElementById("form_A1_id").value,
+                        action: "VER"
+                    }));
+                });
+            document
+                .querySelector("#form_A2_button_DEL")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_dish", JSON.stringify({
+                        id_res: document.getElementById("form_A2_id").value,
+                        id_dish: document.getElementById("form_A2_id_dish").value,
+                        action: "DEL"
+                    }));
+                });
+            document
+                .querySelector("#form_A2_button_VER")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_dish", JSON.stringify({
+                        id_res: document.getElementById("form_A2_id").value,
+                        id_dish: document.getElementById("form_A2_id_dish").value,
+                        action: "VER"
+                    }));
+                });
+            document
                 .querySelector("#form_A3_button_DEL")
                 .addEventListener("click", (e) => {
                     sock.emit("verify_location", JSON.stringify({
@@ -792,6 +859,16 @@
             });
         document
             .querySelector("#form_DI")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_A1")
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        document
+            .querySelector("#form_A2")
             .addEventListener('submit', (e) => {
                 e.preventDefault();
             });
