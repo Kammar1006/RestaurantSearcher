@@ -10,7 +10,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
-const {getDays, getCurrentDate} = require('./day.js');
+const {getDays, getCurrentDate, formatDate, getDayOfWeek}= require('./day.js');
 
 const {queryDatabase} = require('./db.js');
 const bcrypt = require("bcrypt");
@@ -471,6 +471,8 @@ io.on('connection', (sock) => {
 		let coords = "";
 		let having = "";
 		let order = "";
+		let hours = "";
+		let now_open = data.now_open;
 		if(res_name && isAlnum(res_name)){
 			where += `WHERE restaurants.name LIKE '%${res_name}%'`;
 			sql_flag = true;
@@ -497,18 +499,47 @@ io.on('connection', (sock) => {
 					)) AS distance_km,
 				`;
 			where +=` ST_Y(coordinates) > 0 AND ST_X(coordinates) > 0 AND NOT ST_Equals(coordinates, POINT(0, 0))`;
-			having = `HAVING distance_km <= ${res_r}`
+			having = `HAVING distance_km <= ${res_r} `
 			order += `distance_km, `;
 			sql_flag = true;
+		}
+		const date = getCurrentDate();
+		const formattedDate = formatDate(date);
+		const currentDay = getDayOfWeek(date);
+		hours = `CASE 
+			WHEN JSON_UNQUOTE(JSON_EXTRACT(special, '$."${formattedDate}"')) = 'closed' THEN 'closed'
+			WHEN JSON_UNQUOTE(JSON_EXTRACT(special, '$."${formattedDate}"')) IS NOT NULL THEN 
+				JSON_UNQUOTE(JSON_EXTRACT(special, '$."${formattedDate}"'))
+			ELSE
+				CASE 
+					WHEN '${currentDay}' = 'mon' THEN mon
+					WHEN '${currentDay}' = 'tue' THEN tue
+					WHEN '${currentDay}' = 'wed' THEN wed
+					WHEN '${currentDay}' = 'thu' THEN thu
+					WHEN '${currentDay}' = 'fri' THEN fri
+					WHEN '${currentDay}' = 'sat' THEN sat
+					WHEN '${currentDay}' = 'sun' THEN sun
+					ELSE 'closed'
+				END
+		END AS hours,`;
+
+		if(now_open && sql_flag){
+			if(having != "") having += "AND ";
+			else having = "HAVING ";
+			having += `
+				STR_TO_DATE(SUBSTRING_INDEX(hours, '-', 1), '%H:%i') <= CURTIME() 
+				AND STR_TO_DATE(SUBSTRING_INDEX(hours, '-', -1), '%H:%i') >= CURTIME()
+			`;
 		}
 		if(sql_flag){
 			let sql = `
 				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
-				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, ${coords}
+				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, ${coords} ${hours}
 				GROUP_CONCAT(DISTINCT dishes.name) AS dish_names,
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN hours ON hours.id = restaurants.id
 				INNER JOIN coordinates ON restaurants.id = coordinates.id
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
@@ -520,11 +551,43 @@ io.on('connection', (sock) => {
 				${having}
 				ORDER BY ${order} sort_score DESC
 			`;
+			//console.log(sql);
 			queryDatabase(sql, [])
 			.then((res) => {
 				sock.emit("restaurants", res);
 			}).catch((err) => {console.log("DB Error: "+err);});
 		}
+		/*
+		else if(sql_flag){
+			if(having == ""){
+				having = "HAVING res_id";
+			}
+			else{
+				having += "AND res_id";
+			}
+			let sql = `
+				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
+					GROUP_CONCAT(DISTINCT cuisines.type) AS res_cuisines, ${coords}
+					GROUP_CONCAT(DISTINCT dishes.name) AS dish_names,
+					GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
+				FROM restaurants
+				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN coordinates ON restaurants.id = coordinates.id
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
+				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
+				`+ where + ` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
+				GROUP BY res_id, res_name, res_score
+				${having}
+				ORDER BY ${order} sort_score DESC
+			`;
+			queryDatabase(sql, [])
+			.then((res) => {
+				sock.emit("restaurants", res);
+			}).catch((err) => {console.log("DB Error: "+err);});
+		}*/
 	});
 
 	sock.on("getRestaurantInfo", (id) => {
@@ -979,13 +1042,3 @@ server.listen(PORT, () => {
 	console.log("Work");
 	console.log(hasher("test"))
 });
-/*
-getDays(1, '2025-06-23', 7).then((week) => {
-    console.log('Godziny otwarcia na najbliższy tydzień:', week);
-});
-
-getDays(1, '2025-06-23', 1).then((week) => {
-    console.log('Godziny otwarcia na date:', week);
-});
-
-console.log( new Date().getHours())*/

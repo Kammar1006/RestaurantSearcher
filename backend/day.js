@@ -97,4 +97,4 @@ const getDays = (id, startDate, num = 7) => {
 };
 
 
-module.exports = {getDays, getCurrentDate};
+module.exports = {getDays, getCurrentDate, formatDate, getDayOfWeek};

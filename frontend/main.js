@@ -247,6 +247,7 @@ function renderAllergens() {
                 res_x: document.querySelector("#form_SA_res_x").value,
                 res_y: document.querySelector("#form_SA_res_y").value,
                 res_r: document.querySelector("#form_SA_res_r").value,
+                now_open: document.querySelector("#form_SA_open").checked,
             } 
             sock.emit("advancedSearch", JSON.stringify(data));
         });
