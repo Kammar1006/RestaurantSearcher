@@ -10,6 +10,8 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
+const {getDays} = require('./day.js');
+
 const {queryDatabase} = require('./db.js');
 const bcrypt = require("bcrypt");
 
@@ -247,6 +249,8 @@ const userInfo = (sock, emit_db_stats) => {
 		}).catch((err) => {console.log("DB Error: "+err);});
 	}).catch((err) => {console.log("DB Error: "+err);});
 }
+
+
 
 io.on('connection', (sock) => {
 	let cid = setCID(sock);
@@ -967,3 +971,13 @@ server.listen(PORT, () => {
 	console.log("Work");
 	console.log(hasher("test"))
 });
+
+getDays(1, '2025-06-23', 7).then((week) => {
+    console.log('Godziny otwarcia na najbliższy tydzień:', week);
+});
+
+getDays(1, '2025-06-23', 1).then((week) => {
+    console.log('Godziny otwarcia na date:', week);
+});
+
+console.log( new Date().getHours())
