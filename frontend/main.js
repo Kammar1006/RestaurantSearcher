@@ -75,6 +75,9 @@ function renderAllergens() {
     sock.on("dishesList", (d) => {
         console.log(d); //show in console
         document.getElementById("menu_list").innerHTML = "";
+        document.getElementById("res_info").innerHTML = "";
+        document.getElementById("res_comments").innerHTML = "";
+        document.getElementById("res_hours").innerHTML = "";
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 
@@ -88,6 +91,12 @@ function renderAllergens() {
         console.log(d); //show in console
         document.getElementById("res_comments").innerHTML = "";
         d.forEach(e => document.getElementById("res_comments").innerHTML += JSON.stringify(e)+"<br>");
+    });
+
+    sock.on("restaurantHours", (d) => {
+        console.log(d); //show in console
+        document.getElementById("res_hours").innerHTML = "";
+        d.forEach(e => document.getElementById("res_hours").innerHTML += JSON.stringify(e)+"<br>");
     });
 
     sock.on("ingredientsList", (d) => {
@@ -238,6 +247,7 @@ function renderAllergens() {
                 res_x: document.querySelector("#form_SA_res_x").value,
                 res_y: document.querySelector("#form_SA_res_y").value,
                 res_r: document.querySelector("#form_SA_res_r").value,
+                now_open: document.querySelector("#form_SA_open").checked,
             } 
             sock.emit("advancedSearch", JSON.stringify(data));
         });
@@ -268,6 +278,7 @@ function renderAllergens() {
             sock.emit("getDishesByResId", document.querySelector("#form_RI_id").value);
             sock.emit("getRestaurantInfo", document.querySelector("#form_RI_id").value);
             sock.emit("getComments", document.querySelector("#form_RI_id").value);
+            sock.emit("getHours", document.querySelector("#form_RI_id").value);
         });
 
     document
