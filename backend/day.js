@@ -56,6 +56,15 @@ const formatDate = (date) => {
     return `${day}.${month}.${year}`;
 };
 
+const getCurrentDate = () => {
+    const currentDate = new Date();  // Pobieramy bieżącą datę i godzinę
+    const year = currentDate.getFullYear();  // Pobieramy rok
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');  // Pobieramy miesiąc (dodajemy 1, ponieważ miesiące zaczynają się od 0) i formatujemy na 2 cyfry
+    const day = currentDate.getDate().toString().padStart(2, '0');  // Pobieramy dzień i formatujemy na 2 cyfry
+
+    return `${year}-${month}-${day}`;  // Łączymy datę w formacie YYYY-MM-DD
+};
+
 const getDays = (id, startDate, num = 7) => {
     const result = [];
     let currentDate = new Date(startDate); // Startowa data
@@ -88,4 +97,4 @@ const getDays = (id, startDate, num = 7) => {
 };
 
 
-module.exports = {getDays};
+module.exports = {getDays, getCurrentDate};

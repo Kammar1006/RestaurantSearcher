@@ -10,7 +10,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
-const {getDays} = require('./day.js');
+const {getDays, getCurrentDate} = require('./day.js');
 
 const {queryDatabase} = require('./db.js');
 const bcrypt = require("bcrypt");
@@ -547,6 +547,14 @@ io.on('connection', (sock) => {
 		}
 	});
 
+	sock.on("getHours", (id) => {
+		if(isAlnum(id)){
+			getDays(id, getCurrentDate(), 7).then((week) => {
+				sock.emit("restaurantHours", week);
+			});
+		}
+	});
+
 	sock.on("getComments", (id) => {
 		if(isAlnum(id)){
 			let sql = `
@@ -971,7 +979,7 @@ server.listen(PORT, () => {
 	console.log("Work");
 	console.log(hasher("test"))
 });
-
+/*
 getDays(1, '2025-06-23', 7).then((week) => {
     console.log('Godziny otwarcia na najbliższy tydzień:', week);
 });
@@ -980,4 +988,4 @@ getDays(1, '2025-06-23', 1).then((week) => {
     console.log('Godziny otwarcia na date:', week);
 });
 
-console.log( new Date().getHours())
+console.log( new Date().getHours())*/
