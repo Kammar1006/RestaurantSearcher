@@ -626,11 +626,8 @@ io.on('connection', (sock) => {
 	sock.on("getComments", (id) => {
 		if(isAlnum(id)){
 			let sql = `
-				SELECT comments.id, comment, users.username AS up_by, score
-				FROM comments
-				INNER JOIN restaurants_comments ON comments.id = restaurants_comments.id_comment
-				LEFT JOIN users ON users.id = comments.updated_by
-				WHERE restaurants_comments.id_restaurant = ? AND verified = 1
+				SELECT * FROM comments_list
+				WHERE res_id = ? AND verified = 1
 			`;
 			queryDatabase(sql, [`${id}`])
 			.then((res) => {

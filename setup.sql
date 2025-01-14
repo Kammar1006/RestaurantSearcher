@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 15, 2025 at 12:25 AM
+-- Generation Time: Sty 15, 2025 at 12:43 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -287,6 +287,21 @@ INSERT INTO `comments` (`id`, `comment`, `score`, `verified`, `updated_by`, `ver
 (3, 'Great', 4.5, 0, 3, 0, 0),
 (4, 'Cool', 4.2, 0, 3, 0, 0),
 (5, 'Super', 4.7, 0, 3, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Zastąpiona struktura widoku `comments_list`
+-- (See below for the actual view)
+--
+CREATE TABLE `comments_list` (
+`id` int(11)
+,`comment` text
+,`up_by` text
+,`score` float
+,`res_id` int(11)
+,`verified` tinyint(1)
+);
 
 -- --------------------------------------------------------
 
@@ -2323,6 +2338,15 @@ INSERT INTO `users` (`id`, `login`, `password`, `email`, `username`, `is_admin`)
 (1, 'admin', '$2b$10$MsR8wrBepHr/7glAs8cuMORZxueDKPb2mrZQZFyiaHEjfBTZjsdF6', 'admin@aa.aa', 'admin', 1),
 (2, 'tester', '$2b$10$MsR8wrBepHr/7glAs8cuMORZxueDKPb2mrZQZFyiaHEjfBTZjsdF6', 'tester@aa.aa', 'tester', 0),
 (3, 'test', '$2b$10$4HEV11V4YW143It1v1nqx.dXGmhICO4dC9MFdoQppPgA3hMce4CMu', 'test@test.te', 'tester2', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura widoku `comments_list`
+--
+DROP TABLE IF EXISTS `comments_list`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `comments_list`  AS SELECT `comments`.`id` AS `id`, `comments`.`comment` AS `comment`, `users`.`username` AS `up_by`, `comments`.`score` AS `score`, `restaurants_comments`.`id_restaurant` AS `res_id`, `comments`.`verified` AS `verified` FROM ((`comments` join `restaurants_comments` on(`comments`.`id` = `restaurants_comments`.`id_comment`)) left join `users` on(`users`.`id` = `comments`.`updated_by`)) ;
 
 -- --------------------------------------------------------
 
