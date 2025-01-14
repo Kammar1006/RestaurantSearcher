@@ -1,6 +1,10 @@
 # Menufy
 Application for searching restaurants and dishes. (Database Project)
 
+## Prerequisites
+Node.js
+Xampp or MySQL Server
+
 ## Installation
 To run this project locally, follow these steps:
 
@@ -15,16 +19,20 @@ To run this project locally, follow these steps:
     ```
 3. **Create file settings.json:**
     ```
-    "port": 8005,
-    "db_on": true,
-    "cookie": "PHPSESSID",
-    "db_host": "localhost",
-    "db_user": "",
-    "db_pass": "",
-    "db_dbname": "",
-    "db_port": 3306
+    {
+        "port": 8005,
+        "db_on": true,
+        "cookie": "PHPSESSID",
+        "db_host": "localhost",
+        "db_user": "your_db_user",
+        "db_pass": "your_db_password",
+        "db_dbname": "your_db_name",
+        "db_port": 3306
+    }
     ```
-4. **Setup DB using script: setup.sql:**
+4. **Setup Database:**
+
+    Go to: http://127.0.0.1/phpmyadmin/ and import database using setup.sql script.
 
 5. **Run project:**
     ```

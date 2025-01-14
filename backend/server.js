@@ -539,7 +539,7 @@ io.on('connection', (sock) => {
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
-				INNER JOIN hours ON hours.id = restaurants.id
+				INNER JOIN hours ON hours.id_restaurant = restaurants.id
 				INNER JOIN coordinates ON restaurants.id = coordinates.id
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
