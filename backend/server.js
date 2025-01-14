@@ -466,6 +466,8 @@ io.on('connection', (sock) => {
 		let res_x = data.res_x;
 		let res_y = data.res_y;
 		let res_r = data.res_r;
+		let vegetarian = data.vegetarian;
+		let vegan = data.vegan;
 		let sql_flag = false;
 		let where = "";
 		let coords = "";
@@ -531,10 +533,20 @@ io.on('connection', (sock) => {
 				AND STR_TO_DATE(SUBSTRING_INDEX(hours, '-', -1), '%H:%i') >= CURTIME()
 			`;
 		}
+		if(vegetarian && sql_flag){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			where += `dishes.vegetarian = 1`;
+		}
+		if(vegan && sql_flag){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			where += `dishes.vegan = 1`;
+		}
 		if(sql_flag){
 			let sql = `
 				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
-				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, ${coords} ${hours}
+				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, dishes.vegetarian AS vegetarian, dishes.vegan AS vegan, ${coords} ${hours}
 				GROUP_CONCAT(DISTINCT dishes.name) AS dish_names,
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
@@ -593,14 +605,7 @@ io.on('connection', (sock) => {
 	sock.on("getRestaurantInfo", (id) => {
 		if(isAlnum(id)){
 			let sql = `
-				SELECT name, opinion, coordinates, address, GROUP_CONCAT(cuisines.type) AS res_cuisines, client.username AS up_by, admin.username AS ver_by
-				FROM restaurants
-				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
-				INNER JOIN coordinates ON restaurants.id = coordinates.id
-				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
-				LEFT JOIN users AS client ON client.id = restaurants.updated_by
-				LEFT JOIN users AS admin ON admin.id = restaurants.verified_by
-				WHERE restaurants.id = ?
+				SELECT * FROM restaurant_details WHERE res_id = ?
 			`;
 			queryDatabase(sql, [`${id}`])
 			.then((res) => {
@@ -621,11 +626,8 @@ io.on('connection', (sock) => {
 	sock.on("getComments", (id) => {
 		if(isAlnum(id)){
 			let sql = `
-				SELECT comments.id, comment, users.username AS up_by, score
-				FROM comments
-				INNER JOIN restaurants_comments ON comments.id = restaurants_comments.id_comment
-				LEFT JOIN users ON users.id = comments.updated_by
-				WHERE restaurants_comments.id_restaurant = ? AND verified = 1
+				SELECT * FROM comments_list
+				WHERE res_id = ? AND verified = 1
 			`;
 			queryDatabase(sql, [`${id}`])
 			.then((res) => {
@@ -639,15 +641,7 @@ io.on('connection', (sock) => {
 		//console.log(id);
 		if(isAlnum(id)){
 			let sql = `
-				SELECT dishes.id, dishes.name, dishes.calories, dishes.price, dishes.weight,
-				GROUP_CONCAT(ingredients.name) AS ingredient_names
-				FROM dishes
-				INNER JOIN restaurants_dishes ON restaurants_dishes.id_dish = dishes.id
-				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
-				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
-				WHERE restaurants_dishes.id_restaurant = ?
-				GROUP BY dishes.id
-				ORDER BY dishes.id
+				SELECT * FROM dishes_info WHERE res_id = ?
 			`;
 			queryDatabase(sql, [`${id}`])
 			.then((res) => {
@@ -659,11 +653,7 @@ io.on('connection', (sock) => {
 	sock.on("getIngredientsByDishId", (id) => {
 		if(isAlnum(id)){
 			let sql = `
-				SELECT ingredients.id, name, vegetarian, vegan
-				FROM ingredients
-				INNER JOIN ingredients_dishes ON ingredients_dishes.id_ingredient = ingredients.id
-				WHERE ingredients_dishes.id_dish = ?
-				ORDER BY ingredients.id
+				SELECT * FROM ingredients_list WHERE dish_id = ?
 			`;
 			// ^^^ to add alergens
 			queryDatabase(sql, [`${id}`])

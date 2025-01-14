@@ -75,9 +75,6 @@ function renderAllergens() {
     sock.on("dishesList", (d) => {
         console.log(d); //show in console
         document.getElementById("menu_list").innerHTML = "";
-        document.getElementById("res_info").innerHTML = "";
-        document.getElementById("res_comments").innerHTML = "";
-        document.getElementById("res_hours").innerHTML = "";
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 
@@ -102,6 +99,9 @@ function renderAllergens() {
     sock.on("ingredientsList", (d) => {
         console.log(d); //show in console
         document.getElementById("menu_list").innerHTML = "";
+        document.getElementById("res_info").innerHTML = "";
+        document.getElementById("res_comments").innerHTML = "";
+        document.getElementById("res_hours").innerHTML = "";
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 
@@ -248,6 +248,8 @@ function renderAllergens() {
                 res_y: document.querySelector("#form_SA_res_y").value,
                 res_r: document.querySelector("#form_SA_res_r").value,
                 now_open: document.querySelector("#form_SA_open").checked,
+                vegetarian: document.querySelector("#form_SA_v1").checked,
+                vegan: document.querySelector("#form_SA_v2").checked,
             } 
             sock.emit("advancedSearch", JSON.stringify(data));
         });
