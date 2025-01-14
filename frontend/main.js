@@ -75,9 +75,6 @@ function renderAllergens() {
     sock.on("dishesList", (d) => {
         console.log(d); //show in console
         document.getElementById("menu_list").innerHTML = "";
-        document.getElementById("res_info").innerHTML = "";
-        document.getElementById("res_comments").innerHTML = "";
-        document.getElementById("res_hours").innerHTML = "";
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 
@@ -102,6 +99,9 @@ function renderAllergens() {
     sock.on("ingredientsList", (d) => {
         console.log(d); //show in console
         document.getElementById("menu_list").innerHTML = "";
+        document.getElementById("res_info").innerHTML = "";
+        document.getElementById("res_comments").innerHTML = "";
+        document.getElementById("res_hours").innerHTML = "";
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 

@@ -605,14 +605,7 @@ io.on('connection', (sock) => {
 	sock.on("getRestaurantInfo", (id) => {
 		if(isAlnum(id)){
 			let sql = `
-				SELECT name, opinion, coordinates, address, GROUP_CONCAT(cuisines.type) AS res_cuisines, client.username AS up_by, admin.username AS ver_by
-				FROM restaurants
-				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
-				INNER JOIN coordinates ON restaurants.id = coordinates.id
-				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
-				LEFT JOIN users AS client ON client.id = restaurants.updated_by
-				LEFT JOIN users AS admin ON admin.id = restaurants.verified_by
-				WHERE restaurants.id = ?
+				SELECT * FROM restaurant_details WHERE res_id = ?
 			`;
 			queryDatabase(sql, [`${id}`])
 			.then((res) => {
@@ -651,15 +644,7 @@ io.on('connection', (sock) => {
 		//console.log(id);
 		if(isAlnum(id)){
 			let sql = `
-				SELECT dishes.id, dishes.name, dishes.calories, dishes.price, dishes.weight,
-				GROUP_CONCAT(ingredients.name) AS ingredient_names
-				FROM dishes
-				INNER JOIN restaurants_dishes ON restaurants_dishes.id_dish = dishes.id
-				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
-				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
-				WHERE restaurants_dishes.id_restaurant = ?
-				GROUP BY dishes.id
-				ORDER BY dishes.id
+				SELECT * FROM dishes_info WHERE res_id = ?
 			`;
 			queryDatabase(sql, [`${id}`])
 			.then((res) => {

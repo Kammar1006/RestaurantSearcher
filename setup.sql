@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 14, 2025 at 01:24 PM
+-- Generation Time: Sty 15, 2025 at 12:07 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -796,7 +796,7 @@ INSERT INTO `dishes` (`id`, `name`, `calories`, `price`, `weight`, `vegetarian`,
 (2, 'Smoky BryndzovĂ© HaluĹˇky', 1783, 61.24, 356.6, 0, 0),
 (3, 'Spicy Macaroni Salad', 633, 60.97, 126.6, 0, 0),
 (4, 'Broiled Lamb Tagine', 1512, 31.29, 302.4, 0, 0),
-(5, 'Crunchy Pork Belly', 1894, 31.83, 378.8, 0, 0),
+(5, 'Crunchy Pork Belly', 1894, 31.83, 378.8, 1, 0),
 (6, 'Steamed Chicken Cordon Bleu', 1385, 60.12, 277, 0, 0),
 (7, 'Broiled Bruschetta', 1888, 69.6, 377.6, 0, 0),
 (8, 'Sour Beef Wellington', 857, 45.15, 171.4, 0, 0),
@@ -806,7 +806,7 @@ INSERT INTO `dishes` (`id`, `name`, `calories`, `price`, `weight`, `vegetarian`,
 (12, 'Blanched Lamb Bolognese', 1711, 61.78, 342.2, 0, 0),
 (13, 'Air-fried Jerk Chicken', 1723, 64.36, 344.6, 0, 0),
 (14, 'Rich Churros', 415, 66.25, 83, 0, 0),
-(15, 'SautĂ©ed Lamb Quesadillas', 1810, 28.25, 362, 0, 0),
+(15, 'SautĂ©ed Lamb Quesadillas', 1810, 28.25, 362, 1, 0),
 (16, 'Fiery Organic Salad', 359, 36.27, 71.8, 0, 0),
 (17, 'Poached Moules Frites', 1526, 67.05, 305.2, 0, 0),
 (18, 'Creamy Paella Valenciana', 1977, 33.46, 395.4, 0, 0),
@@ -816,7 +816,7 @@ INSERT INTO `dishes` (`id`, `name`, `calories`, `price`, `weight`, `vegetarian`,
 (22, 'Creamy Apple Pie', 568, 46.43, 113.6, 0, 0),
 (23, 'Baked Beef Tostadas', 1126, 56.17, 225.2, 0, 0),
 (24, 'Funky Jambalaya', 663, 52.2, 132.6, 0, 0),
-(25, 'Herbed Chicken Cordon Bleu', 1692, 25.74, 338.4, 0, 0),
+(25, 'Herbed Chicken Cordon Bleu', 1692, 25.74, 338.4, 1, 0),
 (26, 'Crunchy Nicoise Salad', 569, 69.79, 113.8, 0, 0),
 (27, 'Brined Cuban Sandwich', 1754, 58.89, 350.8, 0, 0),
 (28, 'Boiled Bobotie', 1525, 29.59, 305, 0, 0),
@@ -850,8 +850,8 @@ INSERT INTO `dishes` (`id`, `name`, `calories`, `price`, `weight`, `vegetarian`,
 (56, 'Zesty Antipasto', 1143, 28, 228.6, 0, 0),
 (57, 'Flaky Bibimbap', 1438, 49.74, 287.6, 0, 0),
 (58, 'Buttery Tabbouleh', 1038, 42.84, 207.6, 0, 0),
-(59, 'Umami Kofta', 1070, 46.55, 214, 0, 0),
-(60, 'Broiled Chef Salad', 383, 38.51, 76.6, 0, 0),
+(59, 'Umami Kofta', 1070, 46.55, 214, 1, 1),
+(60, 'Broiled Chef Salad', 383, 38.51, 76.6, 1, 0),
 (61, 'Dry Matcha Latte', 1946, 68.66, 389.2, 0, 0),
 (62, 'Deep-fried Jerk Chicken', 1351, 31.89, 270.2, 0, 0),
 (63, 'Gooey Nicoise Salad', 1849, 37.23, 369.8, 0, 0),
@@ -861,7 +861,7 @@ INSERT INTO `dishes` (`id`, `name`, `calories`, `price`, `weight`, `vegetarian`,
 (67, 'Grilled Monte Cristo', 1556, 60.32, 311.2, 0, 0),
 (68, 'Duck Chicken Alfredo', 766, 50.82, 153.2, 0, 0),
 (69, 'Pickled Philly Cheesesteak', 1882, 45.41, 376.4, 0, 0),
-(70, 'Caramelized Pork Chops', 1599, 68.95, 319.8, 0, 0),
+(70, 'Caramelized Pork Chops', 1599, 68.95, 319.8, 1, 0),
 (71, 'Air-fried Fondue', 1289, 49, 257.8, 0, 0),
 (72, 'Mellow Chicken Lasagna', 1395, 52.28, 279, 0, 0),
 (73, 'Wrapped French Dip', 1995, 55.08, 399, 0, 0),
@@ -870,7 +870,7 @@ INSERT INTO `dishes` (`id`, `name`, `calories`, `price`, `weight`, `vegetarian`,
 (76, 'Fermented Beef Burritos', 1900, 35.56, 380, 0, 0),
 (77, 'Sugared Lamb Rogan Josh', 1434, 55.25, 286.8, 0, 0),
 (78, 'Berry Beef Enchiladas', 1292, 60.31, 258.4, 0, 0),
-(79, 'Boiled Rogan Josh', 1450, 47.92, 290, 0, 0),
+(79, 'Boiled Rogan Josh', 1450, 47.92, 290, 1, 0),
 (80, 'Seared Risotto', 1878, 33.81, 375.6, 0, 0),
 (81, 'Sugared Caprese Salad', 1049, 30.94, 209.8, 0, 0),
 (82, 'Pickled Yakitori', 840, 56.63, 168, 0, 0),
@@ -892,10 +892,26 @@ INSERT INTO `dishes` (`id`, `name`, `calories`, `price`, `weight`, `vegetarian`,
 (98, 'Steamed Nasi Goreng', 656, 41.24, 131.2, 0, 0),
 (99, 'Silky Lamb Rogan Josh', 1969, 63.64, 393.8, 0, 0),
 (100, 'Pureed Shish Kebab', 379, 55.76, 75.8, 0, 0),
-(101, 'Pierogi', 200, 34, 345, 0, 0),
-(102, 'Pierogi', 200, 34, 345, 0, 0),
+(101, 'Pierogi', 200, 34, 345, 1, 1),
+(102, 'Pierogi', 200, 34, 345, 1, 1),
 (103, 'Pierogi', 200, 34, 345, 0, 0),
 (104, 'Pierogi Ruskie', 200, 34, 345, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Zastąpiona struktura widoku `dishes_info`
+-- (See below for the actual view)
+--
+CREATE TABLE `dishes_info` (
+`id` int(11)
+,`name` text
+,`calories` int(11)
+,`price` float
+,`weight` float
+,`ingredient_names` mediumtext
+,`res_id` int(11)
+);
 
 -- --------------------------------------------------------
 
@@ -1069,7 +1085,7 @@ INSERT INTO `ingredients` (`id`, `name`, `vegetarian`, `vegan`) VALUES
 (16, 'Canned Black Beans', 0, 0),
 (17, 'Jasmine Rice', 0, 0),
 (18, 'Shallots', 1, 1),
-(19, 'Poblano Peppers', 0, 0),
+(19, 'Poblano Peppers', 1, 0),
 (20, 'Soybean Paste', 1, 0),
 (21, 'Curly Kale', 0, 0),
 (22, 'Lime Juice', 0, 0),
@@ -1145,7 +1161,12 @@ INSERT INTO `ingredients` (`id`, `name`, `vegetarian`, `vegan`) VALUES
 (92, 'test3', 0, 0),
 (93, 'test1', 0, 0),
 (94, 'test2', 0, 0),
-(95, 'test3', 0, 0);
+(95, 'test3', 0, 0),
+(96, 'test4', 1, 1),
+(97, 'test4', 1, 1),
+(98, 'test4', 1, 1),
+(99, 'test4', 1, 1),
+(100, 'test4', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1806,7 +1827,7 @@ INSERT INTO `restaurants_dishes` (`id_restaurant`, `id_dish`, `verified`, `updat
 (2, 51, 0, 0, 0, 0),
 (2, 19, 0, 0, 0, 0),
 (2, 14, 0, 0, 0, 0),
-(2, 70, 0, 0, 0, 0),
+(2, 70, 1, 0, 3, 0),
 (3, 38, 1, 0, 0, 0),
 (3, 47, 0, 0, 0, 0),
 (3, 40, 0, 0, 0, 0),
@@ -2217,6 +2238,53 @@ INSERT INTO `restaurants_dishes` (`id_restaurant`, `id_dish`, `verified`, `updat
 (105, 103, 0, 3, 0, 0),
 (105, 104, 0, 3, 0, 0);
 
+--
+-- Wyzwalacze `restaurants_dishes`
+--
+DELIMITER $$
+CREATE TRIGGER `verify_dishes_type` AFTER UPDATE ON `restaurants_dishes` FOR EACH ROW BEGIN
+    UPDATE dishes
+    SET 
+        vegan = CASE
+            WHEN EXISTS (
+                SELECT 1
+                FROM ingredients_dishes id
+                INNER JOIN ingredients i ON id.id_ingredient = i.id
+                INNER JOIN restaurants_dishes rd ON rd.id_dish = id.id_dish
+                WHERE id.id_dish = NEW.id_dish AND i.vegan = 0 AND rd.verified = 1
+            )
+            THEN 0 ELSE 1 END,
+        vegetarian = CASE
+            WHEN EXISTS (
+                SELECT 1
+                FROM ingredients_dishes id
+                INNER JOIN ingredients i ON id.id_ingredient = i.id
+                INNER JOIN restaurants_dishes rd ON rd.id_dish = id.id_dish
+                WHERE id.id_dish = NEW.id_dish AND i.vegetarian = 0 AND rd.verified = 1
+            )
+            THEN 0 ELSE 1 END
+    WHERE id = NEW.id_dish; 
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Zastąpiona struktura widoku `restaurant_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `restaurant_details` (
+`name` text
+,`opinion` float
+,`coordinates` point
+,`address` text
+,`res_cuisines` mediumtext
+,`up_by` text
+,`ver_by` text
+,`res_id` int(11)
+);
+
 -- --------------------------------------------------------
 
 --
@@ -2240,6 +2308,24 @@ INSERT INTO `users` (`id`, `login`, `password`, `email`, `username`, `is_admin`)
 (1, 'admin', '$2b$10$MsR8wrBepHr/7glAs8cuMORZxueDKPb2mrZQZFyiaHEjfBTZjsdF6', 'admin@aa.aa', 'admin', 1),
 (2, 'tester', '$2b$10$MsR8wrBepHr/7glAs8cuMORZxueDKPb2mrZQZFyiaHEjfBTZjsdF6', 'tester@aa.aa', 'tester', 0),
 (3, 'test', '$2b$10$4HEV11V4YW143It1v1nqx.dXGmhICO4dC9MFdoQppPgA3hMce4CMu', 'test@test.te', 'tester2', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura widoku `dishes_info`
+--
+DROP TABLE IF EXISTS `dishes_info`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dishes_info`  AS SELECT `dishes`.`id` AS `id`, `dishes`.`name` AS `name`, `dishes`.`calories` AS `calories`, `dishes`.`price` AS `price`, `dishes`.`weight` AS `weight`, group_concat(`ingredients`.`name` separator ',') AS `ingredient_names`, `restaurants_dishes`.`id_restaurant` AS `res_id` FROM (((`dishes` join `restaurants_dishes` on(`restaurants_dishes`.`id_dish` = `dishes`.`id`)) join `ingredients_dishes` on(`dishes`.`id` = `ingredients_dishes`.`id_dish`)) join `ingredients` on(`ingredients_dishes`.`id_ingredient` = `ingredients`.`id`)) GROUP BY `dishes`.`id`, `restaurants_dishes`.`id_restaurant` ORDER BY `dishes`.`id` ASC ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura widoku `restaurant_details`
+--
+DROP TABLE IF EXISTS `restaurant_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `restaurant_details`  AS SELECT `restaurants`.`name` AS `name`, `restaurants`.`opinion` AS `opinion`, `coordinates`.`coordinates` AS `coordinates`, `restaurants`.`address` AS `address`, group_concat(`cuisines`.`type` separator ',') AS `res_cuisines`, `client`.`username` AS `up_by`, `admin`.`username` AS `ver_by`, `restaurants`.`id` AS `res_id` FROM (((((`restaurants` join `cuisines_restaurants` on(`restaurants`.`id` = `cuisines_restaurants`.`id_restaurant`)) join `coordinates` on(`restaurants`.`id` = `coordinates`.`id`)) join `cuisines` on(`cuisines`.`id` = `cuisines_restaurants`.`id_cuisine`)) left join `users` `client` on(`client`.`id` = `restaurants`.`updated_by`)) left join `users` `admin` on(`admin`.`id` = `restaurants`.`verified_by`)) GROUP BY `restaurants`.`id` ;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -2338,7 +2424,7 @@ ALTER TABLE `hours`
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `restaurants`
