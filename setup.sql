@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 15, 2025 at 12:07 AM
+-- Generation Time: Sty 15, 2025 at 12:25 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -1633,6 +1633,21 @@ INSERT INTO `ingredients_dishes` (`id_ingredient`, `id_dish`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Zastąpiona struktura widoku `ingredients_list`
+-- (See below for the actual view)
+--
+CREATE TABLE `ingredients_list` (
+`id` int(11)
+,`name` text
+,`vegetarian` tinyint(1)
+,`vegan` tinyint(1)
+,`dish_id` int(11)
+,`allergens_list` mediumtext
+);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `restaurants`
 --
 
@@ -2317,6 +2332,15 @@ INSERT INTO `users` (`id`, `login`, `password`, `email`, `username`, `is_admin`)
 DROP TABLE IF EXISTS `dishes_info`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dishes_info`  AS SELECT `dishes`.`id` AS `id`, `dishes`.`name` AS `name`, `dishes`.`calories` AS `calories`, `dishes`.`price` AS `price`, `dishes`.`weight` AS `weight`, group_concat(`ingredients`.`name` separator ',') AS `ingredient_names`, `restaurants_dishes`.`id_restaurant` AS `res_id` FROM (((`dishes` join `restaurants_dishes` on(`restaurants_dishes`.`id_dish` = `dishes`.`id`)) join `ingredients_dishes` on(`dishes`.`id` = `ingredients_dishes`.`id_dish`)) join `ingredients` on(`ingredients_dishes`.`id_ingredient` = `ingredients`.`id`)) GROUP BY `dishes`.`id`, `restaurants_dishes`.`id_restaurant` ORDER BY `dishes`.`id` ASC ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura widoku `ingredients_list`
+--
+DROP TABLE IF EXISTS `ingredients_list`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ingredients_list`  AS SELECT `ingredients`.`id` AS `id`, `ingredients`.`name` AS `name`, `ingredients`.`vegetarian` AS `vegetarian`, `ingredients`.`vegan` AS `vegan`, `ingredients_dishes`.`id_dish` AS `dish_id`, group_concat(`allergens`.`name` separator ',') AS `allergens_list` FROM (((`ingredients` join `ingredients_dishes` on(`ingredients_dishes`.`id_ingredient` = `ingredients`.`id`)) join `allergens_ingredients` on(`allergens_ingredients`.`id_ingredient` = `ingredients`.`id`)) join `allergens` on(`allergens`.`id` = `allergens_ingredients`.`id_allergen`)) GROUP BY `ingredients`.`id`, `ingredients_dishes`.`id_dish` ORDER BY `ingredients`.`id` ASC ;
 
 -- --------------------------------------------------------
 

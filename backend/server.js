@@ -656,11 +656,7 @@ io.on('connection', (sock) => {
 	sock.on("getIngredientsByDishId", (id) => {
 		if(isAlnum(id)){
 			let sql = `
-				SELECT ingredients.id, name, vegetarian, vegan
-				FROM ingredients
-				INNER JOIN ingredients_dishes ON ingredients_dishes.id_ingredient = ingredients.id
-				WHERE ingredients_dishes.id_dish = ?
-				ORDER BY ingredients.id
+				SELECT * FROM ingredients_list WHERE dish_id = ?
 			`;
 			// ^^^ to add alergens
 			queryDatabase(sql, [`${id}`])
