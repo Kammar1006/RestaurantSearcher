@@ -466,6 +466,8 @@ io.on('connection', (sock) => {
 		let res_x = data.res_x;
 		let res_y = data.res_y;
 		let res_r = data.res_r;
+		let vegetarian = data.vegetarian;
+		let vegan = data.vegan;
 		let sql_flag = false;
 		let where = "";
 		let coords = "";
@@ -531,10 +533,20 @@ io.on('connection', (sock) => {
 				AND STR_TO_DATE(SUBSTRING_INDEX(hours, '-', -1), '%H:%i') >= CURTIME()
 			`;
 		}
+		if(vegetarian && sql_flag){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			where += `dishes.vegetarian = 1`;
+		}
+		if(vegan && sql_flag){
+			if(sql_flag) where += "AND ";
+			else where += "WHERE ";
+			where += `dishes.vegan = 1`;
+		}
 		if(sql_flag){
 			let sql = `
 				SELECT restaurants.id AS res_id, count(restaurants.id) AS sort_score, restaurants.name AS res_name, restaurants.opinion AS res_score, 
-				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, ${coords} ${hours}
+				GROUP_CONCAT(DISTINCT  cuisines.type) AS res_cuisines, dishes.vegetarian AS vegetarian, dishes.vegan AS vegan, ${coords} ${hours}
 				GROUP_CONCAT(DISTINCT dishes.name) AS dish_names,
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants

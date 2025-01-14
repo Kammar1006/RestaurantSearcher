@@ -2,8 +2,8 @@
 Application for searching restaurants and dishes. (Database Project)
 
 ## Prerequisites
-Node.js
-Xampp or MySQL Server
+1. Node.js
+2. Xampp or MySQL Server
 
 ## Installation
 To run this project locally, follow these steps:
@@ -36,7 +36,7 @@ To run this project locally, follow these steps:
 
 5. **Run project:**
     ```
-    node start
+    npm start  or  node ./backend/server.js 
     ```
 
 Your APK should now be running locally at ```http://127.0.0.1:8005/test.html```.
