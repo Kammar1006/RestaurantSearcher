@@ -239,8 +239,8 @@ function renderAllergens() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 const { latitude, longitude } = position.coords;
-                document.querySelector("#form_SA_res_x").value = longitude;
-                document.querySelector("#form_SA_res_y").value = latitude;
+                document.querySelector("#form_SA_res_x").value = latitude;
+                document.querySelector("#form_SA_res_y").value = longitude;
             }, (error) => {
                 console.error("Error getting location", error);
                 alert("Unable to retrieve your location. Please try again.");
@@ -261,7 +261,7 @@ function renderAllergens() {
                 res_y: document.querySelector("#form_SA_res_y").value,
                 res_r: document.querySelector("#form_SA_res_r").value,
                 now_open: document.querySelector("#form_SA_open").checked,
-            } 
+            }
             sock.emit("advancedSearch", JSON.stringify(data));
         });
 
