@@ -105,20 +105,20 @@ function renderAllergens() {
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 
+
     sock.on("login", (m, userPersonalData) => {
         console.log(m, userPersonalData);
         document.getElementById("form_U1_res").innerHTML = m;
 
         if (m === "Successful login") {
-            // Pokaż sekcję dla zalogowanych użytkowników
             document.getElementById("auth-section").style.display = "block";
 
-            // Sprawdź, czy użytkownik jest administratorem
+            document.getElementById("form_U1_button").style.display = "none";
+            document.getElementById("logout").style.display = "inline-block";
+
             if (userPersonalData.is_admin) {
-                // Pokaż sekcję dla adminów
                 document.getElementById("admin-section").style.display = "block";
             } else {
-                // Ukryj sekcję admina, jeśli użytkownik nie jest adminem
                 document.getElementById("admin-section").style.display = "none";
             }
         }
