@@ -233,36 +233,23 @@ function renderAllergens() {
         document.getElementById("form_A1_res").innerHTML = data;
     });
 
-    //send info to backend - form 1
-   /* document
-        .querySelector("#form_S1_button")
-        .addEventListener('click', (e) => {
-            let name = document.querySelector("#form_S1_name").value;
-            sock.emit("searchByName", name);
-        });*/
+    document
+        .querySelector("#your_cords")
+        .addEventListener('click', () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords;
+                document.querySelector("#form_SA_res_x").value = longitude;
+                document.querySelector("#form_SA_res_y").value = latitude;
+            }, (error) => {
+                console.error("Error getting location", error);
+                alert("Unable to retrieve your location. Please try again.");
+            });
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    });
 
-   /* document
-        .querySelector("#form_S2_button")
-        .addEventListener('click', (e) => {
-            let name = document.querySelector("#form_S2_name").value;
-            sock.emit("searchByDish", name);
-        });*/
-   /* document
-        .querySelector("#form_S3_button")
-        .addEventListener('click', (e) => {
-            let name = document.querySelector("#form_S3_name").value;
-            sock.emit("searchByIngredient", name);
-        });*/
- /*   document
-        .querySelector("#form_S4_button")
-        .addEventListener('click', (e) => {
-            let coords = {
-                x: document.querySelector("#form_S4_x").value,
-                y: document.querySelector("#form_S4_y").value,
-                r: document.querySelector("#form_S4_r").value,
-            }
-            sock.emit("searchByCoords", JSON.stringify(coords));
-        });*/
     document
         .querySelector("#form_SA_button")
         .addEventListener('click', (e) => {
