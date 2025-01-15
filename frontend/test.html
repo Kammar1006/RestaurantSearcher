@@ -67,6 +67,7 @@
                     <input type="password" id="form_U1_pass" value=""/>
                 </p>
                 <input id="form_U1_button" type="submit" value="login"/>
+                <input id="logout" style="display: none;" type="submit" value="logout"/>
             </form>
             <p id="form_U1_res">  </p>
         </div>
@@ -130,6 +131,7 @@
     <p id="res_comments">  </p>
     <p id="menu_list">  </p>
     <hr>
+    <div id="auth-section" style="display:none;">
     <h1 class="center"> For Auth Users </h1>
     <hr>
     <div class="flex center">
@@ -257,6 +259,8 @@
     <h3> Added Comments </h3>
     <p id="user_comments_added"></p>
     <hr>
+    </div>
+    <div id="admin-section" style="display: none;">
     <h1 class="center"> For Admins </h1>
     <hr>
     <div class="flex center">
@@ -335,5 +339,6 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
+    </div>
 </body>
 </html>

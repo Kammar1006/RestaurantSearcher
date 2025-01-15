@@ -108,6 +108,20 @@ function renderAllergens() {
     sock.on("login", (m, userPersonalData) => {
         console.log(m, userPersonalData);
         document.getElementById("form_U1_res").innerHTML = m;
+
+        if (m === "Successful login") {
+            // Pokaż sekcję dla zalogowanych użytkowników
+            document.getElementById("auth-section").style.display = "block";
+
+            // Sprawdź, czy użytkownik jest administratorem
+            if (userPersonalData.is_admin) {
+                // Pokaż sekcję dla adminów
+                document.getElementById("admin-section").style.display = "block";
+            } else {
+                // Ukryj sekcję admina, jeśli użytkownik nie jest adminem
+                document.getElementById("admin-section").style.display = "none";
+            }
+        }
     });
 
     sock.on("authUserTables", (tables) => {
@@ -152,6 +166,7 @@ function renderAllergens() {
 
     sock.on("comment", (t) => {
         document.getElementById("form_U6_res").innerHTML = t;
+
     })
 
     sock.on("cuisinesList", (data) => {
@@ -166,6 +181,17 @@ function renderAllergens() {
             option.textContent = cuisine.type;
             selectElement.appendChild(option);
         });
+    });
+
+    document.getElementById("logout").addEventListener("click", () => {
+
+        document.getElementById("auth-section").style.display = "none";
+        document.getElementById("admin-section").style.display = "none";
+
+        document.getElementById("form_U1_res").innerHTML = "You have been logged out.";
+
+        sock.emit("logout");
+        location.reload(true);
     });
 
     document.getElementById("add-ingredient-btn").addEventListener("click", addIngredient);
