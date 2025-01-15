@@ -8,55 +8,11 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-    
-    <h1 class="center"> Menufy </h1>
+
+    <h1 class="center"> Menufy</h1>
     <hr/>
 
     <div class="flex center">
-
-        <!-- Example Form for searching places using name -->
-        <div class="w50">
-            <h2> Basic Search </h2>
-            <form id="form_S1">
-                <p>
-                    <span> Place Name </span>
-                    <br>
-                    <input id="form_S1_name" value=""/>
-                </p>
-                <input id="form_S1_button" type="submit" value="search"/>
-            </form>
-            <hr>
-            <form id="form_S2">
-                <p>
-                    <span> Dish Name </span>
-                    <br>
-                    <input id="form_S2_name" value=""/>
-                </p>
-                <input id="form_S2_button" type="submit" value="search"/>
-            </form>
-            <hr>
-            <form id="form_S3">
-                <p>
-                    <span> Ingedient Name </span>
-                    <br>
-                    <input id="form_S3_name" value=""/>
-                </p>
-                <input id="form_S3_button" type="submit" value="search"/>
-            </form>
-            <hr>
-            <form id="form_S4">
-                <p>
-                    <span> Coord X </span><br>
-                    <input id="form_S4_x" value=""/><br>
-                    <span> Coord Y </span><br>
-                    <input id="form_S4_y" value=""/><br>
-                    <span> Coord R </span><br>
-                    <input id="form_S4_r" value=""/><br>
-                </p>
-                <input id="form_S4_button" type="submit" value="search"/>
-            </form>
-        </div>
-
         <div class="w50">
             <h2> Advanced Search </h2>
             <form id="form_SA">
@@ -69,13 +25,6 @@
                     <span> Dish Name </span>
                     <br>
                     <input id="form_SA_dish_name" value=""/>
-                    
-                </p>
-                <p id="dish_type" style="display: block;">
-                    <label for="form_SA_v1"> Vegetarian </label>
-                    <input id="form_SA_v1" type="checkbox" value="" />
-                    <label for="form_SA_v2"> Vegan </label>
-                    <input id="form_SA_v2" type="checkbox" value="" />
                 </p>
                 <p>
                     <span> Ingedient Name </span>
@@ -110,12 +59,12 @@
                 <p>
                     <span> Login </span>
                     <br>
-                    <input id="form_U1_login" value=""/>  
+                    <input id="form_U1_login" value=""/>
                 </p>
                 <p>
                     <span> Pass </span>
                     <br>
-                    <input type="password" id="form_U1_pass" value=""/>  
+                    <input type="password" id="form_U1_pass" value=""/>
                 </p>
                 <input id="form_U1_button" type="submit" value="login"/>
             </form>
@@ -128,22 +77,22 @@
                 <p>
                     <span> Login </span>
                     <br>
-                    <input id="form_U2_login" value=""/>  
+                    <input id="form_U2_login" value=""/>
                 </p>
                 <p>
                     <span> Pass </span>
                     <br>
-                    <input type="password" id="form_U2_pass" value=""/>  
+                    <input type="password" id="form_U2_pass" value=""/>
                 </p>
                 <p>
                     <span> Pass2 </span>
                     <br>
-                    <input type="password" id="form_U2_pass2" value=""/>  
+                    <input type="password" id="form_U2_pass2" value=""/>
                 </p>
                 <p>
                     <span> Email </span>
                     <br>
-                    <input id="form_U2_email" value=""/>  
+                    <input id="form_U2_email" value=""/>
                 </p>
                 <input id="form_U2_button" type="submit" value="register"/>
             </form>
@@ -192,7 +141,7 @@
                     <br>
                     <input id="form_U3_name" value=""/>
                 </p>
-                <p> 
+                <p>
                     <span> Address </span>
                     <br>
                     <input id="form_U3_address" value=""/>
@@ -238,22 +187,22 @@
                         <span>Vegetarian</span><br>
                         <input id="form_U4_vegetarian" type="checkbox"/>
                     </p>
-            
+
                     <!-- Składniki -->
                     <h3>Ingredients</h3>
                     <div id="ingredients-list">
                         <!-- Dynamically populate ingredients list -->
                     </div>
                     <button type="button" id="add-ingredient-btn">Add Ingredient</button>
-            
+
                     <!-- Alergeny -->
                     <div id="allergens-list">
                         <!-- Dynamically populate allergens for the selected ingredient -->
                     </div>
-            
+
                     <input type="submit" value="Add Dish"/>
                 </form>
-            </div>       
+            </div>
         </div>
     </div>
     <hr>

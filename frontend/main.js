@@ -75,6 +75,9 @@ function renderAllergens() {
     sock.on("dishesList", (d) => {
         console.log(d); //show in console
         document.getElementById("menu_list").innerHTML = "";
+        document.getElementById("res_info").innerHTML = "";
+        document.getElementById("res_comments").innerHTML = "";
+        document.getElementById("res_hours").innerHTML = "";
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 
@@ -99,9 +102,6 @@ function renderAllergens() {
     sock.on("ingredientsList", (d) => {
         console.log(d); //show in console
         document.getElementById("menu_list").innerHTML = "";
-        document.getElementById("res_info").innerHTML = "";
-        document.getElementById("res_comments").innerHTML = "";
-        document.getElementById("res_hours").innerHTML = "";
         d.forEach(e => document.getElementById("menu_list").innerHTML += JSON.stringify(e)+"<br>");
     });
 
@@ -208,26 +208,26 @@ function renderAllergens() {
     });
 
     //send info to backend - form 1
-    document
+   /* document
         .querySelector("#form_S1_button")
         .addEventListener('click', (e) => {
             let name = document.querySelector("#form_S1_name").value;
             sock.emit("searchByName", name);
-        });
+        });*/
 
-    document
+   /* document
         .querySelector("#form_S2_button")
         .addEventListener('click', (e) => {
             let name = document.querySelector("#form_S2_name").value;
             sock.emit("searchByDish", name);
-        });
-    document
+        });*/
+   /* document
         .querySelector("#form_S3_button")
         .addEventListener('click', (e) => {
             let name = document.querySelector("#form_S3_name").value;
             sock.emit("searchByIngredient", name);
-        });
-    document
+        });*/
+ /*   document
         .querySelector("#form_S4_button")
         .addEventListener('click', (e) => {
             let coords = {
@@ -236,7 +236,7 @@ function renderAllergens() {
                 r: document.querySelector("#form_S4_r").value,
             }
             sock.emit("searchByCoords", JSON.stringify(coords));
-        });
+        });*/
     document
         .querySelector("#form_SA_button")
         .addEventListener('click', (e) => {
@@ -248,8 +248,6 @@ function renderAllergens() {
                 res_y: document.querySelector("#form_SA_res_y").value,
                 res_r: document.querySelector("#form_SA_res_r").value,
                 now_open: document.querySelector("#form_SA_open").checked,
-                vegetarian: document.querySelector("#form_SA_v1").checked,
-                vegan: document.querySelector("#form_SA_v2").checked,
             } 
             sock.emit("advancedSearch", JSON.stringify(data));
         });
@@ -420,26 +418,26 @@ function renderAllergens() {
 })();
 
 //not reload site when click form
-document
+/*document
     .querySelector("#form_S1")
     .addEventListener('submit', (e) => {
         e.preventDefault();
-    });
-document
+    });*/
+/*document
     .querySelector("#form_S2")
     .addEventListener('submit', (e) => {
         e.preventDefault();
-    });
-document
+    });*/
+/*document
     .querySelector("#form_S3")
     .addEventListener('submit', (e) => {
         e.preventDefault();
-    });
-document
+    });*/
+/*document
     .querySelector("#form_S4")
     .addEventListener('submit', (e) => {
         e.preventDefault();
-    });
+    });*/
 document
     .querySelector("#form_SA")
     .addEventListener('submit', (e) => {
