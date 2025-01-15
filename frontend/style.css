@@ -153,3 +153,45 @@ hr {
     border-top: 2px solid #ddd;
     margin: 20px 0;
 }
+
+
+ #places_list {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 16px; /* Odstęp pomiędzy elementami */
+ }
+
+.restaurant-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    width: calc(33% - 16px); /* Zajmuje 1/3 szerokości ekranu (z uwzględnieniem odstępu) */
+    box-sizing: border-box;
+}
+
+.restaurant-item h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.restaurant-item p {
+    margin: 4px 0;
+    color: #555;
+}
+
+/* Responsywność: na mniejszych ekranach elementy zajmują 50% szerokości */
+@media (max-width: 768px) {
+    .restaurant-item {
+        width: calc(50% - 16px);
+    }
+}
+
+/* Responsywność: na jeszcze mniejszych ekranach elementy zajmują 100% szerokości */
+@media (max-width: 480px) {
+    .restaurant-item {
+        width: 100%;
+    }
+}
+
+

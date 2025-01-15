@@ -66,11 +66,26 @@ function renderAllergens() {
 
     //get data from backend
     sock.on("restaurants", (places) => {
-        console.log(places); //show in console
-        document.getElementById("places_list").innerHTML = "";
-        places.forEach(e => document.getElementById("places_list").innerHTML += JSON.stringify(e)+"<br>");
-        //document.querySelector("#places_list").innerHTML = JSON.stringify(places);
+        console.log(places); // Wyświetlenie w konsoli
+        const placesList = document.getElementById("places_list");
+        placesList.innerHTML = ""; // Wyczyszczenie listy
+
+        places.forEach(e => {
+            const restaurantDiv = document.createElement("div");
+            restaurantDiv.className = "restaurant-item";
+
+            restaurantDiv.innerHTML = `
+            <h3>${e.res_name}</h3>
+            <p><strong>Cousins:</strong> ${e.res_cuisines}</p>
+            <p><strong>Dishes:</strong> ${e.dish_names}</p>
+            <p><strong>Opening hours:</strong> ${e.hours}</p>
+            <p><strong>Składniki:</strong> ${e.ingredient_names}</p> <!-- Dodane składniki -->
+        `;
+
+            placesList.appendChild(restaurantDiv);
+        });
     });
+
 
     sock.on("dishesList", (d) => {
         console.log(d); //show in console
