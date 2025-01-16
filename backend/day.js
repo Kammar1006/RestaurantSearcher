@@ -24,7 +24,7 @@ const getDay = (id, date) => {
         FROM 
             hours
         WHERE 
-            id_restaurant = ?;
+            id_restaurant = ? AND verified = 1 AND deleted = 0;
     `;
 
     // Parametry dla zapytania (wstawiamy datę i dzień)
@@ -96,5 +96,28 @@ const getDays = (id, startDate, num = 7) => {
     return Promise.all(promises).then(() => result); // Zwracamy wynik po zakończeniu wszystkich zapytań
 };
 
+function validateScheduleFormat(json) {
+    const timeRegex = /^(\d{2}:\d{2})-(\d{2}:\d{2})$/;
+    const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
 
-module.exports = {getDays, getCurrentDate, formatDate, getDayOfWeek};
+    for (const [key, value] of Object.entries(json)) {
+        if (!dateRegex.test(key)) {
+            return { valid: false, message: `Invalid date format in key: ${key}` };
+        }
+
+        if (value !== 'closed' && !timeRegex.test(value)) {
+            return { valid: false, message: `Invalid value for ${key}: ${value}` };
+        }
+    }
+
+    return { valid: true, message: 'Schedule format is valid' };
+}
+
+function validateDay(day){
+    const timeRegex = /^(\d{2}:\d{2})-(\d{2}:\d{2})$/;
+    if(timeRegex.test(day) || day == "closed") return true;
+    return false;
+}
+
+
+module.exports = {getDays, getCurrentDate, formatDate, getDayOfWeek, validateScheduleFormat, validateDay};

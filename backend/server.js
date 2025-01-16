@@ -10,7 +10,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
-const {getDays, getCurrentDate, formatDate, getDayOfWeek}= require('./day.js');
+const {getDays, getCurrentDate, formatDate, getDayOfWeek, validateScheduleFormat, validateDay}= require('./day.js');
 
 const {queryDatabase} = require('./db.js');
 const bcrypt = require("bcrypt");
@@ -76,7 +76,8 @@ const adminInfo = (sock) => {
 		admin_restaurants: [],
 		admin_dishes: [],
 		admin_coords: [],
-		admin_comments: []
+		admin_comments: [],
+		admin_hours: []
 	};
 	
 	let sql  = `
@@ -150,8 +151,13 @@ const adminInfo = (sock) => {
 							.then((res) => {
 								json.admin_coords = res;
 
-								sock.emit("authAdminTables", JSON.stringify(json)); 
-								
+								let sql = `SELECT * FROM hours WHERE verified = 0 AND deleted = 0`;
+								queryDatabase(sql, [])
+								.then((res) => {
+									json.admin_hours = res;
+
+									sock.emit("authAdminTables", JSON.stringify(json)); 
+								}).catch((err) => {console.log("DB Error: "+err);});
 							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
@@ -166,7 +172,8 @@ const userInfo = (sock, emit_db_stats) => {
 		restaurants: [],
 		dishes: [],
 		coords: [],
-		comments: []
+		comments: [],
+		hours: []
 	};
 
 	let sql  = `
@@ -239,8 +246,13 @@ const userInfo = (sock, emit_db_stats) => {
 							.then((res) => {
 								json.coords = res;
 
-								sock.emit("authUserTables", JSON.stringify(json)); 
+								let sql = `SELECT * FROM hours WHERE updated_by = ? AND deleted = 0`;
+								queryDatabase(sql, [emit_db_stats.id])
+								.then((res) => {
+									json.hours = res;
 
+									sock.emit("authUserTables", JSON.stringify(json)); 
+								}).catch((err) => {console.log("DB Error: "+err);});
 							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
@@ -551,13 +563,13 @@ io.on('connection', (sock) => {
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
-				INNER JOIN hours ON hours.id_restaurant = restaurants.id
 				INNER JOIN coordinates ON restaurants.id = coordinates.id
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
 				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
 				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
+				LEFT JOIN hours ON hours.id_restaurant = restaurants.id AND hours.verified = 1
 				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
 				GROUP BY res_id, res_name, res_score
 				${having}
@@ -1026,9 +1038,106 @@ io.on('connection', (sock) => {
 			}
 		}
 	});
+
+	sock.on("update_hours", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+		json = JSON.parse(json);
+		let res_id = json.res_id;
+		let mon = validateDay(json.mon) ? json.mon : 0;
+		let tue = validateDay(json.tue) ? json.tue : 0;
+		let wed = validateDay(json.wed) ? json.wed : 0;
+		let thu = validateDay(json.thu) ? json.thu : 0;
+		let fri = validateDay(json.fri) ? json.fri : 0;
+		let sat = validateDay(json.sat) ? json.sat : 0;
+		let sun = validateDay(json.sun) ? json.sun : 0;
+		console.log(mon, tue, wed, thu, fri, sat, sun);
+		if(!(mon && tue && wed && thu && fri && sat && sun) || !(mon!="" && tue!="" && wed!="" && thu!="" && fri!="" && sat!="" && sun!="")){
+			sock.emit("update_hours", "Hours wrong format in days (mon - sun)");
+			return;
+		}
+ 		let special = validateScheduleFormat(json.special || '{}').valid ? json.special : 0;
+
+		queryDatabase("SELECT * FROM hours WHERE id_restaurant = ? AND verified = 1 AND deleted = 0", [res_id])
+		.then((res) => {
+			console.log(res);
+			console.log(mon, tue, wed, thu, fri, sat, sun, special, res[0].id_restaurant);
+			
+			// Weryfikacja
+			const result = validateScheduleFormat(special);
+			console.log(result);
+			if(result.valid){
+				let sql = `
+					INSERT INTO hours 
+					(id, id_restaurant, mon, tue, wed, thu, fri, sat, sun, special, updated_by, verified_by, verified, deleted)
+					VALUES (NULL, ${res_id}, ?, ?, ?, ?, ?, ?, ?, ?, ${translationTab[cid].user_id}, 0, 0, 0);
+				`;
+				queryDatabase(sql, [mon, tue, wed, thu, fri, sat, sun, special ? special : undefined])
+				.then((res) => {
+					console.log(res);
+					sock.emit("update_hours", "Added hours, waiting for verification");
+				}).catch((err) => {console.log("DB Error: "+err);});
+
+			}
+			else{
+				sock.emit("update_hours", "Wrong format in special field");
+			}
+		}).catch((err) => {console.log("DB Error: "+err);});
+	});
+
+	sock.on("verify_hours", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
+		json = JSON.parse(json);
+
+		let id = json.id;
+		let action = json.action;
+
+		if(id > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE hours SET deleted = 1, verified_by = ?
+					WHERE id = ? AND verified = 0
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_hours", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					SELECT * FROM hours WHERE id = ?
+				`;
+				queryDatabase(sql, [id])
+				.then((res) => {
+					if(res.length > 0){
+						let id_res = res[0].id_restaurant;
+						let sql = `
+							UPDATE hours SET verified = 1, verified_by = ?
+							WHERE id = ? AND deleted = 0
+						`;
+						queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+						.then((res) => {
+							if(res.affectedRows > 0){
+								console.log(id, id_res);
+								let deleteSql = `
+									UPDATE hours 
+									SET deleted = 1 
+									WHERE id_restaurant = ? AND id <> ?
+								`;
+								queryDatabase(deleteSql, [id_res, id])
+								.then((res) => {
+								}).catch((err) => {console.log("DB Error: "+err);});
+							}
+							sock.emit("verify_hours", "verified");
+						}).catch((err) => {console.log("DB Error: "+err);});
+					}
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
+	});
 });
 
 server.listen(PORT, () => {
 	console.log("Work");
-	console.log(hasher("test"))
+	console.log(hasher("test"));
 });
