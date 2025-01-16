@@ -24,7 +24,7 @@ const getDay = (id, date) => {
         FROM 
             hours
         WHERE 
-            id_restaurant = ?;
+            id_restaurant = ? AND verified = 1 AND deleted = 0;
     `;
 
     // Parametry dla zapytania (wstawiamy datę i dzień)

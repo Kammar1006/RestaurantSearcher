@@ -563,13 +563,13 @@ io.on('connection', (sock) => {
 				GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
 				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
-				INNER JOIN hours ON hours.id_restaurant = restaurants.id
 				INNER JOIN coordinates ON restaurants.id = coordinates.id
 				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
 				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
 				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
 				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
 				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
+				LEFT JOIN hours ON hours.id_restaurant = restaurants.id AND hours.verified = 1
 				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
 				GROUP BY res_id, res_name, res_score
 				${having}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 15, 2025 at 12:43 AM
+-- Generation Time: Sty 16, 2025 at 09:23 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -948,14 +948,14 @@ CREATE TABLE `hours` (
   `updated_by` int(11) NOT NULL,
   `verified_by` int(11) NOT NULL,
   `verified` tinyint(1) NOT NULL,
-  `id_ref` int(11) NOT NULL
+  `deleted` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `hours`
 --
 
-INSERT INTO `hours` (`id`, `id_restaurant`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`, `special`, `updated_by`, `verified_by`, `verified`, `id_ref`) VALUES
+INSERT INTO `hours` (`id`, `id_restaurant`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`, `special`, `updated_by`, `verified_by`, `verified`, `deleted`) VALUES
 (1, 1, '08:00-18:00', '09:00-18:00', '08:00-19:00', '07:00-19:00', '10:00-18:00', '09:00-19:00', '06:00-21:00', '{\"24.06.2025\":\"closed\",\"10.08.2025\":\"07:00-16:00\",\"29.05.2025\":\"10:00-15:00\",\"04.03.2025\":\"08:00-13:00\",\"26.03.2025\":\"closed\"}', 0, 0, 1, 0),
 (2, 2, '07:00-17:00', '09:00-20:00', '10:00-17:00', '08:00-22:00', '06:00-19:00', '06:00-23:00', '09:00-22:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
 (3, 3, '07:00-23:00', '09:00-17:00', '08:00-17:00', '09:00-21:00', '07:00-23:00', '09:00-20:00', '08:00-20:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
@@ -967,7 +967,7 @@ INSERT INTO `hours` (`id`, `id_restaurant`, `mon`, `tue`, `wed`, `thu`, `fri`, `
 (9, 9, '07:00-21:00', '10:00-17:00', '10:00-23:00', '07:00-19:00', '09:00-22:00', '09:00-19:00', '08:00-20:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
 (10, 10, '08:00-18:00', '06:00-20:00', '09:00-17:00', '06:00-17:00', '09:00-18:00', '10:00-22:00', '10:00-17:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
 (11, 11, '07:00-23:00', '09:00-20:00', '07:00-19:00', '08:00-21:00', '07:00-21:00', '09:00-19:00', '09:00-23:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
-(12, 12, '10:00-17:00', '06:00-19:00', '09:00-20:00', '08:00-17:00', '10:00-23:00', '10:00-22:00', '06:00-18:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
+(12, 12, '10:00-17:00', '06:00-19:00', '09:00-20:00', '08:00-17:00', '10:00-23:00', '10:00-22:00', '06:00-18:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 3, 1, 1),
 (13, 13, '08:00-20:00', '10:00-22:00', '06:00-23:00', '06:00-20:00', '10:00-17:00', '06:00-23:00', '08:00-19:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
 (14, 14, '08:00-20:00', '06:00-17:00', '09:00-23:00', '09:00-23:00', '08:00-21:00', '07:00-22:00', '06:00-22:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
 (15, 15, '06:00-20:00', '09:00-17:00', '10:00-18:00', '09:00-21:00', '09:00-22:00', '06:00-22:00', '09:00-21:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
@@ -1055,14 +1055,15 @@ INSERT INTO `hours` (`id`, `id_restaurant`, `mon`, `tue`, `wed`, `thu`, `fri`, `
 (97, 97, '10:00-18:00', '10:00-21:00', '09:00-18:00', '10:00-18:00', '07:00-21:00', '07:00-18:00', '06:00-19:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
 (98, 98, '07:00-20:00', '08:00-20:00', '08:00-17:00', '06:00-17:00', '06:00-23:00', '10:00-18:00', '06:00-22:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
 (99, 99, '09:00-19:00', '10:00-18:00', '08:00-18:00', '10:00-21:00', '08:00-17:00', '06:00-22:00', '07:00-22:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
-(100, 100, '07:00-18:00', '10:00-23:00', '10:00-21:00', '08:00-18:00', '08:00-21:00', '09:00-23:00', '10:00-20:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 1, 0),
-(101, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0),
+(100, 100, '07:00-18:00', '10:00-23:00', '10:00-21:00', '08:00-18:00', '08:00-21:00', '09:00-23:00', '10:00-20:00', '{\"24.06.2025\": \"closed\", \"25.06.2025\": \"08:00-18:00\"}', 0, 0, 0, 0),
+(101, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 3, 0, 1),
 (102, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0),
 (103, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0),
 (104, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0),
 (105, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0),
 (106, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0),
-(107, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0);
+(107, 0, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0),
+(108, 12, '08:00-12:00', '08:00-12:00', '08:00-12:00', '08:00-12:00', '08:00-12:00', '08:00-12:00', '08:00-12:00', NULL, 3, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1781,7 +1782,7 @@ INSERT INTO `restaurants` (`id`, `name`, `opinion`, `verified`, `address`, `upda
 (97, 'Fresh Udon', 0, 0, 'st. Joannitow 187, Wroclaw, 50-525', 1, 2, 0),
 (98, 'Velvety Grillhouse', 0, 0, 'st. Karkonoska 132, Wroclaw, 53-015', 9, 4, 0),
 (99, 'Grand Meze', 0, 0, 'st. Wita Stwosza 11, Wroclaw, 50-148', 7, 1, 0),
-(100, 'Cheerful Panini', 0, 0, 'st. Partynicka 134, Wroclaw, 52-200', 3, 3, 0),
+(100, 'Cheerful Panini', 0, 1, 'st. Partynicka 134, Wroclaw, 52-200', 3, 3, 0),
 (101, 'test', 0, 0, 'test', 3, 0, 0),
 (102, 'test', 0, 0, 'test', 3, 0, 0),
 (103, 'test', 0, 0, 'test', 3, 0, 0),
@@ -1802,7 +1803,7 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `hours_insert` AFTER INSERT ON `restaurants` FOR EACH ROW BEGIN
-	INSERT INTO `hours` (`id`, `id_restaurant`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`, `special`, `updated_by`, `verified_by`, `verified`, `id_ref`) 			VALUES (NULL, NEW.id, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0);
+	INSERT INTO `hours` (`id`, `id_restaurant`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`, `special`, `updated_by`, `verified_by`, `verified`, `deleted`) 			VALUES (NULL, NEW.id, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', NULL, 0, 0, 0, 0);
 END
 $$
 DELIMITER ;
@@ -2466,7 +2467,7 @@ ALTER TABLE `dishes`
 -- AUTO_INCREMENT for table `hours`
 --
 ALTER TABLE `hours`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
