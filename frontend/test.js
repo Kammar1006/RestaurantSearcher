@@ -113,13 +113,15 @@ function renderAllergens() {
     sock.on("authUserTables", (tables) => {
         j = JSON.parse(tables);
         document.getElementById("user_restaurants_added").innerHTML = "";
-        j.restaurants.forEach(k => document.getElementById("user_restaurants_added").innerHTML += JSON.stringify(k)+"<br>");
+        j.restaurants.forEach(k => document.getElementById("user_restaurants_added").innerHTML += JSON.stringify(k)+"<br><br>");
         document.getElementById("user_dishes_added").innerHTML = "";
-        j.dishes.forEach(k => document.getElementById("user_dishes_added").innerHTML += JSON.stringify(k)+"<br>");
+        j.dishes.forEach(k => document.getElementById("user_dishes_added").innerHTML += JSON.stringify(k)+"<br><br>");
         document.getElementById("user_coords_added").innerHTML = "";
-        j.coords.forEach(k => document.getElementById("user_coords_added").innerHTML += JSON.stringify(k)+"<br>");
+        j.coords.forEach(k => document.getElementById("user_coords_added").innerHTML += JSON.stringify(k)+"<br><br>");
         document.getElementById("user_comments_added").innerHTML = "";
-        j.comments.forEach(k => document.getElementById("user_comments_added").innerHTML += JSON.stringify(k)+"<br>");
+        j.comments.forEach(k => document.getElementById("user_comments_added").innerHTML += JSON.stringify(k)+"<br><br>");
+        document.getElementById("user_hours_added").innerHTML = "";
+        j.hours.forEach(k => document.getElementById("user_hours_added").innerHTML += JSON.stringify(k)+"<br><br>");
     });
 
     sock.on("authAdminTables", (tables) => {
@@ -132,6 +134,8 @@ function renderAllergens() {
         j.admin_coords.forEach(k => document.getElementById("admin_coords_added").innerHTML += JSON.stringify(k)+"<br><br>");
         document.getElementById("admin_comments_added").innerHTML = "";
         j.admin_comments.forEach(k => document.getElementById("admin_comments_added").innerHTML += JSON.stringify(k)+"<br><br>");
+        document.getElementById("admin_hours_added").innerHTML = "";
+        j.admin_hours.forEach(k => document.getElementById("admin_hours_added").innerHTML += JSON.stringify(k)+"<br><br>");
     });
 
     sock.on("register", (e) => {

@@ -76,7 +76,8 @@ const adminInfo = (sock) => {
 		admin_restaurants: [],
 		admin_dishes: [],
 		admin_coords: [],
-		admin_comments: []
+		admin_comments: [],
+		admin_hours: []
 	};
 	
 	let sql  = `
@@ -150,8 +151,13 @@ const adminInfo = (sock) => {
 							.then((res) => {
 								json.admin_coords = res;
 
-								sock.emit("authAdminTables", JSON.stringify(json)); 
-								
+								let sql = `SELECT * FROM hours WHERE verified = 0 AND deleted = 0`;
+								queryDatabase(sql, [])
+								.then((res) => {
+									json.admin_hours = res;
+
+									sock.emit("authAdminTables", JSON.stringify(json)); 
+								}).catch((err) => {console.log("DB Error: "+err);});
 							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
@@ -166,7 +172,8 @@ const userInfo = (sock, emit_db_stats) => {
 		restaurants: [],
 		dishes: [],
 		coords: [],
-		comments: []
+		comments: [],
+		hours: []
 	};
 
 	let sql  = `
@@ -239,8 +246,13 @@ const userInfo = (sock, emit_db_stats) => {
 							.then((res) => {
 								json.coords = res;
 
-								sock.emit("authUserTables", JSON.stringify(json)); 
+								let sql = `SELECT * FROM hours WHERE updated_by = ? AND deleted = 0`;
+								queryDatabase(sql, [emit_db_stats.id])
+								.then((res) => {
+									json.hours = res;
 
+									sock.emit("authUserTables", JSON.stringify(json)); 
+								}).catch((err) => {console.log("DB Error: "+err);});
 							}).catch((err) => {console.log("DB Error: "+err);});
 						}
 					}).catch((err) => {console.log("DB Error: "+err);});
@@ -1080,5 +1092,5 @@ io.on('connection', (sock) => {
 
 server.listen(PORT, () => {
 	console.log("Work");
-	console.log(hasher("test"))
+	console.log(hasher("test"));
 });

@@ -115,7 +115,7 @@ function validateScheduleFormat(json) {
 
 function validateDay(day){
     const timeRegex = /^(\d{2}:\d{2})-(\d{2}:\d{2})$/;
-    if(timeRegex.test(day)) return true;
+    if(timeRegex.test(day) || day == "closed") return true;
     return false;
 }
 
