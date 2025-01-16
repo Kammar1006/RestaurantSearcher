@@ -1087,6 +1087,53 @@ io.on('connection', (sock) => {
 	sock.on("verify_hours", (json) => {
 		if(translationTab[cid].user_id === -1) return;
 		if(translationTab[cid].db_stats.is_admin !== 1) return;
+		json = JSON.parse(json);
+
+		let id = json.id;
+		let action = json.action;
+
+		if(id > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE hours SET deleted = 1, verified_by = ?
+					WHERE id = ? AND verified = 0
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_hours", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					SELECT * FROM hours WHERE id = ?
+				`;
+				queryDatabase(sql, [id])
+				.then((res) => {
+					if(res.length > 0){
+						let id_res = res[0].id_restaurant;
+						let sql = `
+							UPDATE hours SET verified = 1, verified_by = ?
+							WHERE id = ? AND deleted = 0
+						`;
+						queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+						.then((res) => {
+							if(res.affectedRows > 0){
+								console.log(id, id_res);
+								let deleteSql = `
+									UPDATE hours 
+									SET deleted = 1 
+									WHERE id_restaurant = ? AND id <> ?
+								`;
+								queryDatabase(deleteSql, [id_res, id])
+								.then((res) => {
+								}).catch((err) => {console.log("DB Error: "+err);});
+							}
+							sock.emit("verify_hours", "verified");
+						}).catch((err) => {console.log("DB Error: "+err);});
+					}
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
 	});
 });
 

@@ -66,11 +66,12 @@
             <h2> Verify Hours </h2>
             <form id="form_hours_ver">
                 <p>
-                    <span> Restaurant ID </span>
+                    <span> Hours ID (not restaurnt) </span>
                     <br>
                     <input id="form_hours_ver_id" value=""/>
                 </p>
-                <input id="form_hours_ver_button" type="submit" value="verify"/>
+                <input class="red" id="form_hours_ver_DEL" type="submit" value="Delete"/>
+                <input class="green" id="form_hours_ver_VER" type="submit" value="Verify"/>
             </form>
             <p id="form_hours_ver_res"></p>
         </div>
@@ -107,6 +108,29 @@
                     }
 
                     sock.emit("update_hours", JSON.stringify(json));
+                });
+            
+            document
+                .querySelector("#form_hours_ver_DEL")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_hours", JSON.stringify({
+                        id: document.getElementById("form_hours_ver_id").value,
+                        action: "DEL"
+                    }));
+                });
+            document
+                .querySelector("#form_hours_ver_VER")
+                .addEventListener("click", (e) => {
+                    sock.emit("verify_hours", JSON.stringify({
+                        id: document.getElementById("form_hours_ver_id").value,
+                        action: "VER"
+                    }));
+                });
+            
+            document
+                .querySelector("#form_hours_ver")
+                .addEventListener('submit', (e) => {
+                    e.preventDefault();
                 });
         })();
     </script>
