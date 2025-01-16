@@ -10,7 +10,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
-const {getDays, getCurrentDate, formatDate, getDayOfWeek}= require('./day.js');
+const {getDays, getCurrentDate, formatDate, getDayOfWeek, validateScheduleFormat, validateDay}= require('./day.js');
 
 const {queryDatabase} = require('./db.js');
 const bcrypt = require("bcrypt");
@@ -1025,6 +1025,56 @@ io.on('connection', (sock) => {
 				}).catch((err) => {console.log("DB Error: "+err);});
 			}
 		}
+	});
+
+	sock.on("update_hours", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+		json = JSON.parse(json);
+		let res_id = json.res_id;
+		let mon = validateDay(json.mon) ? json.mon : 0;
+		let tue = validateDay(json.tue) ? json.tue : 0;
+		let wed = validateDay(json.wed) ? json.wed : 0;
+		let thu = validateDay(json.thu) ? json.thu : 0;
+		let fri = validateDay(json.fri) ? json.fri : 0;
+		let sat = validateDay(json.sat) ? json.sat : 0;
+		let sun = validateDay(json.sun) ? json.sun : 0;
+		console.log(mon, tue, wed, thu, fri, sat, sun);
+		if(!(mon && tue && wed && thu && fri && sat && sun) || !(mon!="" && tue!="" && wed!="" && thu!="" && fri!="" && sat!="" && sun!="")){
+			sock.emit("update_hours", "Hours wrong format in days (mon - sun)");
+			return;
+		}
+ 		let special = validateScheduleFormat(json.special || '{}').valid ? json.special : 0;
+
+		queryDatabase("SELECT * FROM hours WHERE id_restaurant = ? AND verified = 1 AND deleted = 0", [res_id])
+		.then((res) => {
+			console.log(res);
+			console.log(mon, tue, wed, thu, fri, sat, sun, special, res[0].id_restaurant);
+			
+			// Weryfikacja
+			const result = validateScheduleFormat(special);
+			console.log(result);
+			if(result.valid){
+				let sql = `
+					INSERT INTO hours 
+					(id, id_restaurant, mon, tue, wed, thu, fri, sat, sun, special, updated_by, verified_by, verified, deleted)
+					VALUES (NULL, ${res_id}, ?, ?, ?, ?, ?, ?, ?, ?, ${translationTab[cid].user_id}, 0, 0, 0);
+				`;
+				queryDatabase(sql, [mon, tue, wed, thu, fri, sat, sun, special ? special : undefined])
+				.then((res) => {
+					console.log(res);
+					sock.emit("update_hours", "Added hours, waiting for verification");
+				}).catch((err) => {console.log("DB Error: "+err);});
+
+			}
+			else{
+				sock.emit("update_hours", "Wrong format in special field");
+			}
+		}).catch((err) => {console.log("DB Error: "+err);});
+	});
+
+	sock.on("verify_hours", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
 	});
 });
 

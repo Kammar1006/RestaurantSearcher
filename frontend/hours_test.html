@@ -1,0 +1,114 @@
+<!-- Created by Kammar1006 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Menufy - Application for searching restaurants and dishes. </title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    
+    <h1 class="center"> Menufy </h1>
+    <hr/>
+
+
+    <div class="flex center">
+        <div class="w50">
+            <!-- Example login form -->
+            <h2> Add Hours </h2>
+            <form id="form_hours">
+                <p>
+                    <span> Res ID </span>
+                    <br>
+                    <input id="form_hours_id" value=""/>  
+                </p>
+                <p>
+                    <span> Mon </span>
+                    <br>
+                    <input id="form_hours_mon" value=""/>  
+                </p>
+                <p>
+                    <span> Tue </span>
+                    <br>
+                    <input id="form_hours_tue" value=""/>  
+                </p>
+                <p>
+                    <span> Wed </span>
+                    <br>
+                    <input id="form_hours_wed" value=""/>  
+                </p>
+                <p>
+                    <span> Thu </span>
+                    <br>
+                    <input id="form_hours_thu" value=""/>  
+                </p>
+                <p>
+                    <span> Fri </span>
+                    <br>
+                    <input id="form_hours_fri" value=""/>  
+                </p>
+                <p>
+                    <span> Sat </span>
+                    <br>
+                    <input id="form_hours_sat" value=""/>  
+                </p>
+                <p>
+                    <span> Sun </span>
+                    <br>
+                    <input id="form_hours_sun" value=""/>  
+                </p>
+                <input id="form_hours_button" type="submit" value="Add/Fix Hours"/>
+            </form>
+            <p id="form_hours_res">  </p>
+        </div>
+        <div class="w50">
+            <h2> Verify Hours </h2>
+            <form id="form_hours_ver">
+                <p>
+                    <span> Restaurant ID </span>
+                    <br>
+                    <input id="form_hours_ver_id" value=""/>
+                </p>
+                <input id="form_hours_ver_button" type="submit" value="verify"/>
+            </form>
+            <p id="form_hours_ver_res"></p>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        (() => {
+            const sock = io();
+
+            sock.on("update_hours", (m) => {
+                document.getElementById("form_hours_res").innerHTML = m;
+            });
+
+            sock.on("verify_hours", (m) => {
+                document.getElementById("form_hours_ver_res").innerHTML = m;
+            });
+
+            document
+                .querySelector("#form_hours")
+                .addEventListener("submit", (e) => {
+                    e.preventDefault();
+
+                    let json = {
+                        res_id: document.querySelector("#form_hours_id").value,
+                        mon: document.querySelector("#form_hours_mon").value,
+                        tue: document.querySelector("#form_hours_tue").value,
+                        wed: document.querySelector("#form_hours_wed").value,
+                        thu: document.querySelector("#form_hours_thu").value,
+                        fri: document.querySelector("#form_hours_fri").value,
+                        sat: document.querySelector("#form_hours_sat").value,
+                        sun: document.querySelector("#form_hours_sun").value,
+                        //special: document.querySelector("#form_hours_special").value,
+                    }
+
+                    sock.emit("update_hours", JSON.stringify(json));
+                });
+        })();
+    </script>
+</body>
+</html>
