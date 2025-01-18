@@ -615,7 +615,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getRestaurantInfo", (id) => {
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT * FROM restaurant_details WHERE res_id = ?
 			`;
@@ -628,7 +629,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getHours", (id) => {
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			getDays(id, getCurrentDate(), 7).then((week) => {
 				sock.emit("restaurantHours", week);
 			});
@@ -636,7 +638,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getComments", (id) => {
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT * FROM comments_list
 				WHERE res_id = ? AND verified = 1
@@ -651,7 +654,8 @@ io.on('connection', (sock) => {
 
 	sock.on("getDishesByResId", (id) => {
 		//console.log(id);
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT * FROM dishes_info WHERE res_id = ?
 			`;
@@ -663,7 +667,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getIngredientsByDishId", (id) => {
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT * FROM ingredients_list WHERE dish_id = ?
 			`;
