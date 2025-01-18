@@ -13,6 +13,10 @@ const socketio = require('socket.io');
 const {getDays, getCurrentDate, formatDate, getDayOfWeek, validateScheduleFormat, validateDay}= require('./day.js');
 
 const {queryDatabase} = require('./db.js');
+
+const {userInfo} = require('./user_info.js');
+//const {adminInfo} = require('./admin_info.js');
+
 const bcrypt = require("bcrypt");
 
 const app = express();
@@ -65,9 +69,9 @@ const hashCompare = (data, hash) => {
 const emit_login_data = (sock, db_stats) => {
 	let emit_db_stats = {...db_stats};
 	sock.emit("login", "Successful login", emit_db_stats);
-	userInfo(sock, emit_db_stats);
+	//userInfo(sock, emit_db_stats);
 	if(emit_db_stats.is_admin == 1){
-		adminInfo(sock);
+		//adminInfo(sock);
 	}
 }
 
@@ -166,7 +170,7 @@ const adminInfo = (sock) => {
 		}).catch((err) => {console.log("DB Error: "+err);});
 	}).catch((err) => {console.log("DB Error: "+err);});
 }
-
+/*
 const userInfo = (sock, emit_db_stats) => {
 	let json = {
 		restaurants: [],
@@ -261,7 +265,7 @@ const userInfo = (sock, emit_db_stats) => {
 		}).catch((err) => {console.log("DB Error: "+err);});
 	}).catch((err) => {console.log("DB Error: "+err);});
 }
-
+*/
 
 
 io.on('connection', (sock) => {
@@ -1139,6 +1143,19 @@ io.on('connection', (sock) => {
 				}).catch((err) => {console.log("DB Error: "+err);});
 			}
 		}
+	});
+
+	sock.on("user_info", (type) => {
+		if(translationTab[cid].user_id === -1) return;
+		let res = userInfo(sock, translationTab[cid].user_id, type);
+		sock.emit("authUserTables", JSON.stringify(res), type); 
+	});
+
+	sock.on("admin_info", (type) => {
+		if(translationTab[cid].user_id === -1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
+		let res = adminInfo(sock, translationTab[cid].user_id, type);
+		sock.emit("authAdminTables", JSON.stringify(res), type); 
 	});
 });
 
