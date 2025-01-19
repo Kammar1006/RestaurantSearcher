@@ -1,5 +1,7 @@
 /* Created by Kammar1006 */
 
+const {queryDatabase} = require('./db.js');
+
 const adminInfo = (sock, type) => {
 	let response = [];
 
@@ -16,7 +18,7 @@ const adminInfo = (sock, type) => {
             `;
             queryDatabase(sql, [])
             .then((res) => {
-                response = res;
+		        sock.emit("authAdminTables", JSON.stringify(res), type); 
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "dishes":{
@@ -33,7 +35,7 @@ const adminInfo = (sock, type) => {
             .then((res) => {
                 //console.log(res);
                 response = [...res];
-                response.forEach((d) => {
+                response.forEach((d, i) => {
                     //d.ing = [];
                     let sql = `
                         SELECT ingredients.id AS ing_id, ingredients.name AS ing_name, 
@@ -50,6 +52,11 @@ const adminInfo = (sock, type) => {
                     .then((res) => {
                         //console.log(res);
                         d.ing = res;
+
+                        if(i == response.length - 1){
+                            sock.emit("authAdminTables", JSON.stringify(response), type); 
+                        }
+
                     }).catch((err) => {console.log("DB Error: "+err);});
                 });
             }).catch((err) => {console.log("DB Error: "+err);});
@@ -62,8 +69,8 @@ const adminInfo = (sock, type) => {
                 `;
                 queryDatabase(sql, [])
                 .then((res) => {
-                response = res;
-            }).catch((err) => {console.log("DB Error: "+err);});
+                    sock.emit("authAdminTables", JSON.stringify(res), type); 
+                }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "comments":{
             let sql = `
@@ -77,17 +84,14 @@ const adminInfo = (sock, type) => {
 
             queryDatabase(sql, [])
             .then((res) => {
-                //console.log(res);
-                response = res;
+		        sock.emit("authAdminTables", JSON.stringify(res), type); 
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "hours":{
             let sql = `SELECT * FROM hours WHERE verified = 0 AND deleted = 0`;
             queryDatabase(sql, [])
             .then((res) => {
-                response = res;
-
-                sock.emit("authUserTables", JSON.stringify(json)); 
+		        sock.emit("authAdminTables", JSON.stringify(res), type); 
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
     }

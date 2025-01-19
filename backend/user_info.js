@@ -1,5 +1,7 @@
 /* Created by Kammar1006 */
 
+const {queryDatabase} = require('./db.js');
+
 const userInfo = (sock, uid, type) => {
 	let response = [];
 
@@ -16,8 +18,7 @@ const userInfo = (sock, uid, type) => {
             `;
             queryDatabase(sql, [uid])
             .then((res) => {
-                //console.log(res);
-                response = res;
+                sock.emit("authUserTables", JSON.stringify(res), type); 
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "dishes":{
@@ -33,7 +34,7 @@ const userInfo = (sock, uid, type) => {
             .then((res) => {
                 //console.log(res);
                 response = [...res];
-                response.forEach((d) => {
+                response.forEach((d, i) => {
                     //d.ing = [];
                     let sql = `
                         SELECT ingredients.id AS ing_id, ingredients.name AS ing_name, 
@@ -50,6 +51,11 @@ const userInfo = (sock, uid, type) => {
                     .then((res) => {
                         //console.log(res);
                         d.ing = res;
+
+                        if(i == response.length - 1){
+                            sock.emit("authUserTables", JSON.stringify(response), type); 
+                        }
+
                     }).catch((err) => {console.log("DB Error: "+err);});
                 });
             }).catch((err) => {console.log("DB Error: "+err);});
@@ -62,7 +68,7 @@ const userInfo = (sock, uid, type) => {
             `;
             queryDatabase(sql, [uid])
             .then((res) => {
-                response = res;
+                sock.emit("authUserTables", JSON.stringify(res), type); 
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "comments":{
@@ -74,24 +80,19 @@ const userInfo = (sock, uid, type) => {
                 WHERE comments.updated_by = 3 
                 ORDER BY restaurants.id DESC
             `;
-
             queryDatabase(sql, [uid])
             .then((res) => {
-                //console.log(res);
-                response = res;
+                sock.emit("authUserTables", JSON.stringify(res), type); 
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "hours":{
             let sql = `SELECT * FROM hours WHERE updated_by = ? AND deleted = 0`;
             queryDatabase(sql, [uid])
             .then((res) => {
-                response = res;
-
-                sock.emit("authUserTables", JSON.stringify(json)); 
+                sock.emit("authUserTables", JSON.stringify(res), type); 
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
     }
-    return response;
 }
 
 

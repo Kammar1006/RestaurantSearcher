@@ -110,32 +110,58 @@ function renderAllergens() {
         document.getElementById("form_U1_res").innerHTML = m;
     });
 
-    sock.on("authUserTables", (tables) => {
+    sock.on("authUserTables", (tables, type) => {
+        console.log(tables, type);
         j = JSON.parse(tables);
-        document.getElementById("user_restaurants_added").innerHTML = "";
-        j.restaurants.forEach(k => document.getElementById("user_restaurants_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("user_dishes_added").innerHTML = "";
-        j.dishes.forEach(k => document.getElementById("user_dishes_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("user_coords_added").innerHTML = "";
-        j.coords.forEach(k => document.getElementById("user_coords_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("user_comments_added").innerHTML = "";
-        j.comments.forEach(k => document.getElementById("user_comments_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("user_hours_added").innerHTML = "";
-        j.hours.forEach(k => document.getElementById("user_hours_added").innerHTML += JSON.stringify(k)+"<br><br>");
+        switch(type){
+            case "restaurants":{
+                document.getElementById("user_restaurants_added").innerHTML = "";
+                j.forEach(k => document.getElementById("user_restaurants_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "dishes":{
+                document.getElementById("user_dishes_added").innerHTML = "";
+                j.forEach(k => document.getElementById("user_dishes_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "coords":{
+                document.getElementById("user_coords_added").innerHTML = "";
+                j.forEach(k => document.getElementById("user_coords_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "comments":{
+                document.getElementById("user_comments_added").innerHTML = "";
+                j.forEach(k => document.getElementById("user_comments_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "hours":{
+                document.getElementById("user_hours_added").innerHTML = "";
+                j.forEach(k => document.getElementById("user_hours_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+        }
     });
 
-    sock.on("authAdminTables", (tables) => {
+    sock.on("authAdminTables", (tables, type) => {
+        console.log(tables, type);
         j = JSON.parse(tables);
-        document.getElementById("admin_restaurants_added").innerHTML = "";
-        j.admin_restaurants.forEach(k => document.getElementById("admin_restaurants_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("admin_dishes_added").innerHTML = "";
-        j.admin_dishes.forEach(k => document.getElementById("admin_dishes_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("admin_coords_added").innerHTML = "";
-        j.admin_coords.forEach(k => document.getElementById("admin_coords_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("admin_comments_added").innerHTML = "";
-        j.admin_comments.forEach(k => document.getElementById("admin_comments_added").innerHTML += JSON.stringify(k)+"<br><br>");
-        document.getElementById("admin_hours_added").innerHTML = "";
-        j.admin_hours.forEach(k => document.getElementById("admin_hours_added").innerHTML += JSON.stringify(k)+"<br><br>");
+        switch(type){
+            case "restaurants":{
+                document.getElementById("admin_restaurants_added").innerHTML = "";
+                j.forEach(k => document.getElementById("admin_restaurants_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "dishes":{
+                document.getElementById("admin_dishes_added").innerHTML = "";
+                j.forEach(k => document.getElementById("admin_dishes_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "coords":{
+                document.getElementById("admin_coords_added").innerHTML = "";
+                j.forEach(k => document.getElementById("admin_coords_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "comments":{
+                document.getElementById("admin_comments_added").innerHTML = "";
+                j.forEach(k => document.getElementById("admin_comments_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+            case "hours":{
+                document.getElementById("admin_hours_added").innerHTML = "";
+                j.forEach(k => document.getElementById("admin_hours_added").innerHTML += JSON.stringify(k)+"<br><br>");
+            }break;
+        }
     });
 
     sock.on("register", (e) => {
@@ -420,6 +446,56 @@ function renderAllergens() {
                 id: document.getElementById("form_A4_id").value,
                 action: "VER"
             }));
+        });
+    document
+        .querySelector("#user_info_1")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "restaurants");
+        });
+    document
+        .querySelector("#user_info_2")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "dishes");
+        });
+    document
+        .querySelector("#user_info_3")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "coords");
+        });
+    document
+        .querySelector("#user_info_4")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "comments");
+        });
+    document
+        .querySelector("#user_info_5")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "hours");
+        });
+    document
+        .querySelector("#admin_info_1")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "restaurants");
+        });
+    document
+        .querySelector("#admin_info_2")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "dishes");
+        });
+    document
+        .querySelector("#admin_info_3")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "coords");
+        });
+    document
+        .querySelector("#admin_info_4")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "comments");
+        });
+    document
+        .querySelector("#admin_info_5")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "hours");
         });
 })();
 

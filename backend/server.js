@@ -951,15 +951,13 @@ io.on('connection', (sock) => {
 
 	sock.on("user_info", (type) => {
 		if(translationTab[cid].user_id === -1) return;
-		let res = userInfo(sock, translationTab[cid].user_id, type);
-		sock.emit("authUserTables", JSON.stringify(res), type); 
+		userInfo(sock, translationTab[cid].user_id, type);
 	});
 
 	sock.on("admin_info", (type) => {
 		if(translationTab[cid].user_id === -1) return;
 		if(translationTab[cid].db_stats.is_admin !== 1) return;
-		let res = adminInfo(sock, type);
-		sock.emit("authAdminTables", JSON.stringify(res), type); 
+		adminInfo(sock, type);
 	});
 });
 
