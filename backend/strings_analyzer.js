@@ -3,7 +3,8 @@
 */
 
 const isAlnum = (data) => {
-    return !!data.match(/^[A-Za-z0-9]+$/);
+/*    return !!data.match(/^[A-Za-z0-9]+$/);*/
+    return true;
 }
 
 const isEmail = (data) => {

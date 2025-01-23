@@ -5,113 +5,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Menufy - Application for searching restaurants and dishes. </title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
-    <h1 class="center"> Menufy</h1>
-    <hr/>
+<h1 class="center"> Menufy</h1>
+<hr />
 
-    <div class="flex center">
-        <div class="w50">
-            <h2> Advanced Search </h2>
-            <form id="form_SA">
-                <p>
-                    <span> Place Name </span>
-                    <br>
-                    <input id="form_SA_res_name" value=""/>
-                </p>
-                <p>
-                    <span> Dish Name </span>
-                    <br>
-                    <input id="form_SA_dish_name" value=""/>
-                </p>
-                <p>
-                    <span> Ingedient Name </span>
-                    <br>
-                    <input id="form_SA_ing_name" value=""/>
-                </p>
-                <p>
-                    <span> Coords </span>
-                    <br>
-                    <input id="form_SA_res_x" value="" placeholder="longitude (x)" readonly/>
-                    <input id="form_SA_res_y" value="" placeholder="latitude (y)" readonly/>
-                    <input id="your_cords" type="submit" value="your location"/>
-                    <input id="form_SA_res_r" value="" placeholder="radius"/>
-                </p>
-                <p>
-                    <span> Now open restaurants: </span>
-                    <input id="form_SA_open" type="checkbox" value="" />
-                </p>
-                <input id="form_SA_button" type="submit" value="search"/>
-            </form>
-        </div>
+<div class="flex center">
+    <div class="w50">
+        <h2> Advanced Search </h2>
+        <form id="form_SA">
+            <p>
+                <span> Place Name </span>
+                <br>
+                <input id="form_SA_res_name" value="" />
+            </p>
+            <p>
+                <span> Dish Name </span>
+                <br>
+                <input id="form_SA_dish_name" value="" />
+            </p>
+            <p>
+                <span> Ingedient Name </span>
+                <br>
+                <input id="form_SA_ing_name" value="" />
+            </p>
+            <p>
+                <span> Coords </span>
+                <br>
+                <input id="form_SA_res_x" value="" placeholder="longitude (x)" readonly />
+                <input id="form_SA_res_y" value="" placeholder="latitude (y)" readonly />
+                <input id="your_cords" type="submit" value="your location" />
+                <input id="form_SA_res_r" value="" placeholder="radius" />
+            </p>
+            <p>
+                <span> Now open restaurants: </span>
+                <input id="form_SA_open" type="checkbox" value="" />
+            </p>
+            <input id="form_SA_button" type="submit" value="search" />
+        </form>
     </div>
-    <hr>
-    <p id="places_list">  </p>
+</div>
+<hr>
+<div id="places_list"></div>
+<hr>
+<p id="res_info">  </p>
+<p id="res_hours">  </p>
+<p id="res_comments">  </p>
+<hr>
+<div id="menu_list" class="menu-list"></div>
+<hr>
+<p id="ingredients_list">  </p>
 
-    <hr>
+<hr>
 
-    <div class="flex center">
-        <div class="w50">
-            <!-- Example login form -->
-            <h2> Login </h2>
-            <form id="form_U1">
-                <p>
-                    <span> Login </span>
-                    <br>
-                    <input id="form_U1_login" value=""/>
-                </p>
-                <p>
-                    <span> Pass </span>
-                    <br>
-                    <input type="password" id="form_U1_pass" value=""/>
-                </p>
-                <input id="form_U1_button" type="submit" value="login"/>
-                <input id="logout" style="display: none;" type="submit" value="logout"/>
-            </form>
-            <p id="form_U1_res">  </p>
-        </div>
-        <div class="w50">
-            <!-- Example register form -->
-            <h2> Register </h2>
-            <form id="form_U2">
-                <p>
-                    <span> Login </span>
-                    <br>
-                    <input id="form_U2_login" value=""/>
-                </p>
-                <p>
-                    <span> Pass </span>
-                    <br>
-                    <input type="password" id="form_U2_pass" value=""/>
-                </p>
-                <p>
-                    <span> Pass2 </span>
-                    <br>
-                    <input type="password" id="form_U2_pass2" value=""/>
-                </p>
-                <p>
-                    <span> Email </span>
-                    <br>
-                    <input id="form_U2_email" value=""/>
-                </p>
-                <input id="form_U2_button" type="submit" value="register"/>
-            </form>
-            <p id="form_U2_res"></p>
-        </div>
+<div class="flex center">
+    <div class="w50">
+        <!-- Example login form -->
+        <h2> Login </h2>
+        <form id="form_U1">
+            <p>
+                <span> Login </span>
+                <br>
+                <input id="form_U1_login" value="" />
+            </p>
+            <p>
+                <span> Pass </span>
+                <br>
+                <input type="password" id="form_U1_pass" value="" />
+            </p>
+            <input id="form_U1_button" type="submit" value="login" />
+            <input id="logout" style="display: none;" type="submit" value="logout" />
+        </form>
+        <p id="form_U1_res">  </p>
     </div>
-    <hr>
-    <div class="flex center">
+    <div class="w50">
+        <!-- Example register form -->
+        <h2> Register </h2>
+        <form id="form_U2">
+            <p>
+                <span> Login </span>
+                <br>
+                <input id="form_U2_login" value="" />
+            </p>
+            <p>
+                <span> Pass </span>
+                <br>
+                <input type="password" id="form_U2_pass" value="" />
+            </p>
+            <p>
+                <span> Pass2 </span>
+                <br>
+                <input type="password" id="form_U2_pass2" value="" />
+            </p>
+            <p>
+                <span> Email </span>
+                <br>
+                <input id="form_U2_email" value="" />
+            </p>
+            <input id="form_U2_button" type="submit" value="register" />
+        </form>
+        <p id="form_U2_res"></p>
+    </div>
+</div>
+<hr>
+<!--    <div class="flex center">
         <div class="w50">
             <h2> Page for Restaurant </h2>
             <form id="form_RI">
                 <p>
                     <span> Restaurant ID </span>
                     <br>
-                    <input id="form_RI_id" value=""/>
+                    <input id="form_RI_id" value="" />
                 </p>
-                <input id="form_RI_button" type="submit" value="search"/>
+                <input id="form_RI_button" type="submit" value="search" />
             </form>
         </div>
         <div class="w50">
@@ -120,19 +130,14 @@
                 <p>
                     <span> Dish ID </span>
                     <br>
-                    <input id="form_DI_id" value=""/>
+                    <input id="form_DI_id" value="" />
                 </p>
-                <input id="form_DI_button" type="submit" value="search"/>
+                <input id="form_DI_button" type="submit" value="search" />
             </form>
         </div>
-    </div>
-    <hr>
-    <p id="res_info">  </p>
-    <p id="res_hours">  </p>
-    <p id="res_comments">  </p>
-    <p id="menu_list">  </p>
-    <hr>
-    <div id="auth-section" style="display:none;">
+    </div>-->
+
+<div id="auth-section" style="display:none;">
     <h1 class="center"> For Auth Users </h1>
     <hr>
     <div class="flex center">
@@ -142,12 +147,12 @@
                 <p>
                     <span> Name </span>
                     <br>
-                    <input id="form_U3_name" value=""/>
+                    <input id="form_U3_name" value="" />
                 </p>
                 <p>
                     <span> Address </span>
                     <br>
-                    <input id="form_U3_address" value=""/>
+                    <input id="form_U3_address" value="" />
                 </p>
                 <p>
                     <span> Cuisine(s) </span>
@@ -155,7 +160,7 @@
                     <select style="height: 250px;" id="form_U3_cuisines" multiple>
                     </select>
                 </p>
-                <input id="form_U3_button" type="submit" value="Add Restaurant"/>
+                <input id="form_U3_button" type="submit" value="Add Restaurant" />
             </form>
         </div>
         <div class="w50">
@@ -164,31 +169,31 @@
                 <form id="form_U4">
                     <p>
                         <span>RestaurantID</span><br>
-                        <input id="form_U4_id" value=""/>
+                        <input id="form_U4_id" value="" />
                     </p>
                     <p>
                         <span>Name</span><br>
-                        <input id="form_U4_name" value=""/>
+                        <input id="form_U4_name" value="" />
                     </p>
                     <p>
                         <span>Calories</span><br>
-                        <input id="form_U4_calories" type="number" value=""/>
+                        <input id="form_U4_calories" type="number" value="" />
                     </p>
                     <p>
                         <span>Weight</span><br>
-                        <input id="form_U4_weight" type="number" value=""/>
+                        <input id="form_U4_weight" type="number" value="" />
                     </p>
                     <p>
                         <span>Price</span><br>
-                        <input id="form_U4_price" type="number" value=""/>
+                        <input id="form_U4_price" type="number" value="" />
                     </p>
                     <p>
                         <span>Vegan</span><br>
-                        <input id="form_U4_vegan" type="checkbox"/>
+                        <input id="form_U4_vegan" type="checkbox" />
                     </p>
                     <p>
                         <span>Vegetarian</span><br>
-                        <input id="form_U4_vegetarian" type="checkbox"/>
+                        <input id="form_U4_vegetarian" type="checkbox" />
                     </p>
 
                     <!-- Składniki -->
@@ -203,7 +208,7 @@
                         <!-- Dynamically populate allergens for the selected ingredient -->
                     </div>
 
-                    <input type="submit" value="Add Dish"/>
+                    <input type="submit" value="Add Dish" />
                 </form>
             </div>
         </div>
@@ -216,15 +221,15 @@
                 <p>
                     <span> ID </span>
                     <br>
-                    <input id="form_U5_id" value=""/>
+                    <input id="form_U5_id" value="" />
                 </p>
                 <p>
                     <span> Coords </span>
                     <br>
-                    <input id="form_U5_coord_x" value=""/>
-                    <input id="form_U5_coord_y" value=""/>
+                    <input id="form_U5_coord_x" value="" />
+                    <input id="form_U5_coord_y" value="" />
                 </p>
-                <input id="form_U5_button" type="submit" value="Update Coords"/>
+                <input id="form_U5_button" type="submit" value="Update Coords" />
             </form>
         </div>
         <div class="w50">
@@ -233,35 +238,39 @@
                 <p>
                     <span> ID </span>
                     <br>
-                    <input id="form_U6_id" value=""/>
+                    <input id="form_U6_id" value="" />
                 </p>
                 <p>
                     <span> Score </span>
                     <br>
-                    <input id="form_U6_score" value=""/>
+                    <input id="form_U6_score" value="" />
                 </p>
                 <p>
                     <span> Desc: </span>
                     <br>
-                    <input id="form_U6_desc" value=""/>
+                    <input id="form_U6_desc" value="" />
                 </p>
-                <input id="form_U6_button" type="submit" value="Add/Edit"/>
+                <input id="form_U6_button" type="submit" value="Add/Edit" />
             </form>
             <p id="form_U6_res"></p>
         </div>
     </div>
     <hr>
-    <h3> Added Restaurant </h3>
-    <p id="user_restaurants_added"></p>
-    <h3> Added Dishes </h3>
-    <p id="user_dishes_added"></p>
-    <h3> Fixed Coords </h3>
-    <p id="user_coords_added"></p>
-    <h3> Added Comments </h3>
-    <p id="user_comments_added"></p>
+    <h3>Added Restaurant</h3>
+    <ul id="user_restaurants_added" class="data-list"></ul>
+
+    <h3>Added Dishes</h3>
+    <ul id="user_dishes_added" class="data-list"></ul>
+
+    <h3>Fixed Coords</h3>
+    <ul id="user_coords_added" class="data-list"></ul>
+
+    <h3>Added Comments</h3>
+    <ul id="user_comments_added" class="data-list"></ul>
+
     <hr>
-    </div>
-    <div id="admin-section" style="display: none;">
+</div>
+<div id="admin-section" style="display: none;">
     <h1 class="center"> For Admins </h1>
     <hr>
     <div class="flex center">
@@ -271,10 +280,10 @@
                 <p>
                     <span> RES ID </span>
                     <br>
-                    <input id="form_A1_id" value=""/>
+                    <input id="form_A1_id" value="" />
                 </p>
-                <input class="red" id="form_A1_button_DEL" type="submit" value="Delete"/>
-                <input class="green" id="form_A1_button_VER" type="submit" value="Verify"/>
+                <input class="red" id="form_A1_button_DEL" type="submit" value="Delete" />
+                <input class="green" id="form_A1_button_VER" type="submit" value="Verify" />
             </form>
             <p id="form_A1_res"></p>
         </div>
@@ -284,15 +293,15 @@
                 <p>
                     <span> RES ID </span>
                     <br>
-                    <input id="form_A2_id" value=""/>
+                    <input id="form_A2_id" value="" />
                 </p>
                 <p>
                     <span> Dish ID </span>
                     <br>
-                    <input id="form_A2_id_dish" value=""/>
+                    <input id="form_A2_id_dish" value="" />
                 </p>
-                <input class="red" id="form_A2_button_DEL" type="submit" value="Delete"/>
-                <input class="green" id="form_A2_button_VER" type="submit" value="Verify"/>
+                <input class="red" id="form_A2_button_DEL" type="submit" value="Delete" />
+                <input class="green" id="form_A2_button_VER" type="submit" value="Verify" />
             </form>
             <p id="form_A2_res"></p>
         </div>
@@ -305,10 +314,10 @@
                 <p>
                     <span> RES ID </span>
                     <br>
-                    <input id="form_A3_id" value=""/>
+                    <input id="form_A3_id" value="" />
                 </p>
-                <input class="red" id="form_A3_button_DEL" type="submit" value="Delete"/>
-                <input class="green" id="form_A3_button_VER" type="submit" value="Verify"/>
+                <input class="red" id="form_A3_button_DEL" type="submit" value="Delete" />
+                <input class="green" id="form_A3_button_VER" type="submit" value="Verify" />
             </form>
             <p id="form_A3_res"></p>
         </div>
@@ -318,28 +327,31 @@
                 <p>
                     <span> Comments ID </span>
                     <br>
-                    <input id="form_A4_id" value=""/>
+                    <input id="form_A4_id" value="" />
                 </p>
-                <input class="red" id="form_A4_button_DEL" type="submit" value="Delete"/>
-                <input class="green" id="form_A4_button_VER" type="submit" value="Verify"/>
+                <input class="red" id="form_A4_button_DEL" type="submit" value="Delete" />
+                <input class="green" id="form_A4_button_VER" type="submit" value="Verify" />
             </form>
             <p id="form_A4_res"></p>
         </div>
     </div>
     <hr>
-    <h3> Added Restaurant </h3>
-    <p id="admin_restaurants_added"></p>
-    <h3> Added Dishes </h3>
-    <p id="admin_dishes_added"></p>
-    <h3> Fixed Coords </h3>
-    <p id="admin_coords_added"></p>
-    <h3> Added Comments </h3>
-    <p id="admin_comments_added"></p>
+    <h3>Added Restaurants</h3>
+    <div id="admin_restaurants_added" class="data-container"></div>
+
+    <h3>Added Dishes</h3>
+    <div id="admin_dishes_added" class="data-container"></div>
+
+    <h3>Fixed Coords</h3>
+    <div id="admin_coords_added" class="data-container"></div>
+
+    <h3>Added Comments</h3>
+    <div id="admin_comments_added" class="data-container"></div>
     <hr>
-    <input style="display: none;" id="clicker" value="click" type="submit"/>
+    <input style="display: none;" id="clicker" value="click" type="submit" />
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
-    </div>
+</div>
 </body>
 </html>
