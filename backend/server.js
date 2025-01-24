@@ -10,9 +10,13 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
-const {getDays, getCurrentDate, formatDate, getDayOfWeek}= require('./day.js');
+const {getDays, getCurrentDate, formatDate, getDayOfWeek, validateScheduleFormat, validateDay}= require('./day.js');
 
 const {queryDatabase} = require('./db.js');
+
+const {userInfo} = require('./user_info.js');
+const {adminInfo} = require('./admin_info.js');
+
 const bcrypt = require("bcrypt");
 
 const app = express();
@@ -65,191 +69,7 @@ const hashCompare = (data, hash) => {
 const emit_login_data = (sock, db_stats) => {
 	let emit_db_stats = {...db_stats};
 	sock.emit("login", "Successful login", emit_db_stats);
-	userInfo(sock, emit_db_stats);
-	if(emit_db_stats.is_admin == 1){
-		adminInfo(sock);
-	}
 }
-
-const adminInfo = (sock) => {
-	let json = {
-		admin_restaurants: [],
-		admin_dishes: [],
-		admin_coords: [],
-		admin_comments: []
-	};
-
-	let sql  = `
-		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cuisines.type) AS res_cuisines,
-			   address AS res_address, restaurants.verified AS res_ver
-		FROM restaurants
-				 INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
-				 INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
-		WHERE restaurants.verified = 0 AND restaurants.deleted = 0
-		GROUP BY res_id
-	`;
-	queryDatabase(sql, [])
-		.then((res) => {
-			//console.log(res);
-			json.admin_restaurants = res;
-
-			let sql = `
-				SELECT comments.id AS c_id, restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver
-				FROM comments
-						 INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id
-						 INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id
-				WHERE comments.verified = 0 AND comments.deleted = 0
-				ORDER BY restaurants.id DESC
-			`;
-
-			queryDatabase(sql, [])
-				.then((res) => {
-					//console.log(res);
-					json.admin_comments = res;
-
-					//to add dishes & coords
-					let sql = `
-						SELECT restaurants.id AS res_id, restaurants.name AS res_name, dishes.id AS dish_id, dishes.name AS dish_name,
-							   restaurants_dishes.verified AS dish_ver
-						FROM restaurants
-								 INNER JOIN restaurants_dishes ON restaurants_dishes.id_restaurant = restaurants.id
-								 INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
-						WHERE restaurants_dishes.verified = 0 AND restaurants_dishes.deleted = 0
-						ORDER BY res_id
-					`;
-					queryDatabase(sql, [])
-						.then((res) => {
-							//console.log(res);
-							json.admin_dishes = [...res];
-							json.admin_dishes.forEach((d, i) => {
-								//d.ing = [];
-								let sql = `
-									SELECT ingredients.id AS ing_id, ingredients.name AS ing_name,
-										   GROUP_CONCAT(DISTINCT allergens.name) AS allergens_names
-									FROM ingredients_dishes
-											 INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
-											 INNER JOIN allergens_ingredients ON allergens_ingredients.id_ingredient = ingredients.id
-											 INNER JOIN allergens ON allergens_ingredients.id_allergen = allergens.id
-									WHERE ingredients_dishes.id_dish = ? AND allergens.id > 0
-									GROUP BY ing_id
-								`;
-
-								queryDatabase(sql, [d.dish_id])
-									.then((res) => {
-										//console.log(res);
-										d.ing = res;
-
-										if(i == json.admin_dishes.length - 1){
-
-											let sql = `
-												SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver, updated_by AS up_by, edited_by AS ed_by
-												FROM coordinates
-												WHERE verified = 0 AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
-											`;
-											queryDatabase(sql, [])
-												.then((res) => {
-													json.admin_coords = res;
-
-													sock.emit("authAdminTables", JSON.stringify(json));
-
-												}).catch((err) => {console.log("DB Error: "+err);});
-										}
-									}).catch((err) => {console.log("DB Error: "+err);});
-							});
-						}).catch((err) => {console.log("DB Error: "+err);});
-				}).catch((err) => {console.log("DB Error: "+err);});
-		}).catch((err) => {console.log("DB Error: "+err);});
-}
-
-const userInfo = (sock, emit_db_stats) => {
-	let json = {
-		restaurants: [],
-		dishes: [],
-		coords: [],
-		comments: []
-	};
-
-	let sql  = `
-		SELECT restaurants.id AS res_id, restaurants.name AS res_name, restaurants.opinion AS res_score, GROUP_CONCAT(cuisines.type) AS res_cuisines,
-			   address AS res_address, restaurants.verified AS res_ver
-		FROM restaurants
-				 INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
-				 INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
-		WHERE restaurants.updated_by = ?
-		GROUP BY res_id
-	`;
-	queryDatabase(sql, [emit_db_stats.id])
-		.then((res) => {
-			//console.log(res);
-			json.restaurants = res;
-
-			let sql = `
-				SELECT restaurants.id AS res_id, restaurants.name AS res_name, score, comment AS 'desc', comments.verified AS ver
-				FROM comments
-						 INNER JOIN restaurants_comments ON restaurants_comments.id_comment = comments.id
-						 INNER JOIN restaurants ON restaurants_comments.id_restaurant = restaurants.id
-				WHERE comments.updated_by = 3
-				ORDER BY restaurants.id DESC
-			`;
-
-			queryDatabase(sql, [emit_db_stats.id])
-				.then((res) => {
-					//console.log(res);
-					json.comments = res;
-
-					//to add dishes & coords
-					let sql = `
-						SELECT restaurants.id AS res_id, restaurants.name AS res_name, dishes.id AS dish_id, dishes.name AS dish_name,
-							   restaurants_dishes.verified AS dish_ver
-						FROM restaurants
-								 INNER JOIN restaurants_dishes ON restaurants_dishes.id_restaurant = restaurants.id
-								 INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
-						WHERE restaurants_dishes.updated_by = ?
-					`;
-					queryDatabase(sql, [emit_db_stats.id])
-						.then((res) => {
-							//console.log(res);
-							json.dishes = [...res];
-							json.dishes.forEach((d, i) => {
-								//d.ing = [];
-								let sql = `
-									SELECT ingredients.id AS ing_id, ingredients.name AS ing_name,
-										   GROUP_CONCAT(DISTINCT allergens.name) AS allergens_names
-									FROM ingredients_dishes
-											 INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
-											 INNER JOIN allergens_ingredients ON allergens_ingredients.id_ingredient = ingredients.id
-											 INNER JOIN allergens ON allergens_ingredients.id_allergen = allergens.id
-									WHERE ingredients_dishes.id_dish = ? AND allergens.id > 0
-									GROUP BY ing_id
-								`;
-
-								queryDatabase(sql, [d.dish_id])
-									.then((res) => {
-										//console.log(res);
-										d.ing = res;
-
-										if(i == json.dishes.length - 1){
-
-											let sql = `
-												SELECT id AS res_id, coordinates AS coords, coordinates_to_verify AS new_coords, verified AS ver
-												FROM coordinates
-												WHERE edited_by = ? AND NOT ST_Equals(coordinates_to_verify, POINT(0, 0))
-											`;
-											queryDatabase(sql, [emit_db_stats.id])
-												.then((res) => {
-													json.coords = res;
-
-													sock.emit("authUserTables", JSON.stringify(json));
-
-												}).catch((err) => {console.log("DB Error: "+err);});
-										}
-									}).catch((err) => {console.log("DB Error: "+err);});
-							});
-						}).catch((err) => {console.log("DB Error: "+err);});
-				}).catch((err) => {console.log("DB Error: "+err);});
-		}).catch((err) => {console.log("DB Error: "+err);});
-}
-
 
 
 io.on('connection', (sock) => {
@@ -538,15 +358,15 @@ io.on('connection', (sock) => {
 					GROUP_CONCAT(DISTINCT dishes.name) AS dish_names,
 					GROUP_CONCAT(DISTINCT ingredients.name) AS ingredient_names
 				FROM restaurants
-						 INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant
-						 INNER JOIN hours ON hours.id_restaurant = restaurants.id
-						 INNER JOIN coordinates ON restaurants.id = coordinates.id
-						 INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
-						 INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
-						 INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
-						 INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
-						 INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
-			`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
+				INNER JOIN restaurants_dishes ON restaurants.id = restaurants_dishes.id_restaurant 
+				INNER JOIN coordinates ON restaurants.id = coordinates.id
+				INNER JOIN dishes ON restaurants_dishes.id_dish = dishes.id
+				INNER JOIN ingredients_dishes ON dishes.id = ingredients_dishes.id_dish
+				INNER JOIN ingredients ON ingredients_dishes.id_ingredient = ingredients.id
+				INNER JOIN cuisines_restaurants ON restaurants.id = cuisines_restaurants.id_restaurant
+				INNER JOIN cuisines ON cuisines.id = cuisines_restaurants.id_cuisine
+				LEFT JOIN hours ON hours.id_restaurant = restaurants.id AND hours.verified = 1
+				`+where+` AND restaurants.verified = 1 AND restaurants_dishes.verified = 1
 				GROUP BY res_id, res_name, res_score
 				${having}
 				ORDER BY ${order} sort_score DESC
@@ -591,7 +411,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getRestaurantInfo", (id) => {
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT name, opinion, coordinates, address, GROUP_CONCAT(cuisines.type) AS res_cuisines, client.username AS up_by, admin.username AS ver_by
 				FROM restaurants
@@ -611,7 +432,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getHours", (id) => {
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			getDays(id, getCurrentDate(), 7).then((week) => {
 				sock.emit("restaurantHours", week);
 			});
@@ -619,7 +441,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getComments", (id) => {
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT comments.id, comment, users.username AS up_by, score
 				FROM comments
@@ -637,7 +460,8 @@ io.on('connection', (sock) => {
 
 	sock.on("getDishesByResId", (id) => {
 		//console.log(id);
-		if(isAlnum(id)){
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT dishes.id, dishes.name, dishes.calories, dishes.price, dishes.weight,
 					   GROUP_CONCAT(ingredients.name) AS ingredient_names
@@ -657,7 +481,8 @@ io.on('connection', (sock) => {
 	});
 
 	sock.on("getIngredientsByDishId", (id) => {
-		if (isAlnum(id)) {
+		id = Number(id);
+		if(id > 0){
 			let sql = `
 				SELECT
 					ingredients.id,
@@ -1041,9 +866,117 @@ io.on('connection', (sock) => {
 			}
 		}
 	});
+
+	sock.on("update_hours", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+		json = JSON.parse(json);
+		let res_id = json.res_id;
+		let mon = validateDay(json.mon) ? json.mon : 0;
+		let tue = validateDay(json.tue) ? json.tue : 0;
+		let wed = validateDay(json.wed) ? json.wed : 0;
+		let thu = validateDay(json.thu) ? json.thu : 0;
+		let fri = validateDay(json.fri) ? json.fri : 0;
+		let sat = validateDay(json.sat) ? json.sat : 0;
+		let sun = validateDay(json.sun) ? json.sun : 0;
+		console.log(mon, tue, wed, thu, fri, sat, sun);
+		if(!(mon && tue && wed && thu && fri && sat && sun) || !(mon!="" && tue!="" && wed!="" && thu!="" && fri!="" && sat!="" && sun!="")){
+			sock.emit("update_hours", "Hours wrong format in days (mon - sun)");
+			return;
+		}
+ 		let special = validateScheduleFormat(json.special || '{}').valid ? json.special : 0;
+
+		queryDatabase("SELECT * FROM hours WHERE id_restaurant = ? AND verified = 1 AND deleted = 0", [res_id])
+		.then((res) => {
+			console.log(res);
+			console.log(mon, tue, wed, thu, fri, sat, sun, special, res[0].id_restaurant);
+			
+			// Weryfikacja
+			const result = validateScheduleFormat(special);
+			console.log(result);
+			if(result.valid){
+				let sql = `
+					INSERT INTO hours 
+					(id, id_restaurant, mon, tue, wed, thu, fri, sat, sun, special, updated_by, verified_by, verified, deleted)
+					VALUES (NULL, ${res_id}, ?, ?, ?, ?, ?, ?, ?, ?, ${translationTab[cid].user_id}, 0, 0, 0);
+				`;
+				queryDatabase(sql, [mon, tue, wed, thu, fri, sat, sun, special ? special : undefined])
+				.then((res) => {
+					console.log(res);
+					sock.emit("update_hours", "Added hours, waiting for verification");
+				}).catch((err) => {console.log("DB Error: "+err);});
+
+			}
+			else{
+				sock.emit("update_hours", "Wrong format in special field");
+			}
+		}).catch((err) => {console.log("DB Error: "+err);});
+	});
+
+	sock.on("verify_hours", (json) => {
+		if(translationTab[cid].user_id === -1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
+		json = JSON.parse(json);
+
+		let id = json.id;
+		let action = json.action;
+
+		if(id > 0){
+			if(action == "DEL"){
+				let sql = `
+					UPDATE hours SET deleted = 1, verified_by = ?
+					WHERE id = ? AND verified = 0
+				`;
+				queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+				.then((res) => {
+					sock.emit("verify_hours", "deleted");
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+			else if(action == "VER"){
+				let sql = `
+					SELECT * FROM hours WHERE id = ?
+				`;
+				queryDatabase(sql, [id])
+				.then((res) => {
+					if(res.length > 0){
+						let id_res = res[0].id_restaurant;
+						let sql = `
+							UPDATE hours SET verified = 1, verified_by = ?
+							WHERE id = ? AND deleted = 0
+						`;
+						queryDatabase(sql, [translationTab[cid].db_stats.id, id])
+						.then((res) => {
+							if(res.affectedRows > 0){
+								console.log(id, id_res);
+								let deleteSql = `
+									UPDATE hours 
+									SET deleted = 1 
+									WHERE id_restaurant = ? AND id <> ?
+								`;
+								queryDatabase(deleteSql, [id_res, id])
+								.then((res) => {
+								}).catch((err) => {console.log("DB Error: "+err);});
+							}
+							sock.emit("verify_hours", "verified");
+						}).catch((err) => {console.log("DB Error: "+err);});
+					}
+				}).catch((err) => {console.log("DB Error: "+err);});
+			}
+		}
+	});
+
+	sock.on("user_info", (type) => {
+		if(translationTab[cid].user_id === -1) return;
+		userInfo(sock, translationTab[cid].user_id, type);
+	});
+
+	sock.on("admin_info", (type) => {
+		if(translationTab[cid].user_id === -1) return;
+		if(translationTab[cid].db_stats.is_admin !== 1) return;
+		adminInfo(sock, type);
+	});
 });
 
 server.listen(PORT, () => {
 	console.log("Work");
-	console.log(hasher("test"))
+	console.log(hasher("test"));
 });
