@@ -88,7 +88,12 @@ const adminInfo = (sock, type) => {
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "hours":{
-            let sql = `SELECT * FROM hours WHERE verified = 0 AND deleted = 0`;
+            let sql = `
+                SELECT *
+                FROM hours 
+                INNER JOIN restaurants ON restaurants.id = id_restaurant
+                WHERE  hours.verified = 0 AND hours.deleted = 0
+            `;
             queryDatabase(sql, [])
             .then((res) => {
 		        sock.emit("authAdminTables", JSON.stringify(res), type); 

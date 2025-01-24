@@ -20,12 +20,15 @@ const switchPages = (type) => {
             document.getElementById("admin-section").style.display = "none";
         }break;
         case "auth": {
+            if(!isAuth) return;
             document.getElementById("search-section").style.display = "none";
             document.getElementById("login-section").style.display = "none";
             document.getElementById("auth-section").style.display = "block";
             document.getElementById("admin-section").style.display = "none";
         }break;
         case "admin": {
+            if(!isAuth) return;
+            if(!isAdmin) return;
             document.getElementById("search-section").style.display = "none";
             document.getElementById("login-section").style.display = "none";
             document.getElementById("auth-section").style.display = "none";
@@ -338,7 +341,19 @@ function renderAllergens() {
                 `); 
             }break;
             case "hours":{
-                /* Brak Hours */
+                console.log(j)
+                formatData("user_hours_added", j, (hour) => `
+                    <div class="title">${hour.name} (${hour.id_restaurant})</div>
+                    <div class="content">
+                        Mon: ${hour.mon}<br>
+                        Tue: ${hour.tue}<br>
+                        Wed: ${hour.wed}
+                        Thu: ${hour.thu}
+                        Fri: ${hour.fri}
+                        Sat: ${hour.sat}
+                        Sun: ${hour.sun}
+                    </div>
+                `);
             }break;
         }
     });
@@ -417,7 +432,24 @@ function renderAllergens() {
                 });
             }break;
             case "hours":{
-                
+                const hoursContainer = document.getElementById("admin_hours_added");
+                hoursContainer.innerHTML = "";
+                data.forEach((hour) => {
+                    const item = document.createElement("div");
+                    item.className = "data-item";
+                    item.innerHTML = `
+                        <h4>Restaurant: ${hour.name} (${hour.id_restaurant})</h4>
+                        
+                        <p><strong> Mon: </strong> ${hour.mon} </p>
+                        <p><strong> Tue:</strong> ${hour.tue} </p>
+                        <p><strong> Wed: </strong> ${hour.wed} </p>
+                        <p><strong> Thu: </strong> ${hour.thu} </p>
+                        <p><strong> Fri: </strong> ${hour.fri} </p>
+                        <p><strong> Sat: </strong> ${hour.sat} </p>
+                        <p><strong> Sun: </strong> ${hour.sun} </p>
+                    `;
+                    hoursContainer.appendChild(item);
+                });
             }break;
         } 
     });

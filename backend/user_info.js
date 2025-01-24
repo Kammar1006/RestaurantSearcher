@@ -86,7 +86,12 @@ const userInfo = (sock, uid, type) => {
             }).catch((err) => {console.log("DB Error: "+err);});
         }break;
         case "hours":{
-            let sql = `SELECT * FROM hours WHERE updated_by = ? AND deleted = 0`;
+            let sql = `
+                SELECT * 
+                FROM hours 
+                INNER JOIN restaurants ON restaurants.id = id_restaurant
+                WHERE hours.updated_by = ? AND hours.deleted = 0
+            `;
             queryDatabase(sql, [uid])
             .then((res) => {
                 sock.emit("authUserTables", JSON.stringify(res), type); 
