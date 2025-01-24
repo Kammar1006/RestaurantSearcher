@@ -13,129 +13,112 @@
 
 <h1 class="center"> Menufy</h1>
 <hr />
-
-<div class="flex center">
-    <div class="w50">
-        <h2> Advanced Search </h2>
-        <form id="form_SA">
-            <p>
-                <span> Place Name </span>
-                <br>
-                <input id="form_SA_res_name" value="" />
-            </p>
-            <p>
-                <span> Dish Name </span>
-                <br>
-                <input id="form_SA_dish_name" value="" />
-            </p>
-            <p>
-                <span> Ingedient Name </span>
-                <br>
-                <input id="form_SA_ing_name" value="" />
-            </p>
-            <p>
-                <span> Coords </span>
-                <br>
-                <input id="form_SA_res_x" value="" placeholder="longitude (x)" readonly />
-                <input id="form_SA_res_y" value="" placeholder="latitude (y)" readonly />
-                <input id="your_cords" type="submit" value="your location" />
-                <input id="form_SA_res_r" value="" placeholder="radius" />
-            </p>
-            <p>
-                <span> Now open restaurants: </span>
-                <input id="form_SA_open" type="checkbox" value="" />
-            </p>
-            <input id="form_SA_button" type="submit" value="search" />
-        </form>
+    <div class="flex">
+        <input id="nav_1" type="submit" class="w25" value="Search" onclick="switchPages('search')"/>
+        <input id="nav_2" type="submit" class="w25" value="Login" onclick="switchPages('login')"/>
+        <input id="nav_3" type="submit" class="w25" value="User Page" onclick="switchPages('auth')"/>
+        <input id="nav_4" type="submit" class="w25" value="Admin Page" onclick="switchPages('admin')"/>
     </div>
-</div>
-<hr>
-<div id="places_list"></div>
-<hr>
-<p id="res_info">  </p>
-<p id="res_hours">  </p>
-<p id="res_comments">  </p>
-<hr>
-<div id="menu_list" class="menu-list"></div>
-<hr>
-<p id="ingredients_list">  </p>
-
-<hr>
-
-<div class="flex center">
-    <div class="w50">
-        <!-- Example login form -->
-        <h2> Login </h2>
-        <form id="form_U1">
-            <p>
-                <span> Login </span>
-                <br>
-                <input id="form_U1_login" value="" />
-            </p>
-            <p>
-                <span> Pass </span>
-                <br>
-                <input type="password" id="form_U1_pass" value="" />
-            </p>
-            <input id="form_U1_button" type="submit" value="login" />
-            <input id="logout" style="display: none;" type="submit" value="logout" />
-        </form>
-        <p id="form_U1_res">  </p>
-    </div>
-    <div class="w50">
-        <!-- Example register form -->
-        <h2> Register </h2>
-        <form id="form_U2">
-            <p>
-                <span> Login </span>
-                <br>
-                <input id="form_U2_login" value="" />
-            </p>
-            <p>
-                <span> Pass </span>
-                <br>
-                <input type="password" id="form_U2_pass" value="" />
-            </p>
-            <p>
-                <span> Pass2 </span>
-                <br>
-                <input type="password" id="form_U2_pass2" value="" />
-            </p>
-            <p>
-                <span> Email </span>
-                <br>
-                <input id="form_U2_email" value="" />
-            </p>
-            <input id="form_U2_button" type="submit" value="register" />
-        </form>
-        <p id="form_U2_res"></p>
-    </div>
-</div>
-<hr>
-<!--    <div class="flex center">
+    
+<hr />
+<div id="search-section" style="display:none;">
+    <div class="flex center">
         <div class="w50">
-            <h2> Page for Restaurant </h2>
-            <form id="form_RI">
+            <h2> Advanced Search </h2>
+            <form id="form_SA">
                 <p>
-                    <span> Restaurant ID </span>
+                    <span> Place Name </span>
                     <br>
-                    <input id="form_RI_id" value="" />
+                    <input id="form_SA_res_name" value="" />
                 </p>
-                <input id="form_RI_button" type="submit" value="search" />
+                <p>
+                    <span> Dish Name </span>
+                    <br>
+                    <input id="form_SA_dish_name" value="" />
+                </p>
+                <p>
+                    <span> Ingedient Name </span>
+                    <br>
+                    <input id="form_SA_ing_name" value="" />
+                </p>
+                <p>
+                    <span> Coords </span>
+                    <br>
+                    <input id="form_SA_res_x" value="" placeholder="longitude (x)" readonly />
+                    <input id="form_SA_res_y" value="" placeholder="latitude (y)" readonly />
+                    <input id="your_cords" type="submit" value="your location" />
+                    <input id="form_SA_res_r" value="" placeholder="radius" />
+                </p>
+                <p>
+                    <span> Now open restaurants: </span>
+                    <input id="form_SA_open" type="checkbox" value="" />
+                </p>
+                <input id="form_SA_button" type="submit" value="search" />
             </form>
         </div>
+    </div>
+    <hr>
+    <div id="places_list"></div>
+    <hr>
+    <p id="res_info">  </p>
+    <p id="res_hours">  </p>
+    <p id="res_comments">  </p>
+    <hr>
+    <div id="menu_list" class="menu-list"></div>
+    <hr>
+    <p id="ingredients_list">  </p>
+</div>
+<div id="login-section" style="display:none;">
+    <div class="flex center">
         <div class="w50">
-            <h2> Page for Dishes </h2>
-            <form id="form_DI">
+            <!-- Example login form -->
+            <h2> Login </h2>
+            <form id="form_U1">
                 <p>
-                    <span> Dish ID </span>
+                    <span> Login </span>
                     <br>
-                    <input id="form_DI_id" value="" />
+                    <input id="form_U1_login" value="" />
                 </p>
-                <input id="form_DI_button" type="submit" value="search" />
+                <p>
+                    <span> Pass </span>
+                    <br>
+                    <input type="password" id="form_U1_pass" value="" />
+                </p>
+                <input id="form_U1_button" type="submit" value="login" />
+                <input id="logout" style="display: none;" type="submit" value="logout" />
             </form>
+            <p id="form_U1_res">  </p>
         </div>
-    </div>-->
+        <div class="w50">
+            <!-- Example register form -->
+            <h2> Register </h2>
+            <form id="form_U2">
+                <p>
+                    <span> Login </span>
+                    <br>
+                    <input id="form_U2_login" value="" />
+                </p>
+                <p>
+                    <span> Pass </span>
+                    <br>
+                    <input type="password" id="form_U2_pass" value="" />
+                </p>
+                <p>
+                    <span> Pass2 </span>
+                    <br>
+                    <input type="password" id="form_U2_pass2" value="" />
+                </p>
+                <p>
+                    <span> Email </span>
+                    <br>
+                    <input id="form_U2_email" value="" />
+                </p>
+                <input id="form_U2_button" type="submit" value="register" />
+            </form>
+            <p id="form_U2_res"></p>
+        </div>
+    </div>
+</div>
 
 <div id="auth-section" style="display:none;">
     <h1 class="center"> For Auth Users </h1>

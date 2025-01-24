@@ -1,0 +1,15 @@
+.w50{
+    width: 50%;
+}
+.flex{
+    display: flex;
+}
+.center{
+    text-align: center;
+}
+.green{
+    background-color: #4a4;
+}
+.red{
+    background-color: #a44;
+}

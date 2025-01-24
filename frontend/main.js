@@ -2,6 +2,38 @@ let ingredients = [];
 let allergens = [];
 let currentIngredientIndex = -1;
 
+let isAuth = 0;
+let isAdmin = 0;
+
+const switchPages = (type) => {
+    switch(type){
+        case "search": {
+            document.getElementById("search-section").style.display = "block";
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("auth-section").style.display = "none";
+            document.getElementById("admin-section").style.display = "none";
+        }break;
+        case "login": {
+            document.getElementById("search-section").style.display = "none";
+            document.getElementById("login-section").style.display = "block";
+            document.getElementById("auth-section").style.display = "none";
+            document.getElementById("admin-section").style.display = "none";
+        }break;
+        case "auth": {
+            document.getElementById("search-section").style.display = "none";
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("auth-section").style.display = "block";
+            document.getElementById("admin-section").style.display = "none";
+        }break;
+        case "admin": {
+            document.getElementById("search-section").style.display = "none";
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("auth-section").style.display = "none";
+            document.getElementById("admin-section").style.display = "block";
+        }break;
+    }
+}
+
 function addIngredient() {
     const ingredientName = prompt("Enter ingredient name:");
     if (ingredientName) {
@@ -243,13 +275,16 @@ function renderAllergens() {
         document.getElementById("form_U1_res").innerHTML = m;
 
         if (m === "Successful login") {
-            document.getElementById("auth-section").style.display = "block";
+            //document.getElementById("auth-section").style.display = "block";
+
+            isAuth = 1;
 
             document.getElementById("form_U1_button").style.display = "none";
             document.getElementById("logout").style.display = "inline-block";
 
             if (userPersonalData.is_admin) {
-                document.getElementById("admin-section").style.display = "block";
+                isAdmin = 1;
+                //document.getElementById("admin-section").style.display = "block";
             } else {
                 document.getElementById("admin-section").style.display = "none";
             }
