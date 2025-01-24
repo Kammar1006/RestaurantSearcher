@@ -256,7 +256,7 @@ function renderAllergens() {
         }
     });
 
-    sock.on("authUserTables", (tables) => {
+    sock.on("authUserTables", (tables, type) => {
         const j = JSON.parse(tables);
 
         const formatData = (elementId, data, formatter) => {
@@ -269,102 +269,122 @@ function renderAllergens() {
             });
         };
 
-        formatData("user_restaurants_added", j.restaurants, (restaurant) => `
-        <div class="title">${restaurant.res_name} (${restaurant.res_id})</div>
-        <div class="content">Cuisines: ${restaurant.res_cuisines}<br>
-        Address: ${restaurant.res_address}<br>
-        Version: ${restaurant.res_ver}</div>
-    `);
-
-        formatData("user_dishes_added", j.dishes, (dish) => `
-        <div class="title">${dish.dish_name} (${dish.dish_id})</div>
-        <div class="content">Restaurant: ${dish.res_name} (${dish.res_id})<br>
-        Ingredients: ${dish.ing.map(ing => `${ing.ing_name} (Allergens: ${ing.allergens_names})`).join(", ") || "None"}<br>
-        Version: ${dish.dish_ver}</div>
-    `);
-
-        formatData("user_coords_added", j.coords, (coord) => `
-        <div class="title">Restaurant ID: ${coord.res_id}</div>
-        <div class="content">Old Coords: (${coord.coords.x}, ${coord.coords.y})<br>
-        New Coords: (${coord.new_coords.x}, ${coord.new_coords.y})<br>
-        Version: ${coord.ver}</div>
-    `);
-
-        formatData("user_comments_added", j.comments, (comment) => `
-        <div class="title">${comment.res_name} (${comment.res_id})</div>
-        <div class="content">Score: ${comment.score}<br>
-        Comment: ${comment.desc}<br>
-        Version: ${comment.ver}</div>
-    `);
+        switch(type){
+            case "restaurants":{
+                formatData("user_restaurants_added", j, (restaurant) => `
+                    <div class="title">${restaurant.res_name} (${restaurant.res_id})</div>
+                    <div class="content">Cuisines: ${restaurant.res_cuisines}<br>
+                    Address: ${restaurant.res_address}<br>
+                    Version: ${restaurant.res_ver}</div>
+                `);
+            }break;
+            case "dishes":{
+                formatData("user_dishes_added", j, (dish) => `
+                    <div class="title">${dish.dish_name} (${dish.dish_id})</div>
+                    <div class="content">Restaurant: ${dish.res_name} (${dish.res_id})<br>
+                    Ingredients: ${dish.ing.map(ing => `${ing.ing_name} (Allergens: ${ing.allergens_names})`).join(", ") || "None"}<br>
+                    Version: ${dish.dish_ver}</div>
+                `);
+            }break;
+            case "coords":{
+                formatData("user_coords_added", j, (coord) => `
+                    <div class="title">Restaurant ID: ${coord.res_id}</div>
+                    <div class="content">Old Coords: (${coord.coords.x}, ${coord.coords.y})<br>
+                    New Coords: (${coord.new_coords.x}, ${coord.new_coords.y})<br>
+                    Version: ${coord.ver}</div>
+                `);
+            }break;
+            case "comments":{
+                formatData("user_comments_added", j, (comment) => `
+                    <div class="title">${comment.res_name} (${comment.res_id})</div>
+                    <div class="content">Score: ${comment.score}<br>
+                    Comment: ${comment.desc}<br>
+                    Version: ${comment.ver}</div>
+                `); 
+            }break;
+            case "hours":{
+                /* Brak Hours */
+            }break;
+        }
     });
 
-    sock.on("authAdminTables", (tables) => {
+    sock.on("authAdminTables", (tables, type) => {
         const data = JSON.parse(tables);
 
-        // Restaurants
-        const restaurantContainer = document.getElementById("admin_restaurants_added");
-        restaurantContainer.innerHTML = "";
-        data.admin_restaurants.forEach((restaurant) => {
-            const item = document.createElement("div");
-            item.className = "data-item";
-            item.innerHTML = `
-            <h4>${restaurant.res_name}</h4>
-            <p><strong>ID:</strong> ${restaurant.res_id}</p>
-            <p><strong>Score:</strong> ${restaurant.res_score}</p>
-            <p><strong>Cuisines:</strong> ${restaurant.res_cuisines}</p>
-            <p><strong>Address:</strong> ${restaurant.res_address}</p>
-        `;
-            restaurantContainer.appendChild(item);
-        });
-
-        // Dishes
-        const dishesContainer = document.getElementById("admin_dishes_added");
-        dishesContainer.innerHTML = "";
-        data.admin_dishes.forEach((dish) => {
-            const item = document.createElement("div");
-            item.className = "data-item";
-            const ingredients = dish.ing.map(
-                (i) => `<li>${i.ing_name} (Allergens: ${i.allergens_names || "None"})</li>`
-            ).join("");
-            item.innerHTML = `
-            <h4>${dish.dish_name}</h4>
-            <p><strong>Dish ID:</strong> ${dish.dish_id}</p>
-            <p><strong>Restaurant:</strong> ${dish.res_name}</p>
-            <ul>${ingredients}</ul>
-        `;
-            dishesContainer.appendChild(item);
-        });
-
-        // Coordinates
-        const coordsContainer = document.getElementById("admin_coords_added");
-        coordsContainer.innerHTML = "";
-        data.admin_coords.forEach((coord) => {
-            const item = document.createElement("div");
-            item.className = "data-item";
-            item.innerHTML = `
-            <h4>Restaurant ID: ${coord.res_id}</h4>
-            <p><strong>Original Coords:</strong> (${coord.coords.x}, ${coord.coords.y})</p>
-            <p><strong>New Coords:</strong> (${coord.new_coords.x}, ${coord.new_coords.y})</p>
-            <p><strong>Updated By:</strong> ${coord.up_by}</p>
-            <p><strong>Edited By:</strong> ${coord.ed_by}</p>
-        `;
-            coordsContainer.appendChild(item);
-        });
-
-        // Comments
-        const commentsContainer = document.getElementById("admin_comments_added");
-        commentsContainer.innerHTML = "";
-        data.admin_comments.forEach((comment) => {
-            const item = document.createElement("div");
-            item.className = "data-item";
-            item.innerHTML = `
-            <h4>Restaurant: ${comment.res_name}</h4>
-            <p><strong>Restaurant ID:</strong> ${comment.res_id}</p>
-            <p><strong>Score:</strong> ${comment.score}</p>
-            <p><strong>Comment:</strong> ${comment.desc}</p>
-        `;
-            commentsContainer.appendChild(item);
-        });
+        switch(type){
+            case "restaurants":{
+                // Restaurants
+                const restaurantContainer = document.getElementById("admin_restaurants_added");
+                restaurantContainer.innerHTML = "";
+                data.forEach((restaurant) => {
+                    const item = document.createElement("div");
+                    item.className = "data-item";
+                    item.innerHTML = `
+                    <h4>${restaurant.res_name}</h4>
+                    <p><strong>ID:</strong> ${restaurant.res_id}</p>
+                    <p><strong>Score:</strong> ${restaurant.res_score}</p>
+                    <p><strong>Cuisines:</strong> ${restaurant.res_cuisines}</p>
+                    <p><strong>Address:</strong> ${restaurant.res_address}</p>
+                `;
+                    restaurantContainer.appendChild(item);
+                });
+            }break;
+            case "dishes":{
+                // Dishes
+                const dishesContainer = document.getElementById("admin_dishes_added");
+                dishesContainer.innerHTML = "";
+                data.forEach((dish) => {
+                    const item = document.createElement("div");
+                    item.className = "data-item";
+                    const ingredients = dish.ing.map(
+                        (i) => `<li>${i.ing_name} (Allergens: ${i.allergens_names || "None"})</li>`
+                    ).join("");
+                    item.innerHTML = `
+                    <h4>${dish.dish_name}</h4>
+                    <p><strong>Dish ID:</strong> ${dish.dish_id}</p>
+                    <p><strong>Restaurant:</strong> ${dish.res_name}</p>
+                    <ul>${ingredients}</ul>
+                `;
+                    dishesContainer.appendChild(item);
+                });
+            }break;
+            case "coords":{
+                // Coordinates
+                const coordsContainer = document.getElementById("admin_coords_added");
+                coordsContainer.innerHTML = "";
+                data.forEach((coord) => {
+                    const item = document.createElement("div");
+                    item.className = "data-item";
+                    item.innerHTML = `
+                    <h4>Restaurant ID: ${coord.res_id}</h4>
+                    <p><strong>Original Coords:</strong> (${coord.coords.x}, ${coord.coords.y})</p>
+                    <p><strong>New Coords:</strong> (${coord.new_coords.x}, ${coord.new_coords.y})</p>
+                    <p><strong>Updated By:</strong> ${coord.up_by}</p>
+                    <p><strong>Edited By:</strong> ${coord.ed_by}</p>
+                `;
+                    coordsContainer.appendChild(item);
+                });
+            }break;
+            case "comments":{
+                // Comments
+                const commentsContainer = document.getElementById("admin_comments_added");
+                commentsContainer.innerHTML = "";
+                data.forEach((comment) => {
+                    const item = document.createElement("div");
+                    item.className = "data-item";
+                    item.innerHTML = `
+                    <h4>Restaurant: ${comment.res_name}</h4>
+                    <p><strong>Restaurant ID:</strong> ${comment.res_id}</p>
+                    <p><strong>Score:</strong> ${comment.score}</p>
+                    <p><strong>Comment:</strong> ${comment.desc}</p>
+                `;
+                    commentsContainer.appendChild(item);
+                });
+            }break;
+            case "hours":{
+                
+            }break;
+        } 
     });
 
     sock.on("register", (e) => {
@@ -631,6 +651,56 @@ function renderAllergens() {
                 id: document.getElementById("form_A4_id").value,
                 action: "VER"
             }));
+        });
+    document
+        .querySelector("#user_info_1")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "restaurants");
+        });
+    document
+        .querySelector("#user_info_2")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "dishes");
+        });
+    document
+        .querySelector("#user_info_3")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "coords");
+        });
+    document
+        .querySelector("#user_info_4")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "comments");
+        });
+    document
+        .querySelector("#user_info_5")
+        .addEventListener("click", (e) => {
+            sock.emit("user_info", "hours");
+        });
+    document
+        .querySelector("#admin_info_1")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "restaurants");
+        });
+    document
+        .querySelector("#admin_info_2")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "dishes");
+        });
+    document
+        .querySelector("#admin_info_3")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "coords");
+        });
+    document
+        .querySelector("#admin_info_4")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "comments");
+        });
+    document
+        .querySelector("#admin_info_5")
+        .addEventListener("click", (e) => {
+            sock.emit("admin_info", "hours");
         });
 })();
 document
