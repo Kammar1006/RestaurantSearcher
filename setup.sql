@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 16, 2025 at 09:23 PM
+-- Generation Time: Sty 24, 2025 at 10:51 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -2365,7 +2365,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `ingredients_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ingredients_list`  AS SELECT `ingredients`.`id` AS `id`, `ingredients`.`name` AS `name`, `ingredients`.`vegetarian` AS `vegetarian`, `ingredients`.`vegan` AS `vegan`, `ingredients_dishes`.`id_dish` AS `dish_id`, group_concat(`allergens`.`name` separator ',') AS `allergens_list` FROM (((`ingredients` join `ingredients_dishes` on(`ingredients_dishes`.`id_ingredient` = `ingredients`.`id`)) join `allergens_ingredients` on(`allergens_ingredients`.`id_ingredient` = `ingredients`.`id`)) join `allergens` on(`allergens`.`id` = `allergens_ingredients`.`id_allergen`)) GROUP BY `ingredients`.`id`, `ingredients_dishes`.`id_dish` ORDER BY `ingredients`.`id` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ingredients_list`  AS SELECT `ingredients`.`id` AS `id`, `ingredients`.`name` AS `name`, `ingredients`.`vegetarian` AS `vegetarian`, `ingredients`.`vegan` AS `vegan`, `ingredients_dishes`.`id_dish` AS `dish_id`, ifnull(group_concat(`allergens`.`name` separator ', '),'None') AS `allergens_list` FROM (((`ingredients` join `ingredients_dishes` on(`ingredients_dishes`.`id_ingredient` = `ingredients`.`id`)) left join `allergens_ingredients` on(`allergens_ingredients`.`id_ingredient` = `ingredients`.`id`)) left join `allergens` on(`allergens`.`id` = `allergens_ingredients`.`id_allergen`)) GROUP BY `ingredients`.`id`, `ingredients_dishes`.`id_dish` ORDER BY `ingredients`.`id` ASC ;
 
 -- --------------------------------------------------------
 
