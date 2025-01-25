@@ -252,46 +252,64 @@
                 <p>
                     <span> Res ID </span>
                     <br>
-                    <input id="form_hours_id" value=""/>
+                    <input id="form_hours_id" value="" />
                 </p>
                 <p>
                     <span> Mon </span>
                     <br>
-                    <input id="form_hours_mon" value=""/>
+                    <input id="form_hours_mon" value="" />
                 </p>
                 <p>
                     <span> Tue </span>
                     <br>
-                    <input id="form_hours_tue" value=""/>
+                    <input id="form_hours_tue" value="" />
                 </p>
                 <p>
                     <span> Wed </span>
                     <br>
-                    <input id="form_hours_wed" value=""/>
+                    <input id="form_hours_wed" value="" />
                 </p>
                 <p>
                     <span> Thu </span>
                     <br>
-                    <input id="form_hours_thu" value=""/>
+                    <input id="form_hours_thu" value="" />
                 </p>
                 <p>
                     <span> Fri </span>
                     <br>
-                    <input id="form_hours_fri" value=""/>
+                    <input id="form_hours_fri" value="" />
                 </p>
                 <p>
                     <span> Sat </span>
                     <br>
-                    <input id="form_hours_sat" value=""/>
+                    <input id="form_hours_sat" value="" />
                 </p>
                 <p>
                     <span> Sun </span>
                     <br>
-                    <input id="form_hours_sun" value=""/>
+                    <input id="form_hours_sun" value="" />
                 </p>
-                <input id="form_hours_button" type="submit" value="Add/Fix Hours"/>
+                <input id="form_hours_button" type="submit" value="Add/Fix Hours" />
             </form>
-            <p id="form_hours_res">  </p>
+
+            <!-- Add exceptions -->
+            <h2> Add Exception </h2>
+            <form id="form_exceptions">
+                <p>
+                    <span> Date (DD.MM.YYYY) </span>
+                    <br>
+                    <input class="form_exception_date" type="text" placeholder="DD.MM.YYYY" />
+                </p>
+                <p>
+                    <span> Hours or Status </span>
+                    <br>
+                    <input class="form_exception_hours" type="text" placeholder="closed or hours" />
+                </p>
+                <button id="form_exception_button"></button>
+            </form>
+            <p id="form_exception_res"></p>
+
+            <p id="form_hours_res"></p>
         </div>
     </div>
     <hr>
@@ -317,7 +335,7 @@
     <ul id="user_comments_added" class="data-list"></ul>
 
     <h3> Added Hours </h3>
-    <ul id="user_hours_added"></ul>
+    <ul id="user_hours_added" class="data-list"></ul>
 
     <hr>
 </div>
