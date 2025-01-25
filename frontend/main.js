@@ -439,27 +439,46 @@ function renderAllergens() {
                     commentsContainer.appendChild(item);
                 });
             }break;
-            case "hours":{
+            case "hours": {
                 const hoursContainer = document.getElementById("admin_hours_added");
                 hoursContainer.innerHTML = "";
                 data.forEach((hour) => {
                     const item = document.createElement("div");
                     item.className = "data-item";
+
+                    // Create the HTML content for each restaurant's hours
+                    let specialContent = "";
+                    try {
+                        const specialHours = JSON.parse(hour.special); // Parse the special hours JSON
+
+                        // Build the content for the special hours
+                        specialContent = "<div class='special-hours'>";
+                        for (const [date, time] of Object.entries(specialHours)) {
+                            specialContent += `
+                    <p><strong>${date}:</strong> ${time}</p>
+                `;
+                        }
+                        specialContent += "</div>";
+                    } catch (e) {
+                        specialContent = "<p>No special hours</p>"; // If the special hours aren't valid JSON
+                    }
+
                     item.innerHTML = `
-                        <h4>Restaurant: ${hour.name} (${hour.id_restaurant})</h4>
-                        
-                        <p><strong> Mon: </strong> ${hour.mon} </p>
-                        <p><strong> Tue:</strong> ${hour.tue} </p>
-                        <p><strong> Wed: </strong> ${hour.wed} </p>
-                        <p><strong> Thu: </strong> ${hour.thu} </p>
-                        <p><strong> Fri: </strong> ${hour.fri} </p>
-                        <p><strong> Sat: </strong> ${hour.sat} </p>
-                        <p><strong> Sun: </strong> ${hour.sun} </p>
-                    `;
+            <h4>Restaurant: ${hour.name} (${hour.id_restaurant})</h4>
+            <p><strong>Mon:</strong> ${hour.mon}</p>
+            <p><strong>Tue:</strong> ${hour.tue}</p>
+            <p><strong>Wed:</strong> ${hour.wed}</p>
+            <p><strong>Thu:</strong> ${hour.thu}</p>
+            <p><strong>Fri:</strong> ${hour.fri}</p>
+            <p><strong>Sat:</strong> ${hour.sat}</p>
+            <p><strong>Sun:</strong> ${hour.sun}</p>
+            ${specialContent}
+        `;
+
                     hoursContainer.appendChild(item);
                 });
-            }break;
-        } 
+            } break;
+        }
     });
 
     sock.on("register", (e) => {
