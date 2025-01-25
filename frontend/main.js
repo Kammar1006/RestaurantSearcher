@@ -779,6 +779,46 @@ function renderAllergens() {
         .addEventListener("click", (e) => {
             sock.emit("admin_info", "hours");
         });
+    document
+        .querySelector("#form_hours")
+        .addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let special={
+            }
+            document.querySelectorAll(".form_exception_date").forEach((e,i) => {
+                special[e.value] = document.querySelectorAll(".form_exception_hours")[i].value
+            })
+            console.log(special)
+            let json = {
+                res_id: document.querySelector("#form_hours_id").value,
+                mon: document.querySelector("#form_hours_mon").value,
+                tue: document.querySelector("#form_hours_tue").value,
+                wed: document.querySelector("#form_hours_wed").value,
+                thu: document.querySelector("#form_hours_thu").value,
+                fri: document.querySelector("#form_hours_fri").value,
+                sat: document.querySelector("#form_hours_sat").value,
+                sun: document.querySelector("#form_hours_sun").value,
+                special: special,
+            }
+            sock.emit("update_hours", JSON.stringify(json));
+        });
+    document
+        .querySelector("#form_hours_ver_DEL")
+        .addEventListener("click", (e) => {
+            sock.emit("verify_hours", JSON.stringify({
+                id: document.getElementById("form_hours_ver_id").value,
+                action: "DEL"
+            }));
+        });
+    document
+        .querySelector("#form_hours_ver_VER")
+        .addEventListener("click", (e) => {
+            sock.emit("verify_hours", JSON.stringify({
+                id: document.getElementById("form_hours_ver_id").value,
+                action: "VER"
+            }));
+        });
 })();
 document
     .querySelector("#form_SA")
@@ -848,48 +888,6 @@ document
     });
 
 document
-    .querySelector("#form_hours")
-    .addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        let special={
-        }
-        document.querySelectorAll(".form_exception_date").forEach((e,i) => {
-            special[e.value] = document.querySelectorAll(".form_exception_hours")[i].value
-        })
-        console.log(special)
-        let json = {
-            res_id: document.querySelector("#form_hours_id").value,
-            mon: document.querySelector("#form_hours_mon").value,
-            tue: document.querySelector("#form_hours_tue").value,
-            wed: document.querySelector("#form_hours_wed").value,
-            thu: document.querySelector("#form_hours_thu").value,
-            fri: document.querySelector("#form_hours_fri").value,
-            sat: document.querySelector("#form_hours_sat").value,
-            sun: document.querySelector("#form_hours_sun").value,
-            special: special,
-        }
-        sock.emit("update_hours", JSON.stringify(json));
-    });
-
-document
-    .querySelector("#form_hours_ver_DEL")
-    .addEventListener("click", (e) => {
-        sock.emit("verify_hours", JSON.stringify({
-            id: document.getElementById("form_hours_ver_id").value,
-            action: "DEL"
-        }));
-    });
-document
-    .querySelector("#form_hours_ver_VER")
-    .addEventListener("click", (e) => {
-        sock.emit("verify_hours", JSON.stringify({
-            id: document.getElementById("form_hours_ver_id").value,
-            action: "VER"
-        }));
-    });
-
-document
     .querySelector("#form_hours_ver")
     .addEventListener('submit', (e) => {
         e.preventDefault();
@@ -899,7 +897,7 @@ document
     .getElementById("form_exception_button")
     .addEventListener("click", (e) => {
     e.preventDefault();
-    const exceptionFieldsContainer = document.getElementById("form_exceptions");
+    const exceptionFieldsContainer = document.getElementById("form_hours");
 
     // Tworzymy nowy zestaw pól
     const newFields = document.createElement("div");
