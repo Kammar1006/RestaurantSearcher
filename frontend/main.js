@@ -894,3 +894,28 @@ document
     .addEventListener('submit', (e) => {
         e.preventDefault();
     });
+
+document
+    .getElementById("form_exception_button")
+    .addEventListener("click", (e) => {
+    e.preventDefault();
+    const exceptionFieldsContainer = document.getElementById("form_exceptions");
+
+    // Tworzymy nowy zestaw pól
+    const newFields = document.createElement("div");
+    newFields.innerHTML = `
+        <p>
+            <span> Date (DD.MM.YYYY) </span>
+            <br>
+            <input class="form_exception_date" type="text" placeholder="DD.MM.YYYY" />
+        </p>
+        <p>
+            <span> Hours or Status </span>
+            <br>
+            <input class="form_exception_hours" type="text" placeholder="closed or hours" />
+        </p>
+    `;
+
+    // Dodajemy nowe pola do kontenera
+    exceptionFieldsContainer.appendChild(newFields);
+});
