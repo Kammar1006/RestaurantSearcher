@@ -803,12 +803,21 @@ function renderAllergens() {
         .addEventListener("submit", (e) => {
             e.preventDefault();
 
-            let special={
-            }
-            document.querySelectorAll(".form_exception_date").forEach((e,i) => {
-                special[e.value] = document.querySelectorAll(".form_exception_hours")[i].value
-            })
-            console.log(special)
+            let special = [];
+
+            // Collect all the exceptions (dates and hours)
+            document.querySelectorAll(".form_exception_date").forEach((dateInput, i) => {
+                // Create an object for each special date with date and hours
+                let exception = {
+                    date: dateInput.value,
+                    hours: document.querySelectorAll(".form_exception_hours")[i].value
+                };
+                special.push(exception);
+            });
+
+            console.log("Special Dates and Hours:", special);
+
+            // Prepare the JSON data for submission
             let json = {
                 res_id: document.querySelector("#form_hours_id").value,
                 mon: document.querySelector("#form_hours_mon").value,
@@ -818,8 +827,12 @@ function renderAllergens() {
                 fri: document.querySelector("#form_hours_fri").value,
                 sat: document.querySelector("#form_hours_sat").value,
                 sun: document.querySelector("#form_hours_sun").value,
-                special: special,
-            }
+                special: special, // Pass the special dates and hours as an array
+            };
+
+            console.log("Sending data:", JSON.stringify(json));
+
+            // Send the data to the server
             sock.emit("update_hours", JSON.stringify(json));
         });
     document
