@@ -446,12 +446,10 @@ function renderAllergens() {
                     const item = document.createElement("div");
                     item.className = "data-item";
 
-                    // Create the HTML content for each restaurant's hours
                     let specialContent = "";
                     try {
-                        const specialHours = JSON.parse(hour.special); // Parse the special hours JSON
+                        const specialHours = JSON.parse(hour.special);
 
-                        // Build the content for the special hours
                         specialContent = "<div class='special-hours'>";
                         for (const [date, time] of Object.entries(specialHours)) {
                             specialContent += `
@@ -460,7 +458,7 @@ function renderAllergens() {
                         }
                         specialContent += "</div>";
                     } catch (e) {
-                        specialContent = "<p>No special hours</p>"; // If the special hours aren't valid JSON
+                        specialContent = "<p>No special hours</p>";
                     }
 
                     item.innerHTML = `
@@ -474,7 +472,6 @@ function renderAllergens() {
             <p><strong>Sun:</strong> ${hour.sun}</p>
             ${specialContent}
         `;
-
                     hoursContainer.appendChild(item);
                 });
             } break;
@@ -803,21 +800,19 @@ function renderAllergens() {
         .addEventListener("submit", (e) => {
             e.preventDefault();
 
-            let special = [];
-
-            // Collect all the exceptions (dates and hours)
+            let specialEntries = [];
             document.querySelectorAll(".form_exception_date").forEach((dateInput, i) => {
-                // Create an object for each special date with date and hours
-                let exception = {
-                    date: dateInput.value,
-                    hours: document.querySelectorAll(".form_exception_hours")[i].value
-                };
-                special.push(exception);
+                const date = dateInput.value;
+                const hours = document.querySelectorAll(".form_exception_hours")[i].value;
+                if (date && hours) {
+                    specialEntries.push(`${date} = '${hours}'`);
+                }
             });
 
-            console.log("Special Dates and Hours:", special);
+            const special = specialEntries.join(", ");
 
-            // Prepare the JSON data for submission
+            console.log(special);
+
             let json = {
                 res_id: document.querySelector("#form_hours_id").value,
                 mon: document.querySelector("#form_hours_mon").value,
@@ -827,12 +822,9 @@ function renderAllergens() {
                 fri: document.querySelector("#form_hours_fri").value,
                 sat: document.querySelector("#form_hours_sat").value,
                 sun: document.querySelector("#form_hours_sun").value,
-                special: special, // Pass the special dates and hours as an array
+                special: special,
             };
 
-            console.log("Sending data:", JSON.stringify(json));
-
-            // Send the data to the server
             sock.emit("update_hours", JSON.stringify(json));
         });
     document
