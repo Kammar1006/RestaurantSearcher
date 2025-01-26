@@ -800,16 +800,14 @@ function renderAllergens() {
         .addEventListener("submit", (e) => {
             e.preventDefault();
 
-            let specialEntries = [];
+            let special = {};
             document.querySelectorAll(".form_exception_date").forEach((dateInput, i) => {
                 const date = dateInput.value;
                 const hours = document.querySelectorAll(".form_exception_hours")[i].value;
                 if (date && hours) {
-                    specialEntries.push(`${date} = '${hours}'`);
+                    special[date] = `${hours}`;
                 }
             });
-
-            const special = specialEntries.join(", ");
 
             console.log(special);
 

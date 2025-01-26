@@ -870,7 +870,9 @@ io.on('connection', (sock) => {
 			sock.emit("update_hours", "Hours wrong format in days (mon - sun)");
 			return;
 		}
+		console.log(json.special)
  		let special = validateScheduleFormat(json.special || '{}').valid ? json.special : 0;
+		console.log(special)
 
 		queryDatabase("SELECT * FROM hours WHERE id_restaurant = ? AND verified = 1 AND deleted = 0", [res_id])
 		.then((res) => {
@@ -886,7 +888,8 @@ io.on('connection', (sock) => {
 					(id, id_restaurant, mon, tue, wed, thu, fri, sat, sun, special, updated_by, verified_by, verified, deleted)
 					VALUES (NULL, ${res_id}, ?, ?, ?, ?, ?, ?, ?, ?, ${translationTab[cid].user_id}, 0, 0, 0);
 				`;
-				queryDatabase(sql, [mon, tue, wed, thu, fri, sat, sun, special ? special : undefined])
+				console.log(special)
+				queryDatabase(sql, [mon, tue, wed, thu, fri, sat, sun, special ? JSON.stringify(special) : undefined])
 				.then((res) => {
 					console.log(res);
 					sock.emit("update_hours", "Added hours, waiting for verification");
