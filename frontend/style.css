@@ -478,3 +478,14 @@ hr {
     font-size: 0.9em;
     color: #555;
 }
+.special-hours {
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.special-hours p {
+    margin: 5px 0;
+}
+

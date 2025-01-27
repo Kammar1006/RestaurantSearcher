@@ -207,6 +207,14 @@ function renderAllergens() {
         });
     });
 
+    sock.on("update_hours", (m) => {
+        document.getElementById("form_hours_res").innerHTML = m;
+    });
+
+    sock.on("verify_hours", (m) => {
+        document.getElementById("form_hours_ver_res").innerHTML = m;
+    });
+
     sock.on("restaurantHours", (d) => {
         console.log(d); // show in console
 
@@ -431,27 +439,43 @@ function renderAllergens() {
                     commentsContainer.appendChild(item);
                 });
             }break;
-            case "hours":{
+            case "hours": {
                 const hoursContainer = document.getElementById("admin_hours_added");
                 hoursContainer.innerHTML = "";
                 data.forEach((hour) => {
                     const item = document.createElement("div");
                     item.className = "data-item";
+
+                    let specialContent = "";
+                    try {
+                        const specialHours = JSON.parse(hour.special);
+
+                        specialContent = "<div class='special-hours'>";
+                        for (const [date, time] of Object.entries(specialHours)) {
+                            specialContent += `
+                    <p><strong>${date}:</strong> ${time}</p>
+                `;
+                        }
+                        specialContent += "</div>";
+                    } catch (e) {
+                        specialContent = "<p>No special hours</p>";
+                    }
+
                     item.innerHTML = `
-                        <h4>Restaurant: ${hour.name} (${hour.id_restaurant})</h4>
-                        
-                        <p><strong> Mon: </strong> ${hour.mon} </p>
-                        <p><strong> Tue:</strong> ${hour.tue} </p>
-                        <p><strong> Wed: </strong> ${hour.wed} </p>
-                        <p><strong> Thu: </strong> ${hour.thu} </p>
-                        <p><strong> Fri: </strong> ${hour.fri} </p>
-                        <p><strong> Sat: </strong> ${hour.sat} </p>
-                        <p><strong> Sun: </strong> ${hour.sun} </p>
-                    `;
+            <h4>Restaurant: ${hour.name} (${hour.id_restaurant})</h4>
+            <p><strong>Mon:</strong> ${hour.mon}</p>
+            <p><strong>Tue:</strong> ${hour.tue}</p>
+            <p><strong>Wed:</strong> ${hour.wed}</p>
+            <p><strong>Thu:</strong> ${hour.thu}</p>
+            <p><strong>Fri:</strong> ${hour.fri}</p>
+            <p><strong>Sat:</strong> ${hour.sat}</p>
+            <p><strong>Sun:</strong> ${hour.sun}</p>
+            ${specialContent}
+        `;
                     hoursContainer.appendChild(item);
                 });
-            }break;
-        } 
+            } break;
+        }
     });
 
     sock.on("register", (e) => {
@@ -771,6 +795,52 @@ function renderAllergens() {
         .addEventListener("click", (e) => {
             sock.emit("admin_info", "hours");
         });
+    document
+        .querySelector("#form_hours")
+        .addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let special = {};
+            document.querySelectorAll(".form_exception_date").forEach((dateInput, i) => {
+                const date = dateInput.value;
+                const hours = document.querySelectorAll(".form_exception_hours")[i].value;
+                if (date && hours) {
+                    special[date] = `${hours}`;
+                }
+            });
+
+            console.log(special);
+
+            let json = {
+                res_id: document.querySelector("#form_hours_id").value,
+                mon: document.querySelector("#form_hours_mon").value,
+                tue: document.querySelector("#form_hours_tue").value,
+                wed: document.querySelector("#form_hours_wed").value,
+                thu: document.querySelector("#form_hours_thu").value,
+                fri: document.querySelector("#form_hours_fri").value,
+                sat: document.querySelector("#form_hours_sat").value,
+                sun: document.querySelector("#form_hours_sun").value,
+                special: special,
+            };
+
+            sock.emit("update_hours", JSON.stringify(json));
+        });
+    document
+        .querySelector("#form_hours_ver_DEL")
+        .addEventListener("click", (e) => {
+            sock.emit("verify_hours", JSON.stringify({
+                id: document.getElementById("form_hours_ver_id").value,
+                action: "DEL"
+            }));
+        });
+    document
+        .querySelector("#form_hours_ver_VER")
+        .addEventListener("click", (e) => {
+            sock.emit("verify_hours", JSON.stringify({
+                id: document.getElementById("form_hours_ver_id").value,
+                action: "VER"
+            }));
+        });
 })();
 document
     .querySelector("#form_SA")
@@ -838,3 +908,34 @@ document
     .addEventListener('submit', (e) => {
         e.preventDefault();
     });
+
+document
+    .querySelector("#form_hours_ver")
+    .addEventListener('submit', (e) => {
+        e.preventDefault();
+    });
+
+document
+    .getElementById("form_exception_button")
+    .addEventListener("click", (e) => {
+    e.preventDefault();
+    const exceptionFieldsContainer = document.getElementById("form_hours");
+
+    // Tworzymy nowy zestaw pól
+    const newFields = document.createElement("div");
+    newFields.innerHTML = `
+        <p>
+            <span> Date (DD.MM.YYYY) </span>
+            <br>
+            <input class="form_exception_date" type="text" placeholder="DD.MM.YYYY" />
+        </p>
+        <p>
+            <span> Hours or Status </span>
+            <br>
+            <input class="form_exception_hours" type="text" placeholder="closed or hours" />
+        </p>
+    `;
+
+    // Dodajemy nowe pola do kontenera
+    exceptionFieldsContainer.appendChild(newFields);
+});
