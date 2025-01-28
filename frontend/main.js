@@ -321,7 +321,7 @@ function renderAllergens() {
                     <div class="title">${restaurant.res_name} (${restaurant.res_id})</div>
                     <div class="content">Cuisines: ${restaurant.res_cuisines}<br>
                     Address: ${restaurant.res_address}<br>
-                    Version: ${restaurant.res_ver}</div>
+                    Verified: ${restaurant.res_ver}</div>
                 `);
             }break;
             case "dishes":{
@@ -329,7 +329,7 @@ function renderAllergens() {
                     <div class="title">${dish.dish_name} (${dish.dish_id})</div>
                     <div class="content">Restaurant: ${dish.res_name} (${dish.res_id})<br>
                     Ingredients: ${dish.ing.map(ing => `${ing.ing_name} (Allergens: ${ing.allergens_names})`).join(", ") || "None"}<br>
-                    Version: ${dish.dish_ver}</div>
+                    Verified: ${dish.dish_ver}</div>
                 `);
             }break;
             case "coords":{
@@ -337,7 +337,7 @@ function renderAllergens() {
                     <div class="title">Restaurant ID: ${coord.res_id}</div>
                     <div class="content">Old Coords: (${coord.coords.x}, ${coord.coords.y})<br>
                     New Coords: (${coord.new_coords.x}, ${coord.new_coords.y})<br>
-                    Version: ${coord.ver}</div>
+                    Verified: ${coord.ver}</div>
                 `);
             }break;
             case "comments":{
@@ -345,7 +345,7 @@ function renderAllergens() {
                     <div class="title">${comment.res_name} (${comment.res_id})</div>
                     <div class="content">Score: ${comment.score}<br>
                     Comment: ${comment.desc}<br>
-                    Version: ${comment.ver}</div>
+                    Verified: ${comment.ver}</div>
                 `); 
             }break;
             case "hours":{
@@ -494,9 +494,20 @@ function renderAllergens() {
 
     sock.emit("get_cuisines");
 
+    sock.on("restaurantAdded", (t) => {
+        document.getElementById("form_U3_res").innerHTML = t;
+    })
+
+    sock.on("dishAdded", (t) => {
+        document.getElementById("form_U4_res").innerHTML = t.message;
+    })
+
+    sock.on("locationUpdated", (t) => {
+        document.getElementById("form_U5_res").innerHTML = t.message;
+    })
+
     sock.on("comment", (t) => {
         document.getElementById("form_U6_res").innerHTML = t;
-
     })
 
     sock.on("cuisinesList", (data) => {

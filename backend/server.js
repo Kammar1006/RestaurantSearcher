@@ -526,7 +526,7 @@ io.on('connection', (sock) => {
 					});
 				});
 
-				sock.emit("restaurantAdded", json);
+				sock.emit("restaurantAdded", "restaurant added successfully");
 			}).catch((err) => {
 			console.log("DB Error: " + err);
 		});
@@ -639,6 +639,7 @@ io.on('connection', (sock) => {
 					queryDatabase(sql, [up_by, res_id])
 						.then((res) => {
 							//console.log(res);
+							sock.emit("locationUpdated", { message: "Loacation updated successfully!" });
 						})
 						.catch((err) => {
 							console.log("DB Error: " + err);
